@@ -7,9 +7,9 @@ public class MidiWriter {
 
 	private static final int VELOCITY = 64;
 
-	public void encodeMidi(int[] partition,String s) throws Exception {
+	public void encodeMidi(int[] partition, String s) throws Exception {
 		File outputFile = new File(s);
-		int k=0;
+		int k = 0;
 		Sequence sequence = new Sequence(Sequence.PPQ, 1, 4);
 		for (int i = 0; i < 4; i++) {
 			Track track = sequence.createTrack();
@@ -18,22 +18,18 @@ public class MidiWriter {
 				track.add(instrument(73, 1));
 				k = 0;
 				break;
-
 			case (1):
 				track.add(instrument(11, 2));
 				k = 2;
 				break;
-
 			case (2):
 				track.add(instrument(12, 3));
 				k = 4;
 				break;
-
 			case (3):
 				track.add(instrument(32, 4));
 				k = 5;
 				break;
-
 			}
 			int d;
 			int h = 0;
@@ -54,7 +50,7 @@ public class MidiWriter {
 					break;
 				case (3):
 					track.add(noteOn(41, h, i + 1));
-					track.add(noteOff(41,h + d, i + 1));
+					track.add(noteOff(41, h + d, i + 1));
 					break;
 				case (4):
 					track.add(noteOn(43, h, i + 1));
@@ -152,7 +148,6 @@ public class MidiWriter {
 					track.add(noteOn(83, h, i + 1));
 					track.add(noteOff(83, h + d, i + 1));
 					break;
-
 				}
 				h += d;
 			}
