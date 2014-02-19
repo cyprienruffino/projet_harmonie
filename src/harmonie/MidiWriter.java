@@ -4,7 +4,7 @@ import java.io.*;
 import javax.sound.midi.*;
 
 public class MidiWriter {
-
+	
 	private static final int VELOCITY = 64;
 
 	public void encodeMidi(int[] partition, String s) throws Exception {
