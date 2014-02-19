@@ -60,7 +60,7 @@ public class Regle {
 	public boolean verifAcIVb(int[] partition){//regle 4
 		int[] ac=Encoder.decode(partition[0]);
 		int[] acf=Encoder.decode(partition[partition.length-1]);
-		if(ac[8]!=4 && acf[8]!=4){
+		if(ac[8]!=4 || acf[8]!=4){
 			return true;
 		}
 		return false;
