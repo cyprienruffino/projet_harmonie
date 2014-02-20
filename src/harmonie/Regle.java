@@ -1,6 +1,9 @@
 package harmonie;
 
 public class Regle {
+	/*
+	 * Remarque: tierce=tonic+2    quinte=tonic+4=tierce+2
+	 */
 
 	public boolean regle2(int[] note) {
 		if (note[6] < note[4] && note[4] < note[2] && note[2] < note[0]) {
@@ -17,17 +20,45 @@ public class Regle {
 		return false;
 	}
 
-	public boolean enchainement_Note_possible(int[] noteC, int[] noteP) {
-		if ((noteP[0] - noteC[0]) < 7 && (noteC[0] - noteP[0]) < 7) {
-			if ((noteP[2] - noteC[2]) < 7 && (noteC[2] - noteP[2]) < 7) {
-				if ((noteP[4] - noteC[4]) < 7 && (noteC[4] - noteP[4]) < 7) {
-					if ((noteP[6] - noteC[6]) < 7 && (noteC[6] - noteP[6]) < 7) {
-						return true;
+	public boolean regle6(int[] noteC, int[] noteP) {
+		for (int i = 0; i < 7; i++) {
+			if (i % 2 == 0) {
+				if ((noteP[i] - noteC[i]) < 7 && (noteC[i] - noteP[i]) < 7) {// interval
+																				// de
+																				// 6
+																				// max
+																				// entre
+																				// les
+																				// notes
+					if (apartient(i, noteC, noteP)) {// dans le cas ou la note
+														// est presente dans les
+														// deux accords
+						if (noteC[i] % 7 != noteP[i] % 7) {
+							return false;
+						}
+					}
+					if ((noteP[i] - noteC[i]) < 3 && (noteC[i] - noteP[i]) < 3) {// si
+																					// la
+																					// difference
+																					// est
+																					// >2
+																					// elle
+																					// doivent
+																					// être
+																					// de
+																					// même
+																					// nature
+						if (nature(noteP[i], accord(noteP)) != nature(noteC[i],
+								accord(noteC))) {
+							return false;
+						}
 					}
 				}
+			} else {
+				return false;
 			}
 		}
-		return false;
+		return true;
 	}
 
 	public boolean regle3(int[] note, int[] ac) {
@@ -91,4 +122,106 @@ public class Regle {
 		return false;
 	}
 
+	public boolean apartient(int i, int[] note, int[] ac) {// verifie si la note
+															// est presente dans
+															// l'accord
+		int n = note[i];
+		for (int j = 0; j < ac.length - 1; j++) {
+			if ((n % 7) == (ac[j] % 7)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public int accord(int[] note) {// retourne le numero de l'accord (ne fais
+									// pas la difference entre le IV et le IVb
+		switch (note[0] % 7) {
+		case (0):
+			return 0;
+		case (1):
+			return 1;
+		case (2):
+			return 2;
+		case (3):
+			return 3;
+		case (4):
+			return 5;
+		case (5):
+			return 6;
+		case (6):
+			return 7;
+		}
+		return -1;
+	}
+
+	public int nature(int note, int Ac) {// retourne la nature de la note
+											// 1=tonic 2=tierce 3=quinte
+		switch (Ac) {
+		case (0):
+			if ((note % 7) == 0) {
+				return 1;
+			} else {
+				if ((note % 7) == 2) {
+					return 2;
+				}
+			}
+			return 3;
+		case (1):
+			if ((note % 7) == 1) {
+				return 1;
+			} else {
+				if ((note % 7) == 3) {
+					return 2;
+				}
+			}
+			return 3;
+		case (2):
+			if ((note % 7) == 2) {
+				return 1;
+			} else {
+				if ((note % 7) == 4) {
+					return 2;
+				}
+			}
+			return 3;
+		case (3):
+			if ((note % 7) == 3) {
+				return 1;
+			} else {
+				if ((note % 7) == 5) {
+					return 2;
+				}
+			}
+			return 3;
+		case (5):
+			if ((note % 7) == 4) {
+				return 1;
+			} else {
+				if ((note % 7) == 6) {
+					return 2;
+				}
+			}
+			return 3;
+		case (6):
+			if ((note % 7) == 5) {
+				return 1;
+			} else {
+				if ((note % 7) == 0) {
+					return 2;
+				}
+			}
+			return 3;
+		case (7):
+			if ((note % 7) == 6) {
+				return 1;
+			} else {
+				if ((note % 7) == 1) {
+					return 2;
+				}
+			}
+			return 3;
+		}
+		return -1;
+	}
 }
