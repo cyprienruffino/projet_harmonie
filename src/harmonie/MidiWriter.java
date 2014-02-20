@@ -8,7 +8,7 @@ public class MidiWriter {
 	
 	private static final int VELOCITY = 64;
 
-	public void encodeMidi(int[] partition, String s) throws Exception {
+	public static void encodeMidi(int[] partition, String s) throws Exception {
 		File outputFile = new File(s);
 		int k = 0;
 		Sequence sequence = new Sequence(Sequence.PPQ, 1, 4);
@@ -156,24 +156,24 @@ public class MidiWriter {
 		MidiSystem.write(sequence, 1, outputFile);
 	}
 
-	private MidiEvent noteOn(int nKey, long lTick, int canal)
+	private static MidiEvent noteOn(int nKey, long lTick, int canal)
 			throws InvalidMidiDataException {
 		return createNoteEvent(ShortMessage.NOTE_ON, nKey, VELOCITY, lTick,
 				canal);
 	}
 
-	private MidiEvent noteOff(int nKey, long lTick, int canal)
+	private static MidiEvent noteOff(int nKey, long lTick, int canal)
 			throws InvalidMidiDataException {
 		return createNoteEvent(ShortMessage.NOTE_OFF, nKey, 0, lTick, canal);
 	}
 
-	private MidiEvent instrument(int instrument, int canal)
+	private static MidiEvent instrument(int instrument, int canal)
 			throws InvalidMidiDataException {
 		return createNoteEvent(ShortMessage.PROGRAM_CHANGE, instrument, 0, 0,
 				canal);
 	}
 
-	private MidiEvent createNoteEvent(int nCommand, int nKey, int nVelocity,
+	private static MidiEvent createNoteEvent(int nCommand, int nKey, int nVelocity,
 			long lTick, int canal) throws InvalidMidiDataException {
 		ShortMessage message = new ShortMessage();
 		message.setMessage(nCommand, canal, nKey, nVelocity);
