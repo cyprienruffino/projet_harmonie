@@ -2,8 +2,23 @@ package harmonie;
 
 public class Regle {
 	/*
-	 * Remarque: tierce=tonic+2    quinte=tonic+4=tierce+2
+	 * Remarque: tierce=tonic+2 quinte=tonic+4=tierce+2
 	 */
+	
+	public boolean noteCorrect(int[] note) {// renvoi true si la note est
+											// correcte
+		if (regle1(note) && regle2(note) && regle3(note)) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean enchainementCorrect(int[] noteC, int[] noteS) {
+		if (regle5(noteC[8], noteS[8]) && regle6(noteC, noteS)) {
+			return true;
+		}
+		return false;
+	}
 
 	public boolean regle2(int[] note) {
 		if (note[6] < note[4] && note[4] < note[2] && note[2] < note[0]) {
@@ -48,8 +63,8 @@ public class Regle {
 																					// de
 																					// même
 																					// nature
-						if (nature(noteP[i], accord(noteP)) != nature(noteC[i],
-								accord(noteC))) {
+						if (nature(noteP[i], noteP[8]) != nature(noteC[i],
+								noteC[8])) {
 							return false;
 						}
 					}
@@ -61,18 +76,23 @@ public class Regle {
 		return true;
 	}
 
-	public boolean regle3(int[] note, int[] ac) {
-		if ((note[6] % 7) == (ac[0] % 7)) {
-			if ((note[0] % 7) == (ac[1] % 7) || (note[2] % 7) == (ac[1] % 7)
-					|| (note[4] % 7) == (ac[1] % 7)) {
-				if ((note[0] % 7) == (ac[4] % 7)
-						|| (note[2] % 7) == (ac[3] % 7)
-						|| (note[4] % 7) == (ac[2] % 7)) {
-					return true;
+	public boolean regle3(int[] note) {
+		if (note[8] != -1) {
+			if (nature(note[6], note[8]) == 1) {
+				if (nature(note[0], note[8]) == 2
+						|| nature(note[0], note[8]) == 3) {
+					if (nature(note[2], note[8]) == 2
+							|| nature(note[2], note[8]) == 3) {
+						if (nature(note[4], note[8]) == 2
+								|| nature(note[4], note[8]) == 3) {
+							return true;
+						}
+					}
 				}
 			}
 		}
 		return false;
+
 	}
 
 	public boolean regle4(int[] partition) {
@@ -134,29 +154,10 @@ public class Regle {
 		return false;
 	}
 
-	public int accord(int[] note) {// retourne le numero de l'accord (ne fais
-									// pas la difference entre le IV et le IVb
-		switch (note[0] % 7) {
-		case (0):
-			return 0;
-		case (1):
-			return 1;
-		case (2):
-			return 2;
-		case (3):
-			return 3;
-		case (4):
-			return 5;
-		case (5):
-			return 6;
-		case (6):
-			return 7;
-		}
-		return -1;
-	}
-
 	public int nature(int note, int Ac) {// retourne la nature de la note
 											// 1=tonic 2=tierce 3=quinte
+											// l'accord doit être correct sinon
+											// la valeur retourné sera fausse
 		switch (Ac) {
 		case (0):
 			if ((note % 7) == 0) {
