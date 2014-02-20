@@ -1,9 +1,6 @@
 package harmonie;
 
 import static org.junit.Assert.*;
-import java.math.*;
-
-import junit.framework.Assert;
 
 import org.junit.Test;
 
