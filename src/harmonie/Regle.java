@@ -2,16 +2,16 @@ package harmonie;
 
 public class Regle {
 
-	public boolean regle2(int[] tab) {
-		if (tab[6] < tab[4] && tab[4] < tab[2] && tab[2] < tab[0]) {
+	public boolean regle2(int[] note) {
+		if (note[6] < note[4] && note[4] < note[2] && note[2] < note[0]) {
 			return true;
 		}
 		return false;
 	}
 
-	public boolean regle1(int[] tab) {
-		if (13 < tab[0] && tab[0] < 27 && 10 < tab[2] && tab[2] < 23
-				&& 6 < tab[4] && 2 < tab[6] && tab[6] < 16) {
+	public boolean regle1(int[] note) {
+		if (13 < note[0] && note[0] < 27 && 10 < note[2] && note[2] < 23
+				&& 6 < note[4] && 2 < note[6] && note[6] < 16) {
 			return true;
 		}
 		return false;
