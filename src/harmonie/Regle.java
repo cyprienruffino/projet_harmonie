@@ -5,7 +5,7 @@ public class Regle {
 	 * Remarque: tierce=tonic+2 quinte=tonic+4=tierce+2
 	 */
 	
-	public boolean noteCorrect(int[] note) {// renvoi true si la note est
+	public static boolean noteCorrect(int[] note) {// renvoi true si la note est
 											// correcte
 		if (regle1(note) && regle2(note) && regle3(note)) {
 			return true;
@@ -13,21 +13,21 @@ public class Regle {
 		return false;
 	}
 
-	public boolean enchainementCorrect(int[] noteC, int[] noteS) {
+	public static boolean enchainementCorrect(int[] noteC, int[] noteS) {
 		if (regle5(noteC[8], noteS[8]) && regle6(noteC, noteS)) {
 			return true;
 		}
 		return false;
 	}
 
-	public boolean regle2(int[] note) {
+	public static boolean regle2(int[] note) {
 		if (note[6] < note[4] && note[4] < note[2] && note[2] < note[0]) {
 			return true;
 		}
 		return false;
 	}
 
-	public boolean regle1(int[] note) {
+	public static boolean regle1(int[] note) {
 		if (13 < note[0] && note[0] < 27 && 10 < note[2] && note[2] < 23
 				&& 6 < note[4] && 2 < note[6] && note[6] < 16) {
 			return true;
@@ -35,7 +35,7 @@ public class Regle {
 		return false;
 	}
 
-	public boolean regle6(int[] noteC, int[] noteP) {
+	public static boolean regle6(int[] noteC, int[] noteP) {
 		for (int i = 0; i < 7; i++) {
 			if (i % 2 == 0) {
 				if ((noteP[i] - noteC[i]) < 7 && (noteC[i] - noteP[i]) < 7) {// interval
@@ -76,7 +76,7 @@ public class Regle {
 		return true;
 	}
 
-	public boolean regle3(int[] note) {
+	public static boolean regle3(int[] note) {
 		if (note[8] != -1) {
 			if (nature(note[6], note[8]) == 1) {
 				if (nature(note[0], note[8]) == 2
@@ -95,7 +95,7 @@ public class Regle {
 
 	}
 
-	public boolean regle4(int[] partition) {
+	public static boolean regle4(int[] partition) {
 		int[] ac = Encoder.decode(partition[0]);
 		int[] acf = Encoder.decode(partition[partition.length - 1]);
 		if (ac[8] != 4 || acf[8] != 4) {
@@ -104,7 +104,7 @@ public class Regle {
 		return false;
 	}
 
-	public boolean regle5(int AcC, int AcS) {
+	public static boolean regle5(int AcC, int AcS) {
 		switch (AcC) {
 		case (0):
 			if (AcS != 4) {
@@ -142,7 +142,7 @@ public class Regle {
 		return false;
 	}
 
-	public boolean apartient(int i, int[] note, int[] ac) {// verifie si la note
+	public static boolean apartient(int i, int[] note, int[] ac) {// verifie si la note
 															// est presente dans
 															// l'accord
 		int n = note[i];
@@ -154,7 +154,7 @@ public class Regle {
 		return false;
 	}
 
-	public int nature(int note, int Ac) {// retourne la nature de la note
+	public static int nature(int note, int Ac) {// retourne la nature de la note
 											// 1=tonic 2=tierce 3=quinte
 											// l'accord doit être correct sinon
 											// la valeur retourné sera fausse
