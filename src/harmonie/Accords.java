@@ -25,7 +25,17 @@ public class Accords {
 	}
 	
 	public static int[][] getCombinaisons(int accord){
-		int[][] tab={{accords[accord][1],accords[accord][1]},{accords[accord][1],accords[accord][2]},{accords[accord][2],accords[accord][1]},{accords[accord][2],accords[accord][2]}};
+		int[][] tab=new int[16][2];					  // Toutes les combinaisons ne sont pas générées, mais seulement octave par octave...
+		for(int i=0;i<16;i=i+4){
+			tab[i][0]=accords[accord][1]+(i/4)*7;
+			tab[i][1]=accords[accord][1]+(i/4)*7;
+			tab[i+1][0]=accords[accord][1]+(i/4)*7;
+			tab[i+1][1]=accords[accord][2]+(i/4)*7;
+			tab[i+2][0]=accords[accord][2]+(i/4)*7;
+			tab[i+2][1]=accords[accord][1]+(i/4)*7;
+			tab[i+3][0]=accords[accord][2]+(i/4)*7;
+			tab[i+3][1]=accords[accord][2]+(i/4)*7;
+		}
 		return tab;
 	}
 }

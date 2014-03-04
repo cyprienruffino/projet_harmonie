@@ -2,7 +2,7 @@ package harmonie;
 
 import java.util.*;
 
-public class HarmonyGenerator {
+public class Generator {
 
 	private static int[][] jeu;
 	private static ArrayList<Integer>[][] suivant;
