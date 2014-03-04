@@ -7,7 +7,12 @@ public class MidiWriter {
 	
 	
 	private static final int VELOCITY = 64;
-
+/**
+ * crée un fichier midi a partir d'une partition sous la forme d'un tableau a une dimension d'accord encodé
+ * @param partition
+ * @param s nom du fichier en sortie
+ * @throws Exception
+ */
 	public static void encodeMidi(int[] partition, String s) throws Exception {
 		File outputFile = new File(s);
 		int k = 0;
