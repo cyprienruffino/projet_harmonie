@@ -30,9 +30,9 @@ public class Partatab {
 					g = g + patt.charAt(i * 6 + 6);
 				tab[i][0] = petitenote(g);
 				if (g.charAt(0) == 's' && g.charAt(3) == 'l')
-					tab[i][i] = (int) g.charAt(6);
-				else
 					tab[i][i] = (int) g.charAt(5);
+				else
+					tab[i][i] = (int) g.charAt(4);
 			}
 		}
 		return tab;

@@ -38,7 +38,7 @@ public class HarmonyGenerator {
 	}
 
 	private static void generateSuivant() {
-		for (int i = 0; i < jeu.length; i++)
+		for (int i = 0; i < jeu.length-1; i++)
 			generateNext(jeu[i], i, getLast(jeu[i]));
 	}
 
