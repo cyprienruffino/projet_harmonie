@@ -2,7 +2,7 @@ package harmonie;
 
 import java.io.*;
 
-public class partatab {
+public class Partatab {
 	// OK les gas vue que vous devez payé vos commentaire de code il faudrai que
 	// vous mexpliquer
 	// deux trois truc. Comme par exemple si je doit attraper l'erreur ou pas
