@@ -17,11 +17,11 @@ public class HarmonyGenerator {
 		generateSuivant();
 	}
 
-	public int[][] getJeu() {
+	public static int[][] getJeu() {
 		return jeu;
 	}
 
-	public ArrayList<Integer>[][] getSuivant() {
+	public static ArrayList<Integer>[][] getSuivant() {
 		return suivant;
 	}
 

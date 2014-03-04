@@ -7,7 +7,7 @@ public class Partatab {
 	// vous mexpliquer
 	// deux trois truc. Comme par exemple si je doit attraper l'erreur ou pas
 	// ... (^-^)b
-	public static int[][] titreenchantier(File f) throws IOException {
+	public static int[][] readChant(File f) throws IOException {
 		// lecture fichier
 		BufferedReader entre = new BufferedReader(new FileReader(f));
 		// je ne sais pas aller direrctement a la deuxieme ligne ((((((^_^;)
@@ -69,7 +69,7 @@ public class Partatab {
 		else if (note == "si")
 			return 6 + 7 * (reloud - 1);
 		else
-			// et si c'est un temps mort ?
-			return 88;
+			
+			return -1;
 	}
 }
