@@ -47,14 +47,14 @@ public class Generator {
 		int[][] ret = new int[4][];
 		int[] temp = new int[9];
 		int i = 0;
-		for (int[] cas : Accords.getCombinaisons(accord)) {
+		for (int[] cas : Donnees.getCombinaisons(accord)) {
 			temp[0] = note;
 			temp[1] = duree;
 			temp[2] = cas[0];
 			temp[3] = duree;
 			temp[4] = cas[1];
 			temp[5] = duree;
-			temp[6] = Accords.getTonique(accord);
+			temp[6] = Donnees.getTonique(accord);
 			temp[7] = duree;
 			temp[8] = accord;
 			ret[i] = temp;
