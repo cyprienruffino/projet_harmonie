@@ -27,7 +27,7 @@ public class Regle {
 		return false;
 	}
 
-	public static boolean regle1(int[] note) {
+	public static boolean regle1(int[] note) {//faire une variante soprano pour corentin
 		if (13 < note[0] && note[0] < 27 && 10 < note[2] && note[2] < 23
 				&& 6 < note[4] && 2 < note[6] && note[6] < 16) {
 			return true;
