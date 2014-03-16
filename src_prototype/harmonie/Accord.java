@@ -23,9 +23,9 @@ public abstract class Accord {
 		return tenor;
 	}
 	
-	public Accord(int s, int a, int b, int t, int d){
+	public Accord(int s, int a, int t, int b, int d){
 		soprano=s;
-		alto=s;
+		alto=a;
 		tenor=t;
 		basse=b;
 		duree=d;
