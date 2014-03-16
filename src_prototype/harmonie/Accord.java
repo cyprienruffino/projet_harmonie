@@ -37,7 +37,7 @@ public abstract class Accord {
 	private boolean verifAccordLocal(){
 		return Regle.verifNote(this);
 	}
-	private boolean verifAccordEnchainement(a){
+	private boolean verifAccordEnchainement(Accord a){
 		return Regle.enchainementCorrect(this, a);
 	}
 }
