@@ -13,35 +13,45 @@ public class MidiWriter {
  * @param s nom du fichier en sortie
  * @throws Exception
  */
-	public static void encodeMidi(int[] partition, String s) throws Exception {
+	public static void encodeMidi(Accord[] partition, String s) throws Exception {
 		File outputFile = new File(s);
-		int k = 0;
 		Sequence sequence = new Sequence(Sequence.PPQ, 1, 4);
 		for (int i = 0; i < 4; i++) {
 			Track track = sequence.createTrack();
 			switch (i) {
 			case (0):
 				track.add(instrument(73, 1));
-				k = 0;
 				break;
 			case (1):
 				track.add(instrument(11, 2));
-				k = 2;
 				break;
 			case (2):
 				track.add(instrument(12, 3));
-				k = 4;
 				break;
 			case (3):
 				track.add(instrument(32, 4));
-				k = 5;
 				break;
 			}
 			int d;
 			int h = 0;
+			int n=-1;
 			for (int j = 0; j < partition.length; j++) {
-				d = (Encoder.decode(partition[j]))[k + 1];
-				switch ((Encoder.decode(partition[j]))[k]) {
+				d = partition[j].getDuree();
+				switch(i){
+				case(0):
+					n=partition[j].getSoprano();
+					break;
+				case(1):
+					n=partition[j].getAlto();
+					break;
+				case(2):
+					n=partition[j].getTenor();
+					break;
+				case(3):
+					n=partition[j].getBasse();
+					break;
+				}
+				switch (n) {
 				case (0):
 					track.add(noteOn(36, h, i + 1));
 					track.add(noteOff(36, h + d, i + 1));
