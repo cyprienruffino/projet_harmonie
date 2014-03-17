@@ -398,6 +398,7 @@ public class Regle {
 		GenAlto(poss);
 		cleanGen(poss);
 		
+		
 		cleanGen(poss);
 		Iterator<Accord> it = poss.iterator();
 		Accord ac;
