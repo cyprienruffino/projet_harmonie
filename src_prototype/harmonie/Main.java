@@ -7,8 +7,8 @@ public class Main {
 		try {
 			int[][] partition = Partatab.readChant(new File(
 					"./data/AuClairDeLaLune.chant"));
-			Generator.generate(partition);
-			for (int[] tab : Generator.getJeu())
+			Partition.generate(partition);
+			for (int[] tab : Partition.getJeu())
 				System.out.println("Soprano " + tab[0] + ":" + tab[1]
 						+ " Alto " + tab[2] + ":" + tab[3] + " Tenor " + tab[4]
 						+ ":" + tab[5] + " Basse " + tab[6] + ":" + tab[7]

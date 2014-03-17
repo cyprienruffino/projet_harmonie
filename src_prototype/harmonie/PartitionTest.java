@@ -5,13 +5,13 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-public class GeneratorTest {
+public class PartitionTest {
 
 	@Test
 	public void testGenerate() {
 		int [][] tab={{0,1,0,0,0,0,0,0,0}};
-		Generator.generate(tab);
-		int[][] partition=Generator.getJeu();
+		Partition.generate(tab);
+		int[][] partition=Partition.getJeu();
 		boolean test=true;
 		for(int[]jeu:partition)
 			test&=jeu[8]==3||jeu[8]==6;

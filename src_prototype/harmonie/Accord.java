@@ -1,5 +1,7 @@
 package harmonie;
 
+import java.util.ArrayList;
+
 public abstract class Accord {
 	
 	private int soprano;
@@ -7,6 +9,10 @@ public abstract class Accord {
 	private int basse;
 	private int tenor;
 	private int duree;
+	
+	private Accord suivant;
+	private ArrayList<Accord> jeuxSuivants;
+	
 	public int getDuree() {
 		return duree;
 	}
@@ -21,6 +27,12 @@ public abstract class Accord {
 	}
 	public int getTenor() {
 		return tenor;
+	}
+	public Accord getSuivant() {
+		return suivant;
+	}
+	public void setSuivant(Accord suivant) {
+		this.suivant = suivant;
 	}
 	
 	public Accord(int s, int a, int b, int t, int d){
