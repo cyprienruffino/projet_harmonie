@@ -346,15 +346,16 @@ public class Regle {
 		return poss;
 	}
 
-	public static void cleanGen(ArrayList<Accord> poss) {
+	public static void cleanGen(ArrayList<Accord> poss,int i) {
 		Iterator<Accord> it = poss.iterator();
 		while (it.hasNext() && !(poss.get(0).getClass().equals(it.next()))) {
 			it.remove();
 		}
 	}
 
-	public static void GenBasse(ArrayList<Accord> poss) {
+	public static int GenBasse(ArrayList<Accord> poss) {
 		Iterator<Accord> it = poss.iterator();
+		int j=0;
 		while (it.hasNext() && !(poss.get(0).getClass().equals(it.next()))) {
 			Accord ac = it.next();
 			int a = nomAccord(ac);
@@ -362,13 +363,16 @@ public class Regle {
 				if (i % 7 == a) {
 					ac.setBasse(i);
 					poss.add(ac);
+					j++;
 				}
 			}
 		}
+		return j;
 	}
 
-	public static void GenAlto(ArrayList<Accord> poss) {
+	public static int GenAlto(ArrayList<Accord> poss) {
 		Iterator<Accord> it = poss.iterator();
+		int j=0;
 		while (it.hasNext() && !(poss.get(0).getClass().equals(it.next()))) {
 			Accord ac = it.next();
 			int a = nomAccord(ac);
@@ -378,19 +382,23 @@ public class Regle {
 						if (i % 7 == (a + 2) % 7 || i % 7 == (a + 4) % 7) {
 							ac.setAlto(i);
 							poss.add(ac);
+							j++;
 						}
 					} else if (i % 7 == a || i % 7 == (a + 2) % 7
 							|| i % 7 == (a + 4) % 7) {
 						ac.setAlto(i);
 						poss.add(ac);
+						j++;
 					}
 				}
 			}
 		}
+		return j;
 	}
 
-	public static void GenTenor(ArrayList<Accord> poss){
+	public static int GenTenor(ArrayList<Accord> poss){
 		Iterator<Accord> it = poss.iterator();
+		int j=0;
 		while (it.hasNext() && !(poss.get(0).getClass().equals(it.next()))) {
 			Accord ac = it.next();
 			int a = nomAccord(ac);
@@ -398,18 +406,20 @@ public class Regle {
 				
 			}
 		}
+		return j;
 	}
+	
 	
 	public static ArrayList<Accord> generateCombinaison(Accord accord) {
 		int s=accord.getSoprano();
 		ArrayList<Accord> poss = new ArrayList<Accord>();
 		poss = initAccordPossible(s);
-		GenBasse(poss);
-		cleanGen(poss);
-		GenAlto(poss);
-		cleanGen(poss);
-		GenTenor(poss);
-		cleanGen(poss);
+		int i=GenBasse(poss);
+		cleanGen(poss,i);
+		i=GenAlto(poss);
+		cleanGen(poss,i);
+		i=GenTenor(poss);
+		cleanGen(poss,i);
 		Iterator<Accord> it = poss.iterator();
 		Accord ac;
 		while(it.hasNext()){
