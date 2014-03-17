@@ -1,6 +1,7 @@
 package harmonie;
 
 import accords.*;
+import java.util.*;
 
 public class Regle {
 	/*
@@ -267,5 +268,29 @@ public class Regle {
 		return -1;
 	}
 
+public static int accordPossible (int s){
+	s=s%7;
+	switch(s){
+	case(0):
+		return 460;
+	case(1):
+		return 157;
+	case(2):
+		return 206;
+	case(3):
+		return 147;
+	case(4):
+		return 520;
+	case(5):
+		return 146;
+	case(6):
+		return 257;
+	}
+	return-1;
+}
 
+public static ArrayList<Accord> generateCombinaison(int s){
+	ArrayList<Accord> poss=new ArrayList<Accord>();
+	int acP=accor
+}
 }

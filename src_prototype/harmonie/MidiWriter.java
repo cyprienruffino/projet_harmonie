@@ -52,18 +52,6 @@ public class MidiWriter {
 					break;
 				}
 				switch (n) {
-				case (0):
-					track.add(noteOn(36, h, i + 1));
-					track.add(noteOff(36, h + d, i + 1));
-					break;
-				case (1):
-					track.add(noteOn(38, h, i + 1));
-					track.add(noteOff(38, h + d, i + 1));
-					break;
-				case (2):
-					track.add(noteOn(40, h, i + 1));
-					track.add(noteOff(40, h + d, i + 1));
-					break;
 				case (3):
 					track.add(noteOn(41, h, i + 1));
 					track.add(noteOff(41, h + d, i + 1));
@@ -159,10 +147,6 @@ public class MidiWriter {
 				case (26):
 					track.add(noteOn(81, h, i + 1));
 					track.add(noteOff(81, h + d, i + 1));
-					break;
-				case (27):
-					track.add(noteOn(83, h, i + 1));
-					track.add(noteOff(83, h + d, i + 1));
 					break;
 				}
 				h += d;
