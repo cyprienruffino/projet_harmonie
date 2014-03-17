@@ -2,6 +2,8 @@ package main;
 
 import java.util.ArrayList;
 
+import accords.AccordIterator;
+
 public abstract class Accord implements Iterable<Accord>{
 	
 	private int soprano;
@@ -51,6 +53,10 @@ public abstract class Accord implements Iterable<Accord>{
 	}
 	public ArrayList<Accord> getJeuxSuivants() {
 		return jeuxSuivants;
+	}
+	
+	public AccordIterator iterator(){
+		return new AccordIterator(this);
 	}
 	
 	/*public boolean verifAccord(Accord a){

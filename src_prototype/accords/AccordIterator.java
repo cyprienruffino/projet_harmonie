@@ -1,6 +1,8 @@
-package main;
+package accords;
 
 import java.util.Iterator;
+
+import main.Accord;
 
 public class AccordIterator implements Iterator {
 
