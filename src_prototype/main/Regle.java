@@ -348,7 +348,7 @@ public class Regle {
 
 	public static void cleanGen(ArrayList<Accord> poss,int i) {
 		for(int j=0;j<i;j++){
-			poss.remove(j);
+			poss.remove(0);
 		}
 	}
 
