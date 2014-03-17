@@ -10,7 +10,7 @@ public class Partition {
 
 	public void generate(Accord[] s) {
 		// Génère tous les cas possibles de partitions suivant le schéma du
-		jeu = new ArrayList [s.length];
+		jeu = new ArrayList[s.length];
 		generateFirst(s);
 		generateJeu(s);
 	}
@@ -21,7 +21,7 @@ public class Partition {
 
 	// A partir d'ici, tout est privé
 	private void generateFirst(Accord [] s){
-		jeu=generateCombinaisons(s[0]);
+		jeu[0]=generateCombinaisons(s[0]).get(0);
 	}
 	
 	

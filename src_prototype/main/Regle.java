@@ -390,7 +390,8 @@ public class Regle {
 		}
 	}
 
-	public static ArrayList<Accord> generateCombinaison(int s) {
+	public static ArrayList<Accord> generateCombinaison(Accord accord) {
+		int s=accord.getSoprano();
 		ArrayList<Accord> poss = new ArrayList<Accord>();
 		poss = initAccordPossible(s);
 		GenBasse(poss);
