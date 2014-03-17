@@ -1,10 +1,13 @@
 package main;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class Main {
 	public static void main(String[] args) { // Main de test temporaire
-		try {
+		ArrayList<Accord> liste=Regle.initAccordPossible(22);
+		Regle.GenBasse(liste,3);
+		/*try {
 			int[][] partition = Partatab.readChant(new File(
 					"./data/AuClairDeLaLune.chant"));
 			Partition.generate(partition);
@@ -15,6 +18,6 @@ public class Main {
 						+ " Accord " + tab[8]);
 		} catch (IOException e) {
 			System.out.println("Erreur d'entrée-sortie");
-		}
+		}*/
 	}
 }

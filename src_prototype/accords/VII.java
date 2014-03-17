@@ -8,5 +8,4 @@ public class VII extends Accord {
 		super(s, a, b, t, d);
 		// TODO Auto-generated constructor stub
 	}
-
 }

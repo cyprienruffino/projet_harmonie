@@ -352,12 +352,12 @@ public class Regle {
 		}
 	}
 
-	public static int GenBasse(ArrayList<Accord> poss) {
-		Iterator<Accord> it = poss.iterator();
+	public static int GenBasse(ArrayList<Accord> poss,int h) {
+		
 		int j=0;
-		while (it.hasNext() && !(poss.get(0).getClass().equals(it.next().getClass()))) {
-			Accord ac = it.next();
-			int a = nomAccord(ac);
+		for(int k=0;k<h;k++) {
+			Accord ac = poss.get(k).clone();
+			int a = nomAccord(ac)-1;
 			for (int i = 3; i < 16; i++) {
 				if (i % 7 == a) {
 					ac.setBasse(i);
