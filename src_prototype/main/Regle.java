@@ -291,6 +291,18 @@ public static int accordPossible (int s){
 
 public static ArrayList<Accord> generateCombinaison(int s){
 	ArrayList<Accord> poss=new ArrayList<Accord>();
-	int acP=accor
+	switch(s%7){
+	case(0):
+		poss.add(new I(s,-1,-1,-1,-1));
+		poss.add(new VI(s,-1,-1,-1,-1));
+		poss.add(new IV(s,-1,-1,-1,-1));
+		poss.add(new IVb(s,-1,-1,-1,-1));
+		break;
+	case(1):
+		poss.add(new II(s,-1,-1,-1,-1));
+		poss.add(new V(s,-1,-1,-1,-1));
+		poss.add(new VII(s,-1,-1,-1,-1));
+		break;
+	}
 }
 }
