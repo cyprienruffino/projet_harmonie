@@ -44,6 +44,21 @@ public abstract class Accord implements Iterable<Accord>{
 		this.jeuxSuivants.add(a);
 	}
 	
+	public void setSoprano(int soprano) {
+		this.soprano = soprano;
+	}
+	public void setAlto(int alto) {
+		this.alto = alto;
+	}
+	public void setBasse(int basse) {
+		this.basse = basse;
+	}
+	public void setTenor(int tenor) {
+		this.tenor = tenor;
+	}
+	public void setDuree(int duree) {
+		this.duree = duree;
+	}
 	public Accord(int s, int a, int b, int t, int d){
 		soprano=s;
 		alto=s;
