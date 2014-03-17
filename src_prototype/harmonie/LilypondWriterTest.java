@@ -6,12 +6,14 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import accords.*;
+
 public class LilypondWriterTest {
 
 	@Test
 	public void test() throws IOException {
-		int[] tab={0,1,3};
-		LilypondWriter.LilyWriter("test.txt",tab,"salutation");
+		Accord[] tab={new I(21,18,16,7,4),new IV(21,19,17,10,4),new VI(21,19,16,12,4),new V(22,20,18,11,4)};
+		LilypondWriter.LilyWriter("test.ly",tab,"salutation");
 	}
 
 }
