@@ -43,13 +43,13 @@ public abstract class Accord {
 		duree=d;
 	}
 	
-	public boolean verifAccord(Accord a){
+	/*public boolean verifAccord(Accord a){
 		return verifAccordLocal() && verifAccordEnchainement(a);
 	}
 	private boolean verifAccordLocal(){
 		return Regle.verifNote(this);
 	}
 	private boolean verifAccordEnchainement(a){
-		return Regle.enchainementCorrect(this, a);
-	}
+		
+	}*/
 }
