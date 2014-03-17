@@ -6,6 +6,6 @@ import javax.sound.midi.InvalidMidiDataException;
 
 public interface Writer {
 	
-	public void ecrirePartition(String fichier, Accord[] partition, String titre) throws IOException, InvalidMidiDataException;
+	public void ecrirePartition() throws IOException, InvalidMidiDataException;
 	
 }
