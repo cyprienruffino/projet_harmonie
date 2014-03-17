@@ -347,16 +347,15 @@ public class Regle {
 	}
 
 	public static void cleanGen(ArrayList<Accord> poss,int i) {
-		Iterator<Accord> it = poss.iterator();
-		while (it.hasNext() && !(poss.get(0).getClass().equals(it.next()))) {
-			it.remove();
+		for(int j=0;j<i;j++){
+			poss.remove(j);
 		}
 	}
 
 	public static int GenBasse(ArrayList<Accord> poss) {
 		Iterator<Accord> it = poss.iterator();
 		int j=0;
-		while (it.hasNext() && !(poss.get(0).getClass().equals(it.next()))) {
+		while (it.hasNext() && !(poss.get(0).getClass().equals(it.next().getClass()))) {
 			Accord ac = it.next();
 			int a = nomAccord(ac);
 			for (int i = 3; i < 16; i++) {
@@ -373,7 +372,7 @@ public class Regle {
 	public static int GenAlto(ArrayList<Accord> poss) {
 		Iterator<Accord> it = poss.iterator();
 		int j=0;
-		while (it.hasNext() && !(poss.get(0).getClass().equals(it.next()))) {
+		while (it.hasNext() && !(poss.get(0).getClass().equals(it.next().getClass()))) {
 			Accord ac = it.next();
 			int a = nomAccord(ac);
 			for (int i = 11; i < Math.max(22, ac.getSoprano()); i++) {
@@ -399,7 +398,7 @@ public class Regle {
 	public static int GenTenor(ArrayList<Accord> poss){
 		Iterator<Accord> it = poss.iterator();
 		int j=0;
-		while (it.hasNext() && !(poss.get(0).getClass().equals(it.next()))) {
+		while (it.hasNext() && !(poss.get(0).getClass().equals(it.next().getClass()))) {
 			Accord ac = it.next();
 			int a = nomAccord(ac);
 			for (int i = 11; i < Math.max(22, ac.getSoprano()); i++) {
@@ -414,11 +413,12 @@ public class Regle {
 		int s=accord.getSoprano();
 		ArrayList<Accord> poss = new ArrayList<Accord>();
 		poss = initAccordPossible(s);
-		int i=GenBasse(poss);
+		int i=poss.size();
+		int j=GenBasse(poss);
 		cleanGen(poss,i);
 		i=GenAlto(poss);
-		cleanGen(poss,i);
-		i=GenTenor(poss);
+		cleanGen(poss,j);
+		j=GenTenor(poss);
 		cleanGen(poss,i);
 		Iterator<Accord> it = poss.iterator();
 		Accord ac;
