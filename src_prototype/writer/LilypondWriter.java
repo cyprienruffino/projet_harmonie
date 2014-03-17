@@ -1,9 +1,12 @@
-package harmonie;
+package writer;
+
 
 import java.io.*;
 
+import main.Accord;
+
 public class LilypondWriter {
-	public static void LilyWriter(String nomDuFichier, Accord part[],
+	public static void ecrirePartition(String nomDuFichier, Accord part[],
 			String titre) throws IOException {
 		File file = new File(nomDuFichier);
 		FileWriter fw = new FileWriter(file);

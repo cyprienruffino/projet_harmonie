@@ -1,6 +1,6 @@
 package accords;
 
-import harmonie.Accord;
+import main.Accord;
 
 public class III extends Accord {
 

@@ -1,4 +1,4 @@
-package harmonie;
+package main;
 
 import static org.junit.Assert.*;
 import junit.framework.Assert;

@@ -1,8 +1,11 @@
-package harmonie;
+package writer;
 
 import static org.junit.Assert.*;
 
+import main.Accord;
+
 import org.junit.Test;
+
 
 import accords.*;
 

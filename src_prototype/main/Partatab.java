@@ -1,4 +1,4 @@
-package harmonie;
+package main;
 
 import java.io.*;
 

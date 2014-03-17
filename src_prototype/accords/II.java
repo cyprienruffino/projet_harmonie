@@ -1,8 +1,8 @@
 package accords;
 
-import harmonie.Accord;
+import main.Accord;
 
-public class II extends harmonie.Accord {
+public class II extends main.Accord {
 
 	public II(int s, int a, int b, int t, int d) {
 		super(s, a, b, t, d);

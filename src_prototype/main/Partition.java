@@ -1,4 +1,4 @@
-package harmonie;
+package main;
 
 import java.util.*;
 
@@ -20,17 +20,22 @@ public class Partition {
 	}*/
 
 	// A partir d'ici, tout est privé
-	
+	private void generateFirst(Accord [] s){
+		jeu=generateCombinaisons(s[0]);
+	}
 	
 	
 	private void generateJeu(Accord[] s) {
 		for (int i = 0; i < jeu.length-1; i++) {
-			Accord[] temp = generateCombinaisons();
-			for (Accord cas : temp) {
-				if (Regle.noteCorrect(cas)){
-					
+			for(Accord accord : s[i]){
+				ArrayList<Accord> temp = generateCombinaisons(s[i],s[i+1]);
+				for (Accord cas : temp) {
+					accord.addJeuSuivant(cas);
+					if(s[i+1]==null)
+						s[i+1]=cas;
+					else s[i+1].addSuivant(cas);
 				}
-			}
+			}	
 		}
 	}
 }

@@ -1,9 +1,13 @@
-package harmonie;
+package writer;
+
 
 import java.io.*;
 import javax.sound.midi.*;
 
-public class MidiWriter {
+import main.Accord;
+import main.Writer;
+
+public class MidiWriter implements Writer {
 	
 	
 	private static final int VELOCITY = 64;
@@ -11,10 +15,11 @@ public class MidiWriter {
  * crée un fichier midi a partir d'une partition sous la forme d'un tableau a une dimension d'accord encodé
  * @param partition
  * @param s nom du fichier en sortie
+ * @throws InvalidMidiDataException 
  * @throws Exception
  */
-	public static void encodeMidi(Accord[] partition, String s) throws Exception {
-		File outputFile = new File(s);
+	public void ecrirePartition(String fichier, Accord[] partition, String titre) throws IOException, InvalidMidiDataException {
+		File outputFile = new File(fichier);
 		Sequence sequence = new Sequence(Sequence.PPQ, 1, 4);
 		for (int i = 0; i < 4; i++) {
 			Track track = sequence.createTrack();
