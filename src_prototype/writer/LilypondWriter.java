@@ -6,8 +6,17 @@ import java.io.*;
 import main.Accord;
 
 public class LilypondWriter {
-	public static void ecrirePartition(String nomDuFichier, Accord part[],
-			String titre) throws IOException {
+	private String nomDuFichier;
+	private Accord part[];
+	private String titre;
+	
+	public LilypondWriter(String fichier, Accord[] partition, String titre){
+		nomDuFichier=fichier;
+		part=partition;
+		this.titre=titre;
+	}
+	
+	public void ecrirePartition() throws IOException {
 		File file = new File(nomDuFichier);
 		FileWriter fw = new FileWriter(file);
 		fw.write("\\header{\n title = \"" + titre

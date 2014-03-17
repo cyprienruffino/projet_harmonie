@@ -5,12 +5,21 @@ import java.io.*;
 import javax.sound.midi.*;
 
 import main.Accord;
-import main.Writer;
 
 public class MidiWriter implements Writer {
 	
+	private String fichier;
+	private Accord partition[];
+	private String titre;
 	
 	private static final int VELOCITY = 64;
+	
+	public MidiWriter(String fichier, Accord[] partition, String titre){
+		this.fichier=fichier;
+		this.partition=partition;
+		this.titre=titre;
+	}
+	
 /**
  * crée un fichier midi a partir d'une partition sous la forme d'un tableau a une dimension d'accord encodé
  * @param partition
@@ -18,7 +27,7 @@ public class MidiWriter implements Writer {
  * @throws InvalidMidiDataException 
  * @throws Exception
  */
-	public void ecrirePartition(String fichier, Accord[] partition, String titre) throws IOException, InvalidMidiDataException {
+	public void ecrirePartition() throws IOException, InvalidMidiDataException {
 		File outputFile = new File(fichier);
 		Sequence sequence = new Sequence(Sequence.PPQ, 1, 4);
 		for (int i = 0; i < 4; i++) {
