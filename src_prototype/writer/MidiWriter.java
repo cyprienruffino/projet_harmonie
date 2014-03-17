@@ -5,6 +5,7 @@ import java.io.*;
 import javax.sound.midi.*;
 
 import main.Accord;
+import main.Writer;
 
 public class MidiWriter implements Writer {
 	
