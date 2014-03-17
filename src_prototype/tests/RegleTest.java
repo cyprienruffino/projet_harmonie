@@ -1,10 +1,13 @@
-package main;
+package tests;
 
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
 import junit.framework.Assert;
+
+import main.Accord;
+import main.Regle;
 
 import org.junit.Test;
 

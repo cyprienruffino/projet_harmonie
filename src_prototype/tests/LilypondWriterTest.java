@@ -1,4 +1,4 @@
-package writer;
+package tests;
 
 import static org.junit.Assert.*;
 
@@ -8,6 +8,8 @@ import java.io.IOException;
 import main.Accord;
 
 import org.junit.Test;
+
+import writer.LilypondWriter;
 
 
 import accords.*;
