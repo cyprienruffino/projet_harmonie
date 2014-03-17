@@ -349,7 +349,6 @@ public class Regle {
 	public static void cleanGen(ArrayList<Accord> poss) {
 		Iterator<Accord> it = poss.iterator();
 		while (it.hasNext() && !(poss.get(0).getClass().equals(it.next()))) {
-			it.next();
 			it.remove();
 		}
 	}
@@ -390,6 +389,17 @@ public class Regle {
 		}
 	}
 
+	public static void GenTenor(ArrayList<Accord> poss){
+		Iterator<Accord> it = poss.iterator();
+		while (it.hasNext() && !(poss.get(0).getClass().equals(it.next()))) {
+			Accord ac = it.next();
+			int a = nomAccord(ac);
+			for (int i = 11; i < Math.max(22, ac.getSoprano()); i++) {
+				
+			}
+		}
+	}
+	
 	public static ArrayList<Accord> generateCombinaison(int s) {
 		ArrayList<Accord> poss = new ArrayList<Accord>();
 		poss = initAccordPossible(s);
@@ -397,8 +407,7 @@ public class Regle {
 		cleanGen(poss);
 		GenAlto(poss);
 		cleanGen(poss);
-		
-		
+		GenTenor(poss);
 		cleanGen(poss);
 		Iterator<Accord> it = poss.iterator();
 		Accord ac;
