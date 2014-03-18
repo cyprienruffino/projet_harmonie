@@ -8,5 +8,8 @@ public class III extends Accord {
 		super(s, a, b, t, d);
 		// TODO Auto-generated constructor stub
 	}
-
+	public III clone(){
+		III ac=new III (this.getSoprano(),this.getAlto(),this.getTenor(),this.getBasse(),this.getDuree());
+		return ac;
+	}
 }

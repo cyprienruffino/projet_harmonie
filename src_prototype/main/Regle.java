@@ -353,12 +353,11 @@ public class Regle {
 	}
 
 	public static int GenBasse(ArrayList<Accord> poss,int h) {
-		
 		int j=0;
 		for(int k=0;k<h;k++) {
-			Accord ac = poss.get(k).clone();
-			int a = nomAccord(ac)-1;
 			for (int i = 3; i < 16; i++) {
+				Accord ac =poss.get(k).clone();
+				int a = nomAccord(ac)-1;
 				if (i % 7 == a) {
 					ac.setBasse(i);
 					poss.add(ac);

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import accords.AccordIterator;
 
-public abstract class Accord implements Iterable<Accord>{
+public abstract class Accord implements Iterable<Accord>, Cloneable{
 	
 	private int soprano;
 	private int alto;
@@ -61,11 +61,12 @@ public abstract class Accord implements Iterable<Accord>{
 	}
 	public Accord(int s, int a, int b, int t, int d){
 		soprano=s;
-		alto=s;
+		alto=a;
 		tenor=t;
 		basse=b;
 		duree=d;
 	}
+
 	public ArrayList<Accord> getJeuxSuivants() {
 		return jeuxSuivants;
 	}
@@ -73,6 +74,8 @@ public abstract class Accord implements Iterable<Accord>{
 	public AccordIterator iterator(){
 		return new AccordIterator(this);
 	}
+	
+	public abstract Accord clone();
 	
 	/*public boolean verifAccord(Accord a){
 		return verifAccordLocal() && verifAccordEnchainement(a);

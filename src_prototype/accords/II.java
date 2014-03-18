@@ -8,5 +8,8 @@ public class II extends main.Accord {
 		super(s, a, b, t, d);
 		// TODO Auto-generated constructor stub
 	}
-
+	public II clone(){
+		II ac=new II (this.getSoprano(),this.getAlto(),this.getTenor(),this.getBasse(),this.getDuree());
+		return ac;
+	}
 }

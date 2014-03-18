@@ -8,4 +8,8 @@ public class VII extends Accord {
 		super(s, a, b, t, d);
 		// TODO Auto-generated constructor stub
 	}
+	public VII clone(){
+		VII ac=new VII (this.getSoprano(),this.getAlto(),this.getTenor(),this.getBasse(),this.getDuree());
+		return ac;
+	}
 }

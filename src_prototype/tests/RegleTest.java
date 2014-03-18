@@ -42,7 +42,7 @@ public class RegleTest {
 	@Test
 	public void testGenBasse(){
 		ArrayList<Accord> liste=Regle.initAccordPossible(22);
-		Assert.assertEquals(6,Regle.GenBasse(liste));
+		Assert.assertEquals(6,Regle.GenBasse(liste,3));
 		
 	}
 

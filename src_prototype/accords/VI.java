@@ -8,4 +8,8 @@ public class VI extends Accord {
 		super(s, a, b, t, d);
 		// TODO Auto-generated constructor stub
 	}
+	public VI clone(){
+		VI ac=new VI (this.getSoprano(),this.getAlto(),this.getTenor(),this.getBasse(),this.getDuree());
+		return ac;
+	}
 }
