@@ -2,11 +2,12 @@ package main;
 
 import java.io.*;
 import java.util.ArrayList;
+import accords.*;
 
 public class Main {
 	public static void main(String[] args) { // Main de test temporaire
-		ArrayList<Accord> liste=Regle.initAccordPossible(22);
-		Regle.GenBasse(liste,3);
+		Regle.generateCombinaison(new I(22,-1,-1,-1,-1));
+		
 		/*try {
 			int[][] partition = Partatab.readChant(new File(
 					"./data/AuClairDeLaLune.chant"));
