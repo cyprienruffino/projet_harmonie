@@ -1,59 +1,71 @@
-package harmonie;
+package writer;
+
 
 import java.io.*;
 import javax.sound.midi.*;
 
-public class MidiWriter {
+import main.Accord;
+
+public class MidiWriter implements Writer {
 	
+	private String fichier;
+	private Accord partition[];
+	private String titre;
 	
 	private static final int VELOCITY = 64;
+	
+	public MidiWriter(String fichier, Accord[] partition, String titre){
+		this.fichier=fichier;
+		this.partition=partition;
+		this.titre=titre;
+	}
+	
 /**
  * crée un fichier midi a partir d'une partition sous la forme d'un tableau a une dimension d'accord encodé
  * @param partition
  * @param s nom du fichier en sortie
+ * @throws InvalidMidiDataException 
  * @throws Exception
  */
-	public static void encodeMidi(int[] partition, String s) throws Exception {
-		File outputFile = new File(s);
-		int k = 0;
+	public void ecrirePartition() throws IOException, InvalidMidiDataException {
+		File outputFile = new File(fichier);
 		Sequence sequence = new Sequence(Sequence.PPQ, 1, 4);
 		for (int i = 0; i < 4; i++) {
 			Track track = sequence.createTrack();
 			switch (i) {
 			case (0):
 				track.add(instrument(73, 1));
-				k = 0;
 				break;
 			case (1):
 				track.add(instrument(11, 2));
-				k = 2;
 				break;
 			case (2):
 				track.add(instrument(12, 3));
-				k = 4;
 				break;
 			case (3):
 				track.add(instrument(32, 4));
-				k = 5;
 				break;
 			}
 			int d;
 			int h = 0;
+			int n=-1;
 			for (int j = 0; j < partition.length; j++) {
-				d = (Encoder.decode(partition[j]))[k + 1];
-				switch ((Encoder.decode(partition[j]))[k]) {
-				case (0):
-					track.add(noteOn(36, h, i + 1));
-					track.add(noteOff(36, h + d, i + 1));
+				d = partition[j].getDuree();
+				switch(i){
+				case(0):
+					n=partition[j].getSoprano();
 					break;
-				case (1):
-					track.add(noteOn(38, h, i + 1));
-					track.add(noteOff(38, h + d, i + 1));
+				case(1):
+					n=partition[j].getAlto();
 					break;
-				case (2):
-					track.add(noteOn(40, h, i + 1));
-					track.add(noteOff(40, h + d, i + 1));
+				case(2):
+					n=partition[j].getTenor();
 					break;
+				case(3):
+					n=partition[j].getBasse();
+					break;
+				}
+				switch (n) {
 				case (3):
 					track.add(noteOn(41, h, i + 1));
 					track.add(noteOff(41, h + d, i + 1));
@@ -149,10 +161,6 @@ public class MidiWriter {
 				case (26):
 					track.add(noteOn(81, h, i + 1));
 					track.add(noteOff(81, h + d, i + 1));
-					break;
-				case (27):
-					track.add(noteOn(83, h, i + 1));
-					track.add(noteOff(83, h + d, i + 1));
 					break;
 				}
 				h += d;

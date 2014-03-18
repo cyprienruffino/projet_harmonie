@@ -1,6 +1,8 @@
-package harmonie;
+package tests;
 
 import static org.junit.Assert.*;
+
+import main.Partatab;
 
 import org.junit.Test;
 

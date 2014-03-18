@@ -1,4 +1,4 @@
-package harmonie;
+package obsolete;
 
 public class Encoder {
 	public static int encoder(int[] notes) {

@@ -1,4 +1,4 @@
-package harmonie;
+package main;
 
 import java.io.*;
 
@@ -12,7 +12,7 @@ public class Partatab {
 	static int LA = 5;
 	static int SI = 6;
 
-	public static Accords[] readChant(File f) throws IOException {
+	public static Accord[] readChant(File f) throws IOException {
 		// lecture fichier
 		BufferedReader entre = new BufferedReader(new FileReader(f));
 		// je ne sais pas aller direrctement a la deuxieme ligne ((((((^_^;)
@@ -23,7 +23,7 @@ public class Partatab {
 		// le tableau d'accords que je vai renvoié
 		// si vous avez un nom de tableau plus cool il peut etre changer j'ai
 		// juste mi se a quoi je pancer
-		Accords[] skunk = new Accords[n];
+		Accord[] skunk = new Accord[n];
 
 		/*
 		 * comme il y avait un pb avec l'ancien version je recre le tableau qu
