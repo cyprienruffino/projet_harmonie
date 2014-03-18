@@ -346,18 +346,18 @@ public class Regle {
 		return poss;
 	}
 
-	public static void cleanGen(ArrayList<Accord> poss,int i) {
-		for(int j=0;j<i;j++){
+	public static void cleanGen(ArrayList<Accord> poss, int i) {
+		for (int j = 0; j < i; j++) {
 			poss.remove(0);
 		}
 	}
 
-	public static int GenBasse(ArrayList<Accord> poss,int h) {
-		int j=0;
-		for(int k=0;k<h;k++) {
+	public static int GenBasse(ArrayList<Accord> poss, int h) {
+		int j = 0;
+		for (int k = 0; k < h; k++) {
 			for (int i = 3; i < 16; i++) {
-				Accord ac =poss.get(k).clone();
-				int a = nomAccord(ac)-1;
+				Accord ac = poss.get(k).clone();
+				int a = nomAccord(ac) - 1;
 				if (i % 7 == a) {
 					ac.setBasse(i);
 					poss.add(ac);
@@ -368,13 +368,12 @@ public class Regle {
 		return j;
 	}
 
-	public static int GenAlto(ArrayList<Accord> poss) {
-		Iterator<Accord> it = poss.iterator();
-		int j=0;
-		while (it.hasNext() && !(poss.get(0).getClass().equals(it.next().getClass()))) {
-			Accord ac = it.next();
-			int a = nomAccord(ac);
-			for (int i = 11; i < Math.max(22, ac.getSoprano()); i++) {
+	public static int GenAlto(ArrayList<Accord> poss, int h) {
+		int j = 0;
+		for (int k = 0; k < h; k++) {
+			for (int i = 11; i < Math.max(22, poss.get(0).getSoprano()); i++) {
+				Accord ac = poss.get(k).clone();
+				int a = nomAccord(ac);
 				if (i > ac.getBasse()) {
 					if (ac.getBasse() % 7 == ac.getSoprano() % 7) {
 						if (i % 7 == (a + 2) % 7 || i % 7 == (a + 4) % 7) {
@@ -394,36 +393,62 @@ public class Regle {
 		return j;
 	}
 
-	public static int GenTenor(ArrayList<Accord> poss){
-		Iterator<Accord> it = poss.iterator();
-		int j=0;
-		while (it.hasNext() && !(poss.get(0).getClass().equals(it.next().getClass()))) {
-			Accord ac = it.next();
-			int a = nomAccord(ac);
-			for (int i = 11; i < Math.max(22, ac.getSoprano()); i++) {
-				
+	public static int GenTenor(ArrayList<Accord> poss, int h) {
+		int j = 0;
+		for (int k = 0; k < h; k++) {
+			for (int i = 7; i < Math.max(22, poss.get(0).getAlto()); i++) {
+				Accord ac = poss.get(k).clone();
+				int a = nomAccord(ac);
+				if (i > ac.getBasse()) {
+					if (ac.getSoprano() % 7 == ac.getAlto() % 7) {
+						if (ac.getSoprano() % 7 == (a + 2) % 7) {
+							if (i % 7 == a || i % 7 == (a + 4) % 7) {
+								ac.setAlto(i);
+								poss.add(ac);
+								j++;
+							}
+						} else if (ac.getSoprano() % 7 == (a + 4) % 7) {
+							if (i % 7 == a || i % 7 == (a + 2) % 7) {
+								ac.setAlto(i);
+								poss.add(ac);
+								j++;
+							}
+						}
+					} else if (ac.getSoprano() % 7 == ac.getBasse() % 7
+							|| ac.getAlto() % 7 == ac.getBasse() % 7) {
+						if (i % 7 == (a + 2) % 7 || i % 7 == (a + 4) % 7) {
+							ac.setAlto(i);
+							poss.add(ac);
+							j++;
+						}
+					} else if (i % 7 == a || i % 7 == (a + 2) % 7
+							|| i % 7 == (a + 4) % 7) {
+						ac.setAlto(i);
+						poss.add(ac);
+						j++;
+					}
+				}
 			}
 		}
 		return j;
 	}
-	
-	
+
 	public static ArrayList<Accord> generateCombinaison(Accord accord) {
-		int s=accord.getSoprano();
+		int s = accord.getSoprano();
 		ArrayList<Accord> poss = new ArrayList<Accord>();
 		poss = initAccordPossible(s);
-		int i=poss.size();
-		int j=GenBasse(poss);
-		cleanGen(poss,i);
-		i=GenAlto(poss);
-		cleanGen(poss,j);
-		j=GenTenor(poss);
-		cleanGen(poss,i);
+		int i = poss.size();
+		int j = GenBasse(poss, i);
+		cleanGen(poss, i);
+		i = GenAlto(poss, j);
+		cleanGen(poss, j);
+		j = GenTenor(poss, i);
+		cleanGen(poss, i);
 		Iterator<Accord> it = poss.iterator();
 		Accord ac;
-		while(it.hasNext()){
-			ac=it.next();
-			if(!noteCorrect(ac))
+		while (it.hasNext()) {
+			ac = it.next();
+			if (!noteCorrect(ac))
 				it.remove();
 		}
 		return poss;
