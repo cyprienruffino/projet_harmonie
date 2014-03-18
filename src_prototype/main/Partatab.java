@@ -2,15 +2,17 @@ package main;
 
 import java.io.*;
 
+import accords.*;
+
 public class Partatab {
 	// pour c'est variable voir le commentaire du tableau list
-	static int DO = 0;
-	static int RE = 1;
-	static int MI = 2;
-	static int FA = 3;
-	static int SOL = 4;
-	static int LA = 5;
-	static int SI = 6;
+	static final int DO = 0;
+	static final int RE = 1;
+	static final int MI = 2;
+	static final int FA = 3;
+	static final int SOL = 4;
+	static final int LA = 5;
+	static final int SI = 6;
 
 	public static Accord[] readChant(File f) throws IOException {
 		// lecture fichier
@@ -42,7 +44,7 @@ public class Partatab {
 		isolement(patt,isol);
 		//le plus lourd et enfin passer
 		for (int i = 0; i < n; i++) {
-
+		Accord supeur = new VI(petitenote(isol[i],liste),0,0,0,0);
 		}
 		return skunk;
 	}
@@ -117,6 +119,8 @@ public class Partatab {
 			return tab[RE][note.charAt(3)];
 		else if (note == "mi")
 			return tab[MI][note.charAt(3)];
+		else if (note == "-=")
+			return -1;
 		else
 			return tab[LA][note.charAt(3)];
 	}
