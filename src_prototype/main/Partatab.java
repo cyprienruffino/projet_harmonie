@@ -34,51 +34,33 @@ public class Partatab {
 		 * concien qu'il y a plus classe mais bon le tableau n'est que
 		 * temporaire et de tout façon c'est que le prototype
 		 */
-		int[][] liste = new int[7][4];
+		int[][] liste = new int[4][7];
 		remplire(liste);
 		/*
 		 * comme le il peut y avoir des sol qui on + caractere que les autre je
 		 * fait une methode qui me returne un tableau de toute les substring
 		 */
 		String[] isol = new String[n];
-		isolement(patt,isol);
-		//le plus lourd et enfin passer
+		isolement(patt, isol);
+		// le plus lourd et enfin passer
 		for (int i = 0; i < n; i++) {
-		Accord supeur = new VI(petitenote(isol[i],liste),0,0,0,0);
+			skunk[i]= new VI(petitenote(isol[i], liste), 0, 0, 0, 0);
 		}
 		return skunk;
 	}
-	
+
 	public static void isolement(String s, String[] si) {
-		int nbdesol = 0;
-		int nbtmpmort = 0;
-		for (int i = 0; i < si.length; i++) {
-			//explication dans le comentaire suivant
-			int premier = (i + 1) * (i * 6)+1 + nbdesol - nbtmpmort;
-			int deuxiem = ((i + 1) * (i * 6)+1 + 6 - nbdesol - nbtmpmort);
-			/*
-			 * pour le if et le else if :
-			 * le +1 et le -1 vien du decalage cree par le caracter en moin ou en plus
-			 * pour le esle :
-			 * une note est composer de 5 caracte 6 avec l'espace a la fin que
-			 * je compte cepandent les temps mor le s'on de 5 tjr en comptant l'
-			 * espace  et les sol de 7 dans les meme condition se que creer
-			 * des decalage je suis donc obliger de les prendre en compte c'est
-			 * pour sa qu'il y a le +nbdesol donc le nb de decalage de un que
-			 * cree les sol de meme pour les temps mort .La iem note commence
-			 * normalement au caractere en position i*6 (le nb de caractere que
-			 * prene les autre note) + 1 pour avoir son premier charactere
-			 */
-			if(s.substring(premier,premier+1)=="sol"){
-				si[i] = s.substring(premier,deuxiem+1);
-				nbdesol++;
+		int case_du_tableau = 0; 
+		for(int i=0;i<s.length();i++){
+			if(s.charAt(i)==':'){
+				if(s.charAt(i-1)=='-')
+					si[case_du_tableau]=s.substring(i-1, i+2);
+				else if(s.charAt(i-2)=='l')
+					si[case_du_tableau]=s.substring(i-4, i+2);
+				else
+					si[case_du_tableau]=s.substring(i-3, i+2);
+				case_du_tableau++;
 			}
-			else if(s.charAt(premier)=='-'){
-				si[i] = s.substring(premier,deuxiem-1);
-				nbtmpmort++;
-			}
-			else
-				si[i] = s.substring(premier,deuxiem);
 		}
 	}
 
@@ -106,22 +88,22 @@ public class Partatab {
 
 	// va chercher les valeur dans le tableau
 	public static int petitenote(String s, int[][] tab) {
-		String note = s.substring(0, 1);
-		if (note == "so")
-			return tab[SOL][note.charAt(4)];
-		else if (note == "si")
-			return tab[SI][note.charAt(3)];
-		else if (note == "fa")
-			return tab[FA][note.charAt(3)];
-		else if (note == "do")
-			return tab[DO][note.charAt(3)];
-		else if (note == "re")
-			return tab[RE][note.charAt(3)];
-		else if (note == "mi")
-			return tab[MI][note.charAt(3)];
-		else if (note == "-=")
-			return -1;
+		String note = s.substring(0, 2);
+		if (note.equals("so"))
+			return tab[s.charAt(3) - 49][SOL];
+		else if (note.equals("si"))
+			return tab[s.charAt(2) - 49][SI];
+		else if (note.equals("fa"))
+			return tab[s.charAt(2) - 49][FA];
+		else if (note.equals("do"))
+			return tab[s.charAt(2) - 49][DO];
+		else if (note.equals("re"))
+			return tab[s.charAt(2) - 49][RE];
+		else if (note.equals("mi"))
+			return tab[s.charAt(2) - 49][MI];
+		else if (note.equals("la"))
+			return tab[s.charAt(2) - 49][LA];
 		else
-			return tab[LA][note.charAt(3)];
+			return -1;
 	}
 }
