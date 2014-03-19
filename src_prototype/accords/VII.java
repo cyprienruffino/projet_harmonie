@@ -4,8 +4,8 @@ import main.Accord;
 
 public class VII extends Accord {
 
-	public VII(int s, int a, int b, int t, int d) {
-		super(s, a, b, t, d);
+	public VII(int s, int a, int t, int b, int d) {
+		super(s, a, t, b, d);
 		// TODO Auto-generated constructor stub
 	}
 	public VII clone(){

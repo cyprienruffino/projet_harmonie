@@ -2,12 +2,13 @@ package main;
 
 import java.io.*;
 import java.util.ArrayList;
+
 import accords.*;
 
 public class Main {
 	public static void main(String[] args) { // Main de test temporaire
-		Regle.generateCombinaison(new I(22,-1,-1,-1,-1));
-		
+		ArrayList<Accord> poss2=Regle.generateCombinaison(new I(22,2,4,0,4));
+		System.out.print(poss2.size());
 		/*try {
 			int[][] partition = Partatab.readChant(new File(
 					"./data/AuClairDeLaLune.chant"));

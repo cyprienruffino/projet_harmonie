@@ -46,4 +46,18 @@ public class RegleTest {
 		
 	}
 
+	@Test
+	public void testRegle3(){
+		Assert.assertTrue(Regle.regle3(new I(2,2,4,0,4)));
+	}
+	
+	@Test
+	public void testRegle2(){
+		Assert.assertTrue(Regle.regle2(new I(23,16,4,0,4)));
+	}
+	
+	@Test
+	public void testRegle1(){
+		Assert.assertTrue(Regle.regle3(new I(2,2,4,0,4)));
+	}
 }

@@ -59,7 +59,7 @@ public abstract class Accord implements Iterable<Accord>, Cloneable{
 	public void setDuree(int duree) {
 		this.duree = duree;
 	}
-	public Accord(int s, int a, int b, int t, int d){
+	public Accord(int s, int a, int t, int b, int d){
 		soprano=s;
 		alto=a;
 		tenor=t;

@@ -10,7 +10,9 @@ public class Regle {
 
 	public static boolean noteCorrect(Accord ac) {// renvoi true si la note est
 		// correcte
-		if (regle1(ac) && regle2(ac) && regle3(ac)) {
+		if (regle1(ac)) {
+			if(regle2(ac))
+				if(regle3(ac))
 			return true;
 		}
 		return false;
@@ -88,54 +90,78 @@ public class Regle {
 		int a = ac.getAlto() % 7;
 		int t = ac.getTenor() % 7;
 		int b = ac.getBasse() % 7;
-		if (ac.getClass().equals(I.class)) {
-			if (b == 0) {
-				if ((s == 2 || s == 4) && (a == 2 || a == 4)
-						&& (t == 2 || t == 4)) {
-					return true;
+		int nac = nomAccord(ac) - 1;
+		if (nac == b) {
+			if (s == b) {
+				if (a == (nac + 2) % 7) {
+					if (t == (nac + 4) % 7) {
+						return true;
+					}
+				} else if (a == (nac + 4) % 7) {
+					if (t == (nac + 2) % 7) {
+						return true;
+					}
 				}
-			}
-		} else if (ac.getClass().equals(II.class)) {
-			if (b == 1) {
-				if ((s == 3 || s == 5) && (a == 3 || a == 5)
-						&& (t == 3 || t == 5)) {
-					return true;
+
+			} else if (a == b) {
+				if (s == (nac + 2) % 7) {
+					if (t == (nac + 4) % 7) {
+						return true;
+					}
+				} else if (s == (nac + 4) % 7) {
+					if (t == (nac + 2) % 7) {
+						return true;
+					}
 				}
-			}
-		} else if (ac.getClass().equals(III.class)) {
-			if (b == 2) {
-				if ((s == 4 || s == 6) && (a == 4 || a == 6)
-						&& (t == 4 || t == 6)) {
-					return true;
+			} else if (t == b) {
+				if (s == (nac + 2) % 7) {
+					if (a == (nac + 4) % 7) {
+						return true;
+					}
+				} else if (s == (nac + 4) % 7) {
+					if (a == (nac + 2) % 7) {
+						return true;
+					}
 				}
-			}
-		} else if (ac.getClass().equals(IV.class)
-				|| ac.getClass().equals(IVb.class)) {
-			if (b == 3) {
-				if ((s == 5 || s == 0) && (a == 5 || a == 0)
-						&& (t == 5 || t == 0)) {
-					return true;
-				}
-			}
-		} else if (ac.getClass().equals(V.class)) {
-			if (b == 4) {
-				if ((s == 6 || s == 1) && (a == 6 || a == 1)
-						&& (t == 6 || t == 1)) {
-					return true;
-				}
-			}
-		} else if (ac.getClass().equals(VI.class)) {
-			if (b == 5) {
-				if ((s == 0 || s == 2) && (a == 0 || a == 2)
-						&& (t == 0 || t == 2)) {
-					return true;
-				}
-			}
-		} else if (ac.getClass().equals(VII.class)) {
-			if (b == 7) {
-				if ((s == 1 || s == 3) && (a == 1 || a == 3)
-						&& (t == 1 || t == 3)) {
-					return true;
+			} else if (s == a) {
+				if (s == (nac + 2) % 7) {
+					if (t == (nac + 4) % 7) {
+						return true;
+					}
+				} else if (s == (nac + 4) % 7) {
+					if (t == (nac + 2) % 7) {
+						return true;
+					}
+				} else if (s == t) {
+					if (s == (nac + 2) % 7) {
+						if (a == (nac + 4) % 7) {
+							return true;
+						}
+					} else if (s == (nac + 4) % 7) {
+						if (a == (nac + 2) % 7) {
+							return true;
+						}
+					}
+				} else if (s == a) {
+					if (s == (nac + 2) % 7) {
+						if (t == (nac + 4) % 7) {
+							return true;
+						}
+					} else if (s == (nac + 4) % 7) {
+						if (t == (nac + 2) % 7) {
+							return true;
+						}
+					}
+				} else if (a == t) {
+					if (a == (nac + 2) % 7) {
+						if (t == (nac + 4) % 7) {
+							return true;
+						}
+					} else if (a == (nac + 4) % 7) {
+						if (t == (nac + 2) % 7) {
+							return true;
+						}
+					}
 				}
 			}
 		}
@@ -352,85 +378,72 @@ public class Regle {
 		}
 	}
 
-	public static int GenBasse(ArrayList<Accord> poss, int h) {
-		int j = 0;
+	public static void GenBasse(ArrayList<Accord> poss, int h) {
 		for (int k = 0; k < h; k++) {
 			for (int i = 3; i < 16; i++) {
 				Accord ac = poss.get(k).clone();
-				int a = nomAccord(ac) - 1;
+				int a = nomAccord(ac)-1;
 				if (i % 7 == a) {
 					ac.setBasse(i);
 					poss.add(ac);
-					j++;
 				}
 			}
 		}
-		return j;
 	}
 
-	public static int GenAlto(ArrayList<Accord> poss, int h) {
-		int j = 0;
+	public static void GenAlto(ArrayList<Accord> poss, int h) {
 		for (int k = 0; k < h; k++) {
-			for (int i = 11; i < Math.max(22, poss.get(0).getSoprano()); i++) {
+			for (int i = 11; i < Math.min(22, poss.get(k).getSoprano()); i++) {
 				Accord ac = poss.get(k).clone();
-				int a = nomAccord(ac);
+				int a = nomAccord(ac)-1;
 				if (i > ac.getBasse()) {
 					if (ac.getBasse() % 7 == ac.getSoprano() % 7) {
 						if (i % 7 == (a + 2) % 7 || i % 7 == (a + 4) % 7) {
 							ac.setAlto(i);
 							poss.add(ac);
-							j++;
 						}
 					} else if (i % 7 == a || i % 7 == (a + 2) % 7
 							|| i % 7 == (a + 4) % 7) {
 						ac.setAlto(i);
 						poss.add(ac);
-						j++;
 					}
 				}
 			}
 		}
-		return j;
 	}
 
-	public static int GenTenor(ArrayList<Accord> poss, int h) {
-		int j = 0;
+	public static void GenTenor(ArrayList<Accord> poss, int h) {
 		for (int k = 0; k < h; k++) {
-			for (int i = 7; i < Math.max(22, poss.get(0).getAlto()); i++) {
+			for (int i = 7; i < Math.min(19, poss.get(k).getAlto()); i++) {
 				Accord ac = poss.get(k).clone();
-				int a = nomAccord(ac);
+				int a = nomAccord(ac)-1;
 				if (i > ac.getBasse()) {
 					if (ac.getSoprano() % 7 == ac.getAlto() % 7) {
 						if (ac.getSoprano() % 7 == (a + 2) % 7) {
 							if (i % 7 == a || i % 7 == (a + 4) % 7) {
-								ac.setAlto(i);
+								ac.setTenor(i);
 								poss.add(ac);
-								j++;
 							}
 						} else if (ac.getSoprano() % 7 == (a + 4) % 7) {
 							if (i % 7 == a || i % 7 == (a + 2) % 7) {
-								ac.setAlto(i);
+								ac.setTenor(i);
 								poss.add(ac);
-								j++;
 							}
 						}
 					} else if (ac.getSoprano() % 7 == ac.getBasse() % 7
 							|| ac.getAlto() % 7 == ac.getBasse() % 7) {
 						if (i % 7 == (a + 2) % 7 || i % 7 == (a + 4) % 7) {
-							ac.setAlto(i);
+							ac.setTenor(i);
 							poss.add(ac);
-							j++;
 						}
 					} else if (i % 7 == a || i % 7 == (a + 2) % 7
 							|| i % 7 == (a + 4) % 7) {
-						ac.setAlto(i);
+						ac.setTenor(i);
 						poss.add(ac);
-						j++;
 					}
 				}
 			}
 		}
-		return j;
 	}
 
 	public static ArrayList<Accord> generateCombinaison(Accord accord) {
@@ -438,11 +451,13 @@ public class Regle {
 		ArrayList<Accord> poss = new ArrayList<Accord>();
 		poss = initAccordPossible(s);
 		int i = poss.size();
-		int j = GenBasse(poss, i);
+		GenBasse(poss, i);
 		cleanGen(poss, i);
-		i = GenAlto(poss, j);
-		cleanGen(poss, j);
-		j = GenTenor(poss, i);
+		i=poss.size();
+		GenAlto(poss, i);
+		cleanGen(poss, i);
+		i=poss.size();
+		GenTenor(poss, i);
 		cleanGen(poss, i);
 		Iterator<Accord> it = poss.iterator();
 		Accord ac;
