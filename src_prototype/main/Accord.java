@@ -75,6 +75,16 @@ public abstract class Accord implements Iterable<Accord>, Cloneable{
 		return new AccordIterator(this);
 	}
 	
+	public boolean equals(Accord ac){
+		if(this.soprano==ac.soprano)
+			if(this.alto==ac.alto)
+				if(this.tenor==ac.tenor)
+					if(this.basse==ac.basse)
+						if(this.duree==ac.duree)
+							return true;
+	return false;
+	}
+	
 	public abstract Accord clone();
 	
 	/*public boolean verifAccord(Accord a){
