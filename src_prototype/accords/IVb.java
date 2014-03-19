@@ -8,8 +8,14 @@ public class IVb extends Accord {
 		super(s, a, t, b, d);
 		// TODO Auto-generated constructor stub
 	}
+	public IVb() {
+		super();
+	}
 	public IVb clone(){
 		IVb ac=new IVb (this.getSoprano(),this.getAlto(),this.getTenor(),this.getBasse(),this.getDuree());
 		return ac;
+	}
+	public int getAccord(){
+		return 4;
 	}
 }

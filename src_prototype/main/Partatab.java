@@ -1,6 +1,7 @@
 package main;
 
 import java.io.*;
+import java.util.ArrayList;
 
 import accords.*;
 
@@ -14,7 +15,7 @@ public class Partatab {
 	static final int LA = 5;
 	static final int SI = 6;
 
-	public static Accord[] readChant(File f) throws IOException {
+	public static ArrayList<Accord>[] readChant(File f) throws IOException {
 		// lecture fichier
 		BufferedReader entre = new BufferedReader(new FileReader(f));
 		// je ne sais pas aller direrctement a la deuxieme ligne ((((((^_^;)
@@ -25,7 +26,7 @@ public class Partatab {
 		// le tableau d'accords que je vai renvoié
 		// si vous avez un nom de tableau plus cool il peut etre changer j'ai
 		// juste mi se a quoi je pancer
-		Accord[] skunk = new Accord[n];
+		ArrayList<Accord>[] skunk = new ArrayList[n];
 
 		/*
 		 * comme il y avait un pb avec l'ancien version je recre le tableau qu
@@ -44,7 +45,8 @@ public class Partatab {
 		isolement(patt, isol);
 		// le plus lourd et enfin passer
 		for (int i = 0; i < n; i++) {
-			skunk[i]= new VI(petitenote(isol[i], liste), 0, 0, 0, 0);
+			skunk[i]= new ArrayList<Accord>();
+			skunk[i].add(new VI(petitenote(isol[i], liste), 0, 0, 0, 0));
 		}
 		return skunk;
 	}

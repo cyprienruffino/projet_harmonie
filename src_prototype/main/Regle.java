@@ -44,7 +44,9 @@ public class Regle {
 		return false;
 	}
 
-	public static boolean regle6(int[] noteC, int[] noteP) {
+	public static boolean regle6(Accord C, Accord P) {
+		int []noteP={P.getSoprano(),P.getDuree(),P.getAlto(),P.getDuree(),P.getTenor(),P.getDuree(),P.getBasse(),P.getDuree(),P.getAccord()};
+		int []noteC={C.getSoprano(),C.getDuree(),C.getAlto(),C.getDuree(),C.getTenor(),C.getDuree(),C.getBasse(),C.getDuree(),C.getAccord()};
 		for (int i = 0; i < 7; i++) {
 			if (i % 2 == 0) {
 				if ((noteP[i] - noteC[i]) < 7 && (noteC[i] - noteP[i]) < 7) {// interval

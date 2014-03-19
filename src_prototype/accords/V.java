@@ -8,8 +8,14 @@ public class V extends Accord {
 		super(s, a, t, b, d);
 		// TODO Auto-generated constructor stub
 	}
+	public V() {
+		super();
+	}
 	public V clone(){
 		V ac=new V (this.getSoprano(),this.getAlto(),this.getTenor(),this.getBasse(),this.getDuree());
 		return ac;
+	}
+	public int getAccord(){
+		return 5;
 	}
 }
