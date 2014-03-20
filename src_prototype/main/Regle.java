@@ -421,7 +421,7 @@ public class Regle {
 				int a = nomAccord(ac)-1;
 				if (i > ac.getBasse()) {
 					if (ac.getSoprano() % 7 == ac.getAlto() % 7) {
-						if (ac.getSoprano() % 7 == (a + 2) % 7) {
+						if (ac.getSoprano() % 7 == (a + 2) % 7){
 							if (i % 7 == a || i % 7 == (a + 4) % 7) {
 								ac.setTenor(i);
 								poss.add(ac);

@@ -6,14 +6,19 @@ import accords.*;
 public class Partition {
 
 	private ArrayList<Accord> [] jeu;
-
-	public void generate(ArrayList<Accord>[] s) {
-		// Génère tous les cas possibles de partitions suivant le schéma du
-		jeu = new ArrayList[s.length];
-		generateJeu(s);
+	private ArrayList<Accord> [] soprano;
+	
+	public Partition(ArrayList<Accord> [] soprano) {
+		this.soprano=soprano;
 	}
-	public int nombre(ArrayList<Accord>[] s){
-		generate(s);
+
+	public void generate() {
+		// Génère tous les cas possibles de partitions suivant le schéma du
+		jeu = new ArrayList[soprano.length];
+		generateJeu();
+	}
+	public int nombre(){
+		generate();
 		Accord pere=new I();
 		//On crée un sommet virtuel qui a comme fils tous les accords du premier temps
 		//Et on lance un parcours dessus
@@ -22,29 +27,36 @@ public class Partition {
 		return parcoursProfondeurComptage(pere)+1;
 	}
 		
-	private void generateJeu(ArrayList<Accord>[] partition) {
+	public ArrayList<Accord>[] getJeu() {
+		return jeu;
+	}
+
+	private void generateJeu() {
 		//Création de la matrice des possibilités
-		for(int i=0;i<partition.length;i++)
-			partition[i]=Regle.generateCombinaison(partition[i].get(0));
+		for(int i=0;i<soprano.length;i++)
+			jeu[i]=Regle.generateCombinaison(soprano[i].get(0));
 		
 		//Création récurrente des liens père-fils
-		for (int i = partition.length-1; i >= 0; i--){
-			for(Accord accordFils : partition[i]){
-				for(Accord accordPere : partition[i-1]){
-					if(Regle.enchainementCorrect(accordPere, accordFils)){
+		for (int i = jeu.length-1; i > 0; i--){
+			for(Accord accordFils : jeu[i]){
+				for(Accord accordPere : jeu[i-1]){
+					//if(Regle.enchainementCorrect(accordPere, accordFils)){
 						accordPere.addSuivant(accordFils);
-					}
-				}
-				//Purge dynamique des accords inutiles
-				if((i<partition.length-1)&&(accordFils.getJeuxSuivants().size()==0)){
-					partition[i].remove(accordFils);
+					//}
 				}
 			}
 		}
-		//Nettoyage du premier temps
-		for(Accord accord : partition[0])
-			if(accord.getJeuxSuivants().size()==0)
-				partition[0].remove(accord);
+		//Nettoyage de la partition
+		Accord temp;
+		Iterator it;
+		for(ArrayList<Accord>liste:jeu){
+			it=liste.iterator();
+				while(it.hasNext()){
+					temp=(Accord) it.next();
+					if(it.hasNext()&&temp.getJeuxSuivants().size()==0)
+						it.remove();
+				}
+		}
 	}
 	
 	private int parcoursProfondeurComptage(Accord s){
@@ -57,4 +69,5 @@ public class Partition {
 		}
 		return compteur;
 	}
+
 }

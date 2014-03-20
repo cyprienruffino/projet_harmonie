@@ -2,8 +2,6 @@ package main;
 
 import java.util.ArrayList;
 
-import accords.AccordIterator;
-
 public abstract class Accord implements Cloneable{
 	
 	private int soprano;
