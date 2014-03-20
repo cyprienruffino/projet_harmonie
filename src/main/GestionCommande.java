@@ -1,5 +1,6 @@
 package main;
 
+
 import java.io.File;
 import java.io.IOException;
 
@@ -40,7 +41,7 @@ public class GestionCommande {
 	private static void nombreHarmonisation(File fichier) throws IOException{
 		Partition partition = new Partition(Partatab.readChant(fichier));
 		partition.generate();
-		partition.nombre();
+		System.out.println("Nombre d'harmonisations possibles : "+partition.nombre());
 	}
 	
 	/**

@@ -1,11 +1,13 @@
 package writer;
 
 
+
 import java.io.*;
 
 import javax.sound.midi.*;
 
 import main.Accord;
+
 
 public class MidiWriter implements Writer {
 	

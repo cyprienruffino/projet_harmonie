@@ -1,9 +1,11 @@
 package writer;
 
 
+
 import java.io.*;
 
 import main.Accord;
+
 
 public class LilypondWriter implements Writer{
 	private String fichier;
@@ -138,8 +140,5 @@ private static void enTeteChantWriter(FileWriter fw,int i) throws IOException{
 		fw.write("\\relative c {\n");
 		break;
 	}
-}
-public static void main(String[] args) {
-					accord=accord.getJeuxSuivants().get(0);
-}
+	}
 }

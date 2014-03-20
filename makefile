@@ -1,15 +1,11 @@
-all: projet_s3_ruffino_ben-salem_herve.jar
+all: Harmonie.jar
 
-Harmonie.jar: `ls *.class` ./MANIFEST.MF
-	jar cvmf ./MANIFEST.MF projet_s3_ruffino-bensalem_herve.jar *.class
-$(list).class:
-	javac ./src/*.java
-	mv ./src/*.class ./
-MANIFEST.MF:
-	echo "Main-Class: Main\n">MANIFEST.MF
+Harmonie.jar: class
+	jar cvfe Harmonie.jar main.Main */*.class
+class: 
+	javac -d . src/accords/*.java src/main/*.java src/writer/*.java
 clean:
-	-rm *.class
-	-rm MANIFEST.MF
+	-rm -rf accords main writer
 
 distclean: clean
-	-rm projet_s3_ruffino-bensalem_herve.jar
+	-rm Harmonie.jar
