@@ -215,9 +215,11 @@ public class GestionCommande {
 			File f=new File(nomFichierUn);
 			try {
 				harmonieAvecBeaute(f,new MidiWriter(nomFichierDeux, nomFichierDeux.substring(0,nomFichierDeux.length()-4)), d);
-			} catch (IOException | InvalidMidiDataException e) {
+			} catch (IOException e){
 				System.out.println("Fichier invalide");
-			}//A completer-----------Penser a ajouter a nomfichierdeux un _BEAUTY
+			}catch(InvalidMidiDataException e) {
+				System.out.println("Fichier invalide");
+			}
 		}else{
 			System.out.println("Extension Invalide");
 		}
