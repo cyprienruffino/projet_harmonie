@@ -6,6 +6,5 @@ class:
 	javac -d . src/accords/*.java src/main/*.java src/writer/*.java
 clean:
 	-rm -rf accords main writer
-
 distclean: clean
 	-rm Harmonie.jar
