@@ -179,17 +179,17 @@ public class Regle {
 	}
 
 	public static boolean regle5(Accord AcC, Accord AcS) {
-		if (AcC.getClass().equals(I.class)) {
+		if (AcC.getAccord()==1) {
 			if (!(AcS.getClass().equals(IVb.class))) {
 				return true;
 			}
-		} else if (AcC.getClass().equals(II.class)) {
-			if (AcS.getClass().equals(V.class)
-					|| AcS.getClass().equals(VII.class)) {
+		} else if (AcC.getAccord()==2) {
+			if (AcS.getAccord()==5
+					|| AcS.getAccord()==7) {
 				return true;
 			}
-		} else if (AcC.getClass().equals(III.class)) {
-			if (!(AcS.getClass().equals(I.class))
+		} else if (AcC.getAccord()==3) {
+			if (!(AcS.getAccord()==1)
 					&& !(AcS.getClass().equals(IVb.class))) {
 				return true;
 			}
@@ -198,26 +198,25 @@ public class Regle {
 				return true;
 			}
 		} else if (AcC.getClass().equals(IVb.class)) {
-			if (AcS.getClass().equals(I.class)) {
+			if (AcS.getAccord()==1) {
 				return true;
 			}
-		} else if (AcC.getClass().equals(V.class)) {
-			if (AcS.getClass().equals(I.class)
-					|| AcS.getClass().equals(III.class)
+		} else if (AcC.getAccord()==5) {
+			if (AcS.getAccord()==1
+					|| AcS.getAccord()==3
 					|| AcS.getClass().equals(IVb.class)
 					|| AcS.getClass().equals(VI.class)) {
 				return true;
 			}
 		} else if (AcC.getClass().equals(VI.class)) {
-			if (AcS.getClass().equals(I.class)
-					|| AcS.getClass().equals(I.class)
+			if (AcS.getAccord()==1
 					|| AcS.getClass().equals(IV.class)
-					|| AcS.getClass().equals(V.class)) {
+					|| AcS.getAccord()==5) {
 				return true;
 			}
-		} else if (AcC.getClass().equals(VII.class)) {
-			if (AcS.getClass().equals(I.class)
-					|| AcS.getClass().equals(III.class)) {
+		} else if (AcC.getAccord()==7) {
+			if (AcS.getAccord()==1
+					|| AcS.getAccord()==3) {
 				return true;
 			}
 		}
