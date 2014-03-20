@@ -2,6 +2,10 @@ package main;
 
 import java.io.File;
 import java.io.IOException;
+
+import javax.sound.midi.InvalidMidiDataException;
+
+import writer.*;
 /*
  * - 1 methode from .chant to .mid beaute random
  * - 1 methode from .chant to .ly beaute random
@@ -20,13 +24,32 @@ import java.io.IOException;
  *
  */
 public class GestionCommande {
+	//J'ajoute ici les méthodes demandées
+
+	private static void harmonieSansBeaute(File fichier, Writer writer) throws IOException, InvalidMidiDataException{
+		Partition partition = new Partition(Partatab.readChant(fichier));
+		partition.generate();
+		writer.addPartition(partition.choixHarmonie(1));
+		writer.ecrirePartition();
+	}
+	private static void harmonieAvecBeaute(File fichier, Writer writer, int beaute) throws IOException, InvalidMidiDataException{
+		Partition partition = new Partition(Partatab.readChant(fichier));
+		partition.generate();
+		writer.addPartition(partition.choixHarmonie(beaute));
+		writer.ecrirePartition();
+	}
+	private static void nombreHarmonisation(File fichier) throws IOException{
+		Partition partition = new Partition(Partatab.readChant(fichier));
+		partition.generate();
+		partition.nombre();
+	}
 	
 	/**
 	 * Parcours le tableau d'argument et redirige vers l'execution adequate du programme. 
 	 * @param String [] args
 	 * @throws IOException
 	 */
-	public static void redirection (String [] args) throws IOException{ //faire boolean pour chaque commande --> non prise en compte de l'ordre.
+	public static void readCommand (String [] args){ //faire boolean pour chaque commande --> non prise en compte de l'ordre.
 		boolean name=false,help=false,midi=false,lilypond=false,nombre=false,beaute=false,w=false;
 		int a=0,b=0,c=0,d=0,e=0;
 		
@@ -121,9 +144,10 @@ public class GestionCommande {
 		if (nomFichierUn.endsWith(".chant") && nomFichierDeux.endsWith(".mid")){
 			try {
 				File f=new File(nomFichierUn);
-				harmonisationMidi(f,nomFichierDeux,nomFichierDeux.substring(0,nomFichierDeux.length()-4));
+				harmonieSansBeaute(f,new MidiWriter(nomFichierDeux,nomFichierDeux.substring(0,nomFichierDeux.length()-4)));
 			} catch (IOException e) {
-				e.printStackTrace();
+				System.out.println("Fichier invalide");
+			} catch (InvalidMidiDataException e) {
 				System.out.println("Fichier invalide");
 			}
 		}else{
@@ -135,6 +159,7 @@ public class GestionCommande {
 	 * Extrait les parametres des options du tableau d'arguments et appel la methode HarmonisationLilyPond avec les parametres adequates.
 	 * @param String[]args
 	 * @param int b
+	 * @throws InvalidMidiDataException 
 	 */
 	public static void launchHarmonisationLilyPond(String []args,int b){
 		String nomFichierUn=args[b+1];
@@ -142,9 +167,10 @@ public class GestionCommande {
 		if (nomFichierUn.endsWith(".chant") && nomFichierDeux.endsWith(".ly")){
 			try {
 				File f=new File(nomFichierUn);
-				harmonisationLilyPond(f,nomFichierDeux,nomFichierDeux.substring(0,nomFichierDeux.length()-3));
+				harmonieSansBeaute(f,new LilypondWriter(nomFichierDeux,nomFichierDeux.substring(0,nomFichierDeux.length()-3)));
 			} catch (IOException e) {
-				e.printStackTrace();
+				System.out.println("Fichier invalide");
+			} catch (InvalidMidiDataException e) {
 				System.out.println("Fichier invalide");
 			}
 		}else{
@@ -162,7 +188,7 @@ public class GestionCommande {
 		if (nomFichier.endsWith(".chant")){
 			try {
 				File f=new File(nomFichier);
-				nombreHarmonisation(f,nomFichier);
+				nombreHarmonisation(f);
 			} catch (IOException e) {
 				e.printStackTrace();
 				System.out.println("Fichier invalide");
@@ -188,7 +214,11 @@ public class GestionCommande {
 		}
 		if (nomFichierUn.endsWith(".chant")){
 			File f=new File(nomFichierUn);
-			MidiBeauty();//A completer-----------Penser a ajouter a nomfichierdeux un _BEAUTY
+			try {
+				harmonieAvecBeaute(f,new MidiWriter(nomFichierDeux, nomFichierDeux.substring(0,nomFichierDeux.length()-4)), d);
+			} catch (IOException | InvalidMidiDataException e) {
+				System.out.println("Fichier invalide");
+			}//A completer-----------Penser a ajouter a nomfichierdeux un _BEAUTY
 		}else{
 			System.out.println("Extension Invalide");
 		}
@@ -210,7 +240,11 @@ public class GestionCommande {
 		}
 		if (nomFichierUn.endsWith(".ly")){
 			File f=new File(nomFichierUn);
-			LilyBeauty();//A Completer---------Penser a ajouter a nomFichierDeux un _BEAUTY
+			try {
+				harmonieAvecBeaute(f,new LilypondWriter(nomFichierDeux, nomFichierDeux.substring(0,nomFichierDeux.length()-4)), d);
+			} catch (IOException | InvalidMidiDataException e) {
+				System.out.println("Fichier invalide");
+			}
 		}else{
 			System.out.println("Extension Invalide");
 		}

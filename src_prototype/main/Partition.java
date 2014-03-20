@@ -18,7 +18,7 @@ public class Partition {
 		generateJeu();
 	}
 	public int nombre(){
-		generate();
+		//Attention, il faut avoir généré la partition!
 		Accord pere=new I();
 		//On crée un sommet virtuel qui a comme fils tous les accords du premier temps
 		//Et on lance un parcours dessus
@@ -26,7 +26,17 @@ public class Partition {
 			pere.addSuivant(temp);
 		return parcoursProfondeurComptage(pere)+1;
 	}
-		
+	
+	public Accord[] choixHarmonie(int beaute){
+		//TODO Méthode inopérante
+		Accord[]retour=new Accord[jeu.length];
+		retour[0]=jeu[0].get(0);
+		for(int i=0;i<retour.length-1;i++){
+			retour[i+1]=retour[i].getJeuxSuivants().get(0);
+		}
+		return retour;
+	}
+	
 	public ArrayList<Accord>[] getJeu() {
 		return jeu;
 	}
@@ -37,8 +47,17 @@ public class Partition {
 			jeu[i]=Regle.generateCombinaison(soprano[i].get(0));
 		
 		//Création récurrente des liens père-fils
+		Accord temp;
+		Accord accordFils;
+		Iterator it;
+		
 		for (int i = jeu.length-1; i > 0; i--){
-			for(Accord accordFils : jeu[i]){
+			it=jeu[i].iterator();
+			while(it.hasNext()){
+				accordFils=(Accord) it.next();
+				if((i!=jeu.length-1)&&(accordFils.getJeuxSuivants().size()==0)){
+					it.remove();
+				}
 				for(Accord accordPere : jeu[i-1]){
 					//if(Regle.enchainementCorrect(accordPere, accordFils)){
 						accordPere.addSuivant(accordFils);
@@ -47,16 +66,6 @@ public class Partition {
 			}
 		}
 		//Nettoyage de la partition
-		Accord temp;
-		Iterator it;
-		for(ArrayList<Accord>liste:jeu){
-			it=liste.iterator();
-				while(it.hasNext()){
-					temp=(Accord) it.next();
-					if(it.hasNext()&&temp.getJeuxSuivants().size()==0)
-						it.remove();
-				}
-		}
 	}
 	
 	private int parcoursProfondeurComptage(Accord s){

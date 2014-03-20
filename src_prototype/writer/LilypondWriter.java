@@ -5,19 +5,27 @@ import java.io.*;
 
 import main.Accord;
 
-public class LilypondWriter {
-	private String nomDuFichier;
+public class LilypondWriter implements Writer{
+	private String fichier;
 	private Accord part[];
 	private String titre;
 	
 	public LilypondWriter(String fichier, Accord[] partition, String titre){
-		nomDuFichier=fichier;
+		fichier=fichier;
 		part=partition;
 		this.titre=titre;
 	}
+	public LilypondWriter(String fichier, String titre){
+		this.fichier=fichier;
+		this.titre=titre;
+	}
+	
+	public void addPartition(Accord[] partition){
+		this.part=partition;
+	}
 	
 	public void ecrirePartition() throws IOException {
-		File file = new File(nomDuFichier);
+		File file = new File(fichier);
 		FileWriter fw = new FileWriter(file);
 		fw.write("\\header{\n title = \"" + titre
 				+ "\"\n}\n\\new ChoirStaff\n<<");

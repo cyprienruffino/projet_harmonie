@@ -19,6 +19,14 @@ public class MidiWriter implements Writer {
 		this.partition=partition;
 		this.titre=titre;
 	}
+	public MidiWriter(String fichier, String titre){
+		this.fichier=fichier;
+		this.titre=titre;
+	}
+	
+	public void addPartition(Accord[] partition){
+		this.partition=partition;
+	}
 	
 /**
  * crée un fichier midi a partir d'une partition sous la forme d'un tableau a une dimension d'accord encodé
