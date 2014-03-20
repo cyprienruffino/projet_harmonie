@@ -18,4 +18,7 @@ public class IVb extends Accord {
 	public int getAccord(){
 		return 4;
 	}
+	public boolean isB(){
+		return true;
+	}
 }

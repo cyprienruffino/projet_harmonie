@@ -16,6 +16,6 @@ public class III extends Accord {
 		return ac;
 	}
 	public int getAccord(){
-		return 2;
+		return 3;
 	}
 }

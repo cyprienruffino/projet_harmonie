@@ -16,7 +16,7 @@ public class I extends Accord {
 	}
 	
 	public int getAccord(){
-		return 0;
+		return 1;
 	}
 	
 }
