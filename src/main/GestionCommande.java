@@ -243,8 +243,10 @@ public class GestionCommande {
 			File f=new File(nomFichierUn);
 			try {
 				harmonieAvecBeaute(f,new LilypondWriter(nomFichierDeux, nomFichierDeux.substring(0,nomFichierDeux.length()-4)), d);
-			} catch (IOException | InvalidMidiDataException e) {
-				System.out.println("Fichier invalide");
+			} catch (IOException  e) {
+				System.out.println("Fichier lilypond invalide");
+			} catch(InvalidMidiDataException e){
+				System.out.println("Fichier midi invalide");
 			}
 		}else{
 			System.out.println("Extension Invalide");
