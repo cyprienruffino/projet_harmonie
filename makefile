@@ -7,5 +7,6 @@ class:
 clean:
 	-rm -rf accords main writer
 	-rm src/*/*.class
+	-rm Main.class
 distclean: clean
 	-rm Harmonie.jar
