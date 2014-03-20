@@ -25,7 +25,6 @@ import writer.*;
  */
 public class GestionCommande {
 	//J'ajoute ici les méthodes demandées
-
 	private static void harmonieSansBeaute(File fichier, Writer writer) throws IOException, InvalidMidiDataException{
 		Partition partition = new Partition(Partatab.readChant(fichier));
 		partition.generate();

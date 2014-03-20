@@ -24,7 +24,6 @@ public class MidiWriter implements Writer {
 		this.fichier=fichier;
 		this.titre=titre;
 	}
-	
 	public void addPartition(Accord[] partition){
 		this.partition=partition;
 	}

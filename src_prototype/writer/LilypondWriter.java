@@ -19,7 +19,6 @@ public class LilypondWriter implements Writer{
 		this.fichier=fichier;
 		this.titre=titre;
 	}
-	
 	public void addPartition(Accord[] partition){
 		this.part=partition;
 	}
@@ -139,5 +138,8 @@ private static void enTeteChantWriter(FileWriter fw,int i) throws IOException{
 		fw.write("\\relative c {\n");
 		break;
 	}
+}
+public static void main(String[] args) {
+					accord=accord.getJeuxSuivants().get(0);
 }
 }

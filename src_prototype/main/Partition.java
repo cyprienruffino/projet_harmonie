@@ -78,5 +78,4 @@ public class Partition {
 		}
 		return compteur;
 	}
-
 }

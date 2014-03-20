@@ -32,9 +32,9 @@ public class GestionCommandeTest {
 		argsBisBis[3]="-beaute";
 		argsBisBis[4]="5";
 		
-		GestionCommande.redirection(args);
-		GestionCommande.redirection(argsBis);
-		GestionCommande.redirection(argsBisBis);
+		GestionCommande.readCommand(args);
+		GestionCommande.readCommand(argsBis);
+		GestionCommande.readCommand(argsBisBis);
 		
 	}
 }
