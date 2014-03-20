@@ -58,6 +58,9 @@ public abstract class Accord implements Cloneable{
 	public ArrayList<Accord> getJeuxSuivants() {
 		return jeuxSuivants;
 	}
+	public boolean isB(){
+		return false;
+	}
 	
 	public Accord(int s, int a, int t, int b, int d){
 		soprano=s;

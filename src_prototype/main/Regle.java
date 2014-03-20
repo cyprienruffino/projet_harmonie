@@ -92,7 +92,7 @@ public class Regle {
 		int a = ac.getAlto() % 7;
 		int t = ac.getTenor() % 7;
 		int b = ac.getBasse() % 7;
-		int nac = nomAccord(ac) - 1;
+		int nac = ac.getAccord() - 1;
 		if (nac == b) {
 			if (s == b) {
 				if (a == (nac + 2) % 7) {
@@ -171,8 +171,7 @@ public class Regle {
 	}
 
 	public static boolean regle4(Accord[] part) {
-		if (part[0].getClass().equals(IVb.class)
-				|| part[part.length - 1].getClass().equals(IVb.class)) {
+		if (part[0].isB()||part[part.length-1].isB()) {
 			return false;
 		}
 		return true;
@@ -309,25 +308,7 @@ public class Regle {
 		return -1;
 	}
 
-	public static int nomAccord(Accord ac) {
-		if (ac.getClass().equals(I.class)) {
-			return 1;
-		} else if (ac.getClass().equals(II.class)) {
-			return 2;
-		} else if (ac.getClass().equals(III.class)) {
-			return 3;
-		} else if (ac.getClass().equals(IV.class)
-				|| ac.getClass().equals(IVb.class)) {
-			return 4;
-		} else if (ac.getClass().equals(V.class)) {
-			return 5;
-		} else if (ac.getClass().equals(VI.class)) {
-			return 6;
-		} else if (ac.getClass().equals(VII.class)) {
-			return 7;
-		}
-		return -1;
-	}
+
 
 	public static ArrayList<Accord> initAccordPossible(int s) {
 		ArrayList<Accord> poss = new ArrayList<Accord>();
@@ -384,7 +365,7 @@ public class Regle {
 		for (int k = 0; k < h; k++) {
 			for (int i = 3; i < 16; i++) {
 				Accord ac = poss.get(k).clone();
-				int a = nomAccord(ac)-1;
+				int a = ac.getAccord()-1;
 				if (i % 7 == a) {
 					ac.setBasse(i);
 					poss.add(ac);
@@ -397,7 +378,7 @@ public class Regle {
 		for (int k = 0; k < h; k++) {
 			for (int i = 11; i < Math.min(22, poss.get(k).getSoprano()); i++) {
 				Accord ac = poss.get(k).clone();
-				int a = nomAccord(ac)-1;
+				int a = ac.getAccord()-1;
 				if (i > ac.getBasse()) {
 					if (ac.getBasse() % 7 == ac.getSoprano() % 7) {
 						if (i % 7 == (a + 2) % 7 || i % 7 == (a + 4) % 7) {
@@ -418,7 +399,7 @@ public class Regle {
 		for (int k = 0; k < h; k++) {
 			for (int i = 7; i < Math.min(19, poss.get(k).getAlto()); i++) {
 				Accord ac = poss.get(k).clone();
-				int a = nomAccord(ac)-1;
+				int a = ac.getAccord()-1;
 				if (i > ac.getBasse()) {
 					if (ac.getSoprano() % 7 == ac.getAlto() % 7) {
 						if (ac.getSoprano() % 7 == (a + 2) % 7){

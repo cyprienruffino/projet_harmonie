@@ -53,4 +53,15 @@ public class RegleTest {
 	public void testRegle1(){
 		Assert.assertTrue(Regle.regle3(new I(2,2,4,0,4)));
 	}
+	
+	@Test
+	public void testRegle4(){
+		Accord[]part={new IVb(22,10,15,8,4),new I(2,2,4,0,4)};
+		Accord[]part2={new I(22,10,15,8,4),new IVb(2,2,4,0,4)};
+		Accord[]part3={new I(22,10,15,8,4),new I(2,2,4,0,4)};
+		Assert.assertFalse(Regle.regle4(part));
+		Assert.assertFalse(Regle.regle4(part2));
+		Assert.assertTrue(Regle.regle4(part3));
+		
+	}
 }
