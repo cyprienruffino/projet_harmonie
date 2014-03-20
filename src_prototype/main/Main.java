@@ -11,9 +11,9 @@ public class Main {
 			Partition partition = new Partition(Partatab.readChant(new File("./data/AuClairDeLaLune.chant")));
 			partition.generate();
 			for(ArrayList<Accord> liste:partition.getJeu())
-				System.out.println(" "+liste.get(0).getAccord());
+				System.out.println(" "+liste.get(0));
 		} catch (IOException e) {
 			System.out.println("Erreur d'entrée-sortie");
-		}
+		} catch(IndexOutOfBoundsException f){}
 	}
 }
