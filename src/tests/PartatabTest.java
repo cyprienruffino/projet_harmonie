@@ -5,8 +5,10 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import junit.framework.Assert;
+
 import main.Accord;
 import main.Partatab;
 
@@ -46,24 +48,24 @@ public class PartatabTest {
 		Partatab.isolement("do4:1 -:1 sol2:3 re2:1", s);
 		assertArrayEquals(s, si);
 	}
-
-	@Test
+/*
 	public void readchanttest() {
 		File f = new File("data/croaporal.chant");
-		Accord[] s=new Accord[3];
+		ArrayList<Accord>[] s=new ArrayList[3];
 		try {
 			s = Partatab.readChant(f);
 		} catch (IOException e) {
 			System.out.println("bhou");
 		}
-		Accord[] si = new Accord[3];
+		ArrayList<Accord>[] si = new ArrayList[3];
 		for(int i = 0;i<3;i++){
-				si[i]=new VI(21,0,0,0,0);
+				si[i]=new ArrayList();
+				si[i].add(new VI(21,0,0,0,0));
 		}
 		boolean test=true;
 		for(int i=0;i<s.length;i++){
 			test &= s[i]==si[i];
-		}
-				
+		}		
 	}
+	*/
 }
