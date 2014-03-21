@@ -60,7 +60,7 @@ public class Partition {
 					it.remove();
 				}
 				for(Accord accordPere : jeu[i-1]){
-					if(Regle.regle5(accordPere, accordFils)){
+					if(Regle.enchainementCorrect(accordPere, accordFils)){
 						accordPere.addSuivant(accordFils);
 					}
 				}

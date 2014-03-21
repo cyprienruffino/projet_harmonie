@@ -45,48 +45,52 @@ public class Regle {
 		return false;
 	}
 
-	public static boolean regle6(Accord C, Accord P) {
-		int []noteP={P.getSoprano(),P.getDuree(),P.getAlto(),P.getDuree(),P.getTenor(),P.getDuree(),P.getBasse(),P.getDuree(),P.getAccord()};
-		int []noteC={C.getSoprano(),C.getDuree(),C.getAlto(),C.getDuree(),C.getTenor(),C.getDuree(),C.getBasse(),C.getDuree(),C.getAccord()};
-		for (int i = 0; i < 7; i++) {
-			if (i % 2 == 0) {
-				if ((noteP[i] - noteC[i]) < 7 && (noteC[i] - noteP[i]) < 7) {// interval
-																				// de
-																				// 6
-																				// max
-																				// entre
-																				// les
-																				// notes
-					if (apartient(i, noteC, noteP)) {// dans le cas ou la note
-														// est presente dans les
-														// deux accords
-						if (noteC[i] % 7 != noteP[i] % 7) {
-							return false;
-						}
-					}
-					if ((noteP[i] - noteC[i]) < 3 && (noteC[i] - noteP[i]) < 3) {// si
-																					// la
-																					// difference
-																					// est
-																					// >2
-																					// elle
-																					// doivent
-																					// être
-																					// de
-																					// même
-																					// nature
-						if (nature(noteP[i], noteP[8]) != nature(noteC[i],
-								noteC[8])) {
-							return false;
-						}
-					}
-				}
-			} else {
-				return false;
+	public static boolean regle6(Accord acC, Accord acS) {
+		if(regle61(acC,acS)&&regle63(acC,acS))
+			return true;
+		return false;
+	}
+	
+	public static boolean regle61(Accord acC,Accord acS){
+		if(acC.getSoprano()-acS.getSoprano()<7||acS.getSoprano()-acC.getSoprano()<7)
+			if(acC.getAlto()-acS.getAlto()<7||acS.getAlto()-acC.getAlto()<7)
+				if(acC.getTenor()-acS.getTenor()<7||acS.getTenor()-acC.getTenor()<7)
+					if(acC.getBasse()-acS.getBasse()<7||acS.getBasse()-acC.getBasse()<7)
+						return true;
+		return false;
+	}
+	
+	public static boolean regle63(Accord acC,Accord acS){
+		int TacC=acC.getBasse()%7;
+		int TacS=acS.getBasse()%7;
+		int c=-1;
+		int s=-1;
+		for(int i=0;i<3;i++){
+			switch(i){
+			case(0):
+				c=acC.getSoprano();
+				s=acS.getSoprano();
+				break;
+			case(1):
+				c=acC.getAlto();
+				s=acS.getAlto();
+				break;
+			case(2):
+				c=acC.getTenor();
+				s=acS.getTenor();
+				break;
+			}
+			if(c-s>2||s-c>2){
+				if(!(TacC==c%7&&TacS==s%7)&&!((TacC+2)%7==c%7&&(TacS+2)%7==s%7)&&!((TacC+4)%7==c%7&&(TacS+4)%7==s%7))
+					return false;
 			}
 		}
 		return true;
 	}
+	
+	/*public static boolean regle62(Accord acC,Accord acS){
+		
+	}*/
 
 	public static boolean regle3(Accord ac) {
 		int s = ac.getSoprano() % 7;

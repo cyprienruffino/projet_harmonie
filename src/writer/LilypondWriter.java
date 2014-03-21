@@ -13,7 +13,7 @@ public class LilypondWriter implements Writer{
 	private String titre;
 	
 	public LilypondWriter(String fichier, Accord[] partition, String titre){
-		fichier=fichier;
+		this.fichier=fichier;
 		part=partition;
 		this.titre=titre;
 	}
