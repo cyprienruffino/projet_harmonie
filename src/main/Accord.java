@@ -86,6 +86,7 @@ public abstract class Accord implements Cloneable{
 	}
 	
 	public abstract Accord clone();
+	
 	/*public boolean verifAccord(Accord a){
 		return verifAccordLocal() && verifAccordEnchainement(a);
 	}

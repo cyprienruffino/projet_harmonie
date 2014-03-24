@@ -1,10 +1,8 @@
 package tests;
 
-import static org.junit.Assert.*;
+import java.util.*;
 
-import java.util.ArrayList;
-
-import junit.framework.Assert;
+import junit.framework.*;
 
 
 import main.Accord;
@@ -65,4 +63,5 @@ public class RegleTest {
 		Assert.assertTrue(Regle.regle4(part3));
 		
 	}
+	
 }

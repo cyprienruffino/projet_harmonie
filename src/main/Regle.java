@@ -502,12 +502,12 @@ public class Regle {
 				if (i > ac.getBasse()) {
 					if(ac.getAlto()%7==(a+2)%7){
 						if(i==(a+4)%7){
-							ac.setAlto(i);
+							ac.setTenor(i);
 							poss.add(ac);
 						}
 					}else if(ac.getAlto()%7==(a+4)%7){
 						if(i%7==(a+2)%7){
-							ac.setAlto(i);
+							ac.setTenor(i);
 							poss.add(ac);
 						}
 					}
