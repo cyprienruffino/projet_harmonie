@@ -10,13 +10,11 @@ public abstract class Accord implements Cloneable{
 	private int basse;
 	private int tenor;
 	private int duree;
-	boolean marque;
-	
-	public boolean isMarque() {
-		return marque;
-	}
-	public void setMarque(boolean marque) {
-		this.marque = marque;
+	private Accord pere;
+	private int beaute;
+
+	public void setJeuxSuivants(ArrayList<Accord> jeuxSuivants) {
+		this.jeuxSuivants = jeuxSuivants;
 	}
 
 	private ArrayList<Accord> jeuxSuivants;
@@ -86,6 +84,19 @@ public abstract class Accord implements Cloneable{
 	}
 	
 	public abstract Accord clone();
+	
+	public Accord getPere() {
+		return pere;
+	}
+	public void setPere(Accord pere) {
+		this.pere = pere;
+	}
+	public int getBeaute() {
+		return beaute;
+	}
+	public void setBeaute(int beaute) {
+		this.beaute = beaute;
+	}
 	
 	/*public boolean verifAccord(Accord a){
 		return verifAccordLocal() && verifAccordEnchainement(a);

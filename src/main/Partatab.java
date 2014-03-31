@@ -44,7 +44,7 @@ public class Partatab {
 		 */
 		String[] isol = new String[n];
 		isolement(patt, isol);
-		// le plus lourd et enfin passer
+		// le plus lourd est enfin passer
 		for (int i = 0; i < n; i++) {
 			skunk[i]= new ArrayList<Accord>();
 			skunk[i].add(new VI(petitenote(isol[i], liste), 0, 0, 0, 0));
