@@ -275,46 +275,46 @@ public class Regle {
 		return false;
 	}
 
-	public static ArrayList<Accord> initAccordPossible(int s) {
+	public static ArrayList<Accord> initAccordPossible(int s,int dur) {
 		ArrayList<Accord> poss = new ArrayList<Accord>();
 		switch (s % 7) {
 		case (0):
-			poss.add(new I(s, -1, -1, -1, -1));
-			poss.add(new VI(s, -1, -1, -1, -1));
-			poss.add(new IV(s, -1, -1, -1, -1));
-			poss.add(new IVb(s, -1, -1, -1, -1));
+			poss.add(new I(s, -1, -1, -1, dur));
+			poss.add(new VI(s, -1, -1, -1, dur));
+			poss.add(new IV(s, -1, -1, -1, dur));
+			poss.add(new IVb(s, -1, -1, -1, dur));
 			break;
 		case (1):
-			poss.add(new II(s, -1, -1, -1, -1));
-			poss.add(new V(s, -1, -1, -1, -1));
-			poss.add(new VII(s, -1, -1, -1, -1));
+			poss.add(new II(s, -1, -1, -1, dur));
+			poss.add(new V(s, -1, -1, -1, dur));
+			poss.add(new VII(s, -1, -1, -1, dur));
 			break;
 		case (2):
-			poss.add(new III(s, -1, -1, -1, -1));
-			poss.add(new I(s, -1, -1, -1, -1));
-			poss.add(new VI(s, -1, -1, -1, -1));
+			poss.add(new III(s, -1, -1, -1, dur));
+			poss.add(new I(s, -1, -1, -1, dur));
+			poss.add(new VI(s, -1, -1, -1, dur));
 			break;
 		case (3):
-			poss.add(new II(s, -1, -1, -1, -1));
-			poss.add(new IV(s, -1, -1, -1, -1));
-			poss.add(new IVb(s, -1, -1, -1, -1));
-			poss.add(new VII(s, -1, -1, -1, -1));
+			poss.add(new II(s, -1, -1, -1, dur));
+			poss.add(new IV(s, -1, -1, -1, dur));
+			poss.add(new IVb(s, -1, -1, -1, dur));
+			poss.add(new VII(s, -1, -1, -1, dur));
 			break;
 		case (4):
-			poss.add(new I(s, -1, -1, -1, -1));
-			poss.add(new III(s, -1, -1, -1, -1));
-			poss.add(new V(s, -1, -1, -1, -1));
+			poss.add(new I(s, -1, -1, -1, dur));
+			poss.add(new III(s, -1, -1, -1, dur));
+			poss.add(new V(s, -1, -1, -1, dur));
 			break;
 		case (5):
-			poss.add(new II(s, -1, -1, -1, -1));
-			poss.add(new IV(s, -1, -1, -1, -1));
-			poss.add(new IVb(s, -1, -1, -1, -1));
-			poss.add(new VI(s, -1, -1, -1, -1));
+			poss.add(new II(s, -1, -1, -1, dur));
+			poss.add(new IV(s, -1, -1, -1, dur));
+			poss.add(new IVb(s, -1, -1, -1, dur));
+			poss.add(new VI(s, -1, -1, -1, dur));
 			break;
 		case (6):
-			poss.add(new III(s, -1, -1, -1, -1));
-			poss.add(new V(s, -1, -1, -1, -1));
-			poss.add(new VII(s, -1, -1, -1, -1));
+			poss.add(new III(s, -1, -1, -1, dur));
+			poss.add(new V(s, -1, -1, -1, dur));
+			poss.add(new VII(s, -1, -1, -1, dur));
 			break;
 		}
 		return poss;
@@ -397,7 +397,7 @@ public class Regle {
 	public static ArrayList<Accord> generateCombinaison(Accord accord) {
 		int s = accord.getSoprano();
 		ArrayList<Accord> poss = new ArrayList<Accord>();
-		poss = initAccordPossible(s);
+		poss = initAccordPossible(s,accord.getDuree());
 		int i = poss.size();
 		GenBasse(poss, i);
 		cleanGen(poss, i);
@@ -440,10 +440,10 @@ public class Regle {
 	public static ArrayList<Accord> initTpsVide(ArrayList<Accord> poss) {
 		ArrayList<Accord> acSPoss = new ArrayList<Accord>();
 		Iterator<Accord> it = poss.iterator();
-		Accord[] accord = { new I(0, 0, 0, 0, 0), new II(0, 0, 0, 0, 0),
-				new III(0, 0, 0, 0, 0), new IV(0, 0, 0, 0, 0),
-				new IVb(0, 0, 0, 0, 0), new V(0, 0, 0, 0, 0),
-				new VI(0, 0, 0, 0, 0), new VII(0, 0, 0, 0, 0) };
+		Accord[] accord = { new I(0, 0, 0, 0, 1), new II(0, 0, 0, 0, 1),
+				new III(0, 0, 0, 0, 1), new IV(0, 0, 0, 0, 1),
+				new IVb(0, 0, 0, 0, 1), new V(0, 0, 0, 0, 1),
+				new VI(0, 0, 0, 0, 1), new VII(0, 0, 0, 0, 1) };
 		while (it.hasNext()) {
 			Accord ac = it.next();
 			for (int i = 0; i < accord.length; i++) {
@@ -516,5 +516,11 @@ public class Regle {
 			}
 		}
 	}
-	
+	public static ArrayList<Accord> generate(ArrayList<Accord> preced,Accord curent){
+		if(curent.getSoprano()!=-1){
+			return generateCombinaison(curent);
+		}else{
+			return genCombinaisonVide(preced);
+		}
+	}
 }

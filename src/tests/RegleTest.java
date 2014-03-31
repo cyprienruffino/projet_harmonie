@@ -2,15 +2,11 @@ package tests;
 
 import java.util.*;
 
-import junit.framework.*;
-
-
-import main.Accord;
-import main.Regle;
-
-import org.junit.Test;
-
+import main.*;
 import accords.*;
+
+import org.junit.*;
+
 
 public class RegleTest {
 
@@ -20,7 +16,7 @@ public class RegleTest {
 		Accord a2=new III(2,2,2,2,2);
 		Accord a3=new II(1,1,1,1,3);
 		
-		ArrayList<Accord> accords=new ArrayList();
+		ArrayList<Accord> accords=new ArrayList<Accord>();
 		accords.add(a1);
 		accords.add(a2);
 		accords.add(a3);
@@ -34,7 +30,7 @@ public class RegleTest {
 	
 	@Test
 	public void testInitAccordsPossibles(){
-		ArrayList<Accord> liste=Regle.initAccordPossible(22);
+		ArrayList<Accord> liste=Regle.initAccordPossible(22,1);
 		Assert.assertEquals(liste.size(),3);
 	}
 	

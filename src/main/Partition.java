@@ -42,11 +42,11 @@ public class Partition {
 	
 	private void generateJeu() {
 		//Création de la matrice des possibilités
-		for(int i=0;i<soprano.length;i++)
-			jeu[i]=Regle.generateCombinaison(soprano[i].get(0));
+		jeu[0]=Regle.generate(null,soprano[0].get(0));
+		for(int i=1;i<soprano.length;i++)
+			jeu[i]=Regle.generate(jeu[i-1],soprano[i].get(0));
 		
 		//Création récurrente des liens père-fils
-		Accord temp;
 		Accord accordFils;
 		
 		for (int i = jeu.length-1; i > 0; i--){
