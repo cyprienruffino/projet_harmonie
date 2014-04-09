@@ -137,9 +137,21 @@ public class Partition {
 	}
 	
 	public int beaute(Accord pere, Accord fils){
-		//TODO Créer la méthode
-		return 0;
+		return crit1(pere,fils)+crit2(pere,fils)+crit3(pere,fils);
 	}
+	
+	public int crit1(Accord p,Accord f){
+		return 28-Math.abs(Math.abs(p.getAlto()-p.getTenor())+Math.abs(f.getAlto()-f.getTenor()));
+	}
+	
+	public int crit2(Accord p,Accord f){
+		return (7-Math.abs(f.getAlto()-p.getAlto())+(7-Math.abs(f.getTenor()-p.getTenor())));
+	}
+	
+	public int crit3(Accord p,Accord f){
+		return 12-Math.abs(p.getBasse()-f.getBasse());
+	}
+	
 	
 	public Accord pere(){
 		Accord pere=new I();

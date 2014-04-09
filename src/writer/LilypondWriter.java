@@ -34,7 +34,8 @@ public class LilypondWriter implements Writer{
 			String s=new String();
 			enTeteChantWriter(fw,i);
 			for(int j=0;j<part.length;j++){
-				s+=noteToString(part[j],i)+" ";
+				s+=noteToString(part[j],i)+octaveRef(part[j],);
+				
 			}
 			fw.write(s);
 			fw.write("}}\n");
@@ -96,18 +97,47 @@ public class LilypondWriter implements Writer{
 		s+="b";
 		break;
 	}
-	s+=ac.getDuree();
+	s+=Time(ac.getDuree());
+	return s;
+	}
+	
+	
+	private static String Time(int dur){
+		switch(dur){
+		case(1):
+			return "4";
+		case(2):
+			return "2";
+		case(3):
+			return "2.";
+		case(4):
+			return "1";	
+		}
+		return "";
+	}
+	
+private static String octaveRef(int note, int ref){
+	String s=new String();
 	if((note/7)>ref){
 		for(int i=0;i<((note/7)-ref);i++){
 			s+="'";
 		}
 	}else{
 		for(int i=0;i<(ref-(note/7));i++){
-			s+=".";
+			s+=",";
 		}
 	}
 	return s;
-	}
+}
+
+private static int ref(String r,int ref){
+if(r.charAt(0)=='\'')
+	return ref+r.length();
+if(r.charAt(0)==',')
+	return ref-r.length();
+return ref;
+}
+
 
 private static void enTeteChantWriter(FileWriter fw,int i) throws IOException{
 	switch (i) {

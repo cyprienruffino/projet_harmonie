@@ -437,13 +437,13 @@ public class Regle {
 		return false;
 	}
 
-	public static ArrayList<Accord> initTpsVide(ArrayList<Accord> poss) {
+	public static ArrayList<Accord> initTpsVide(ArrayList<Accord> poss,int dur) {
 		ArrayList<Accord> acSPoss = new ArrayList<Accord>();
 		Iterator<Accord> it = poss.iterator();
-		Accord[] accord = { new I(0, 0, 0, 0, 1), new II(0, 0, 0, 0, 1),
-				new III(0, 0, 0, 0, 1), new IV(0, 0, 0, 0, 1),
-				new IVb(0, 0, 0, 0, 1), new V(0, 0, 0, 0, 1),
-				new VI(0, 0, 0, 0, 1), new VII(0, 0, 0, 0, 1) };
+		Accord[] accord = { new I(0, 0, 0, 0, dur), new II(0, 0, 0, 0, dur),
+				new III(0, 0, 0, 0, dur), new IV(0, 0, 0, 0, dur),
+				new IVb(0, 0, 0, 0, dur), new V(0, 0, 0, 0, dur),
+				new VI(0, 0, 0, 0, dur), new VII(0, 0, 0, 0, dur) };
 		while (it.hasNext()) {
 			Accord ac = it.next();
 			for (int i = 0; i < accord.length; i++) {
@@ -457,9 +457,9 @@ public class Regle {
 		return acSPoss;
 	}
 
-	public static ArrayList<Accord> genCombinaisonVide(ArrayList<Accord> prec) {
+	public static ArrayList<Accord> genCombinaisonVide(ArrayList<Accord> prec,Accord accord) {
 		ArrayList<Accord> poss = new ArrayList<Accord>();
-		poss = initTpsVide(prec);
+		poss = initTpsVide(prec,accord.getDuree());
 		int i = poss.size();
 		GenBasse(poss, i);
 		cleanGen(poss, i);
@@ -520,7 +520,25 @@ public class Regle {
 		if(curent.getSoprano()!=-1){
 			return generateCombinaison(curent);
 		}else{
-			return genCombinaisonVide(preced);
+			return genCombinaisonVide(preced,curent);
 		}
+	}
+	
+	public static int noteStrToInt(String note,int octave){
+		if (note.equals("do"))
+			return (octave*7);
+		if (note.equals("re"))
+			return (octave*7)+1;
+		if (note.equals("mi"))
+			return (octave*7)+2;
+		if (note.equals("fa"))
+			return (octave*7)+3;
+		if (note.equals("sol"))
+			return (octave*7)+4;
+		if (note.equals("la"))
+			return (octave*7)+5;
+		if (note.equals("si"))
+			return (octave*7)+6;
+		return -1;
 	}
 }
