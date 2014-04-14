@@ -12,12 +12,11 @@ public abstract class Accord implements Cloneable{
 	private int duree;
 	private Accord pere;
 	private int beaute;
-
+	private ArrayList<Accord> jeuxSuivants;
+		
 	public void setJeuxSuivants(ArrayList<Accord> jeuxSuivants) {
 		this.jeuxSuivants = jeuxSuivants;
 	}
-
-	private ArrayList<Accord> jeuxSuivants;
 	
 	public int getDuree() {
 		return duree;
