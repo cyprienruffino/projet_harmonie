@@ -5,58 +5,18 @@ import java.util.ArrayList;
 
 public class Accord implements Cloneable{
 	
-	private int soprano;
-	private int alto;
-	private int basse;
-	private int tenor;
-	private int duree;
+	public int soprano;
+	public int alto;
+	public int basse;
+	public int tenor;
+	public int duree;
 	private Accord pere;
-	private int beaute;
+	public int beaute;
 	private ArrayList<Accord> jeuxSuivants;
-	private int type;
+	public int type;
 		
 	public void setJeuxSuivants(ArrayList<Accord> jeuxSuivants) {
 		this.jeuxSuivants = jeuxSuivants;
-	}
-	
-	public int getType(){
-		return type;
-	}
-	
-	public int getDuree() {
-		return duree;
-	}
-	public int getSoprano() {
-		return soprano;
-	}
-	public int getAlto() {
-		return alto;
-	}
-	public int getBasse() {
-		return basse;
-	}
-	public int getTenor() {
-		return tenor;
-	}
-	
-	public void setType(int type){
-		this.type=type;
-	}
-	
-	public void setSoprano(int soprano) {
-		this.soprano = soprano;
-	}
-	public void setAlto(int alto) {
-		this.alto = alto;
-	}
-	public void setBasse(int basse) {
-		this.basse = basse;
-	}
-	public void setTenor(int tenor) {
-		this.tenor = tenor;
-	}
-	public void setDuree(int duree) {
-		this.duree = duree;
 	}
 	
 	public void addSuivant(Accord a){
@@ -64,9 +24,6 @@ public class Accord implements Cloneable{
 	}
 	public ArrayList<Accord> getJeuxSuivants() {
 		return jeuxSuivants;
-	}
-	public boolean isB(){
-		return false;
 	}
 	
 	public Accord(int s, int a, int t, int b, int d,int c){
@@ -94,12 +51,12 @@ public class Accord implements Cloneable{
 	
 	public Accord clone(){
 		Accord ac = new Accord();
-		ac.setSoprano(this.getSoprano());
-		ac.setAlto(this.getAlto());
-		ac.setTenor(this.getTenor());
-		ac.setBasse(this.getBasse());
-		ac.setDuree(this.getDuree());
-		ac.setType(this.getType());
+		ac.soprano=this.soprano;
+		ac.alto=this.alto;
+		ac.tenor=this.tenor;
+		ac.basse=this.basse;
+		ac.duree=this.duree;
+		ac.type=this.type;
 		return ac;
 		
 	}
@@ -118,7 +75,7 @@ public class Accord implements Cloneable{
 	}
 	
 	public int getTonic(){
-		int a = this.getType();
+		int a = this.type;
 		if(a==7){
 			a=3;
 		}

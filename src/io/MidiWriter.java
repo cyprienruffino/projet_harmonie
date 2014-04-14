@@ -46,7 +46,7 @@ public class MidiWriter implements Writer {
 			int h = 0;
 			int n=-1;
 			for (int j = 0; j < partition.length; j++) {
-				d = partition[j].getDuree();
+				d = partition[j].duree;
 				n=selectNoteChant(partition,i,j);
 				selectNote(track,n,d, h, i);
 				h += d;
@@ -180,16 +180,16 @@ public class MidiWriter implements Writer {
 		int n=-1;
 			switch(chant){
 			case(0):
-				n=partition[j].getSoprano();
+				n=partition[j].soprano;
 				break;
 			case(1):
-				n=partition[j].getAlto();
+				n=partition[j].alto;
 				break;
 			case(2):
-				n=partition[j].getTenor();
+				n=partition[j].tenor;
 				break;
 			case(3):
-				n=partition[j].getBasse();
+				n=partition[j].basse;
 				break;
 			}
 		return n;

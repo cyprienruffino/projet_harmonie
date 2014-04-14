@@ -37,10 +37,10 @@ public class LilypondWriter implements Writer {
 			for (int j = 0; j < part.length; j++) {
 				int n = note(part[j], i);
 				if (n == -1) {
-					s+= "r"+Time(part[j].getDuree())+" ";
+					s+= "r"+Time(part[j].duree)+" ";
 				} else {
 					ocR = octaveRef(n, ref);
-					s += noteToString(n, i) + ocR + Time(part[j].getDuree())
+					s += noteToString(n, i) + ocR + Time(part[j].duree)
 							+ " ";
 					ref = ref(ocR, ref);
 				}
@@ -109,13 +109,13 @@ public class LilypondWriter implements Writer {
 	private static int note(Accord ac, int mode) {
 		switch (mode) {
 		case (0):
-			return ac.getSoprano();
+			return ac.soprano;
 		case (1):
-			return ac.getAlto();
+			return ac.alto;
 		case (2):
-			return ac.getTenor();
+			return ac.tenor;
 		case (3):
-			return ac.getBasse();
+			return ac.basse;
 		}
 		return -1;
 	}
