@@ -12,9 +12,9 @@ public class RegleTest {
 
 	@Test
 	public void testCleanGen() {
-		Accord a1=new II(1,1,1,1,1);
-		Accord a2=new III(2,2,2,2,2);
-		Accord a3=new II(1,1,1,1,3);
+		Accord a1=new Accord(1,1,1,1,1,1);
+		Accord a2=new Accord(2,2,2,2,2,2);
+		Accord a3=new Accord(1,1,1,1,3,1);
 		
 		ArrayList<Accord> accords=new ArrayList<Accord>();
 		accords.add(a1);
@@ -36,24 +36,24 @@ public class RegleTest {
 	
 	@Test
 	public void testRegle3(){
-		Assert.assertTrue(Regle.regle3(new I(2,2,4,0,4)));
+		Assert.assertTrue(Regle.regle3(new Accord(2,2,4,0,4,0)));
 	}
 	
 	@Test
 	public void testRegle2(){
-		Assert.assertTrue(Regle.regle2(new I(23,16,4,0,4)));
+		Assert.assertTrue(Regle.regle2(new Accord(23,16,4,0,4,0)));
 	}
 	
 	@Test
 	public void testRegle1(){
-		Assert.assertTrue(Regle.regle3(new I(2,2,4,0,4)));
+		Assert.assertTrue(Regle.regle3(new Accord(2,2,4,0,4,0)));
 	}
 	
 	@Test
 	public void testRegle4(){
-		Accord[]part={new IVb(22,10,15,8,4),new I(2,2,4,0,4)};
-		Accord[]part2={new I(22,10,15,8,4),new IVb(2,2,4,0,4)};
-		Accord[]part3={new I(22,10,15,8,4),new I(2,2,4,0,4)};
+		Accord[]part={new Accord(22,10,15,8,4,7),new Accord(2,2,4,0,4,0)};
+		Accord[]part2={new Accord(22,10,15,8,4,0),new Accord(2,2,4,0,4,7)};
+		Accord[]part3={new Accord(22,10,15,8,4,0),new Accord(2,2,4,0,4,0)};
 		Assert.assertFalse(Regle.regle4(part));
 		Assert.assertFalse(Regle.regle4(part2));
 		Assert.assertTrue(Regle.regle4(part3));

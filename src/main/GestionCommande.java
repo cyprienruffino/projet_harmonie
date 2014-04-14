@@ -7,6 +7,8 @@ import java.io.IOException;
 
 import javax.sound.midi.InvalidMidiDataException;
 
+import io.*;
+
 /*
  * - 1 methode from .chant to .mid beaute random
  * - 1 methode from .chant to .ly beaute random
