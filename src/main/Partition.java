@@ -141,15 +141,15 @@ public class Partition {
 	}
 	
 	public int crit1(Accord p,Accord f){
-		return 28-Math.abs(Math.abs(p.getAlto()-p.getTenor())+Math.abs(f.getAlto()-f.getTenor()));
+		return 28-Math.abs(Math.abs(p.alto-p.tenor)+Math.abs(f.alto-f.tenor));
 	}
 	
 	public int crit2(Accord p,Accord f){
-		return (7-Math.abs(f.getAlto()-p.getAlto())+(7-Math.abs(f.getTenor()-p.getTenor())));
+		return (7-Math.abs(f.alto-p.alto)+(7-Math.abs(f.tenor-p.tenor)));
 	}
 	
 	public int crit3(Accord p,Accord f){
-		return 12-Math.abs(p.getBasse()-f.getBasse());
+		return 12-Math.abs(p.basse-f.basse);
 	}
 	
 	
