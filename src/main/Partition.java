@@ -3,7 +3,7 @@ package main;
 
 import java.util.*;
 
-import accords.*;
+
 
 public class Partition {
 
@@ -21,7 +21,7 @@ public class Partition {
 	}
 	public int nombre(){
 		//Attention, il faut avoir généré la partition!
-		Accord pere=new I();
+		Accord pere=new Accord();
 		//On crée un sommet virtuel qui a comme fils tous les accords du premier temps
 		//Et on lance un parcours dessus
 		for(Accord temp:jeu[0])
@@ -154,7 +154,7 @@ public class Partition {
 	
 	
 	public Accord pere(){
-		Accord pere=new I();
+		Accord pere=new Accord();
 		for(Accord temp:jeu[0])
 			pere.addSuivant(temp);
 		return pere;

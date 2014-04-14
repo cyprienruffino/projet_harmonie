@@ -3,7 +3,7 @@ package main;
 
 import java.util.ArrayList;
 
-public abstract class Accord implements Cloneable{
+public class Accord implements Cloneable{
 	
 	private int soprano;
 	private int alto;
@@ -13,9 +13,14 @@ public abstract class Accord implements Cloneable{
 	private Accord pere;
 	private int beaute;
 	private ArrayList<Accord> jeuxSuivants;
+	private int type;
 		
 	public void setJeuxSuivants(ArrayList<Accord> jeuxSuivants) {
 		this.jeuxSuivants = jeuxSuivants;
+	}
+	
+	public int getType(){
+		return type;
 	}
 	
 	public int getDuree() {
@@ -33,6 +38,11 @@ public abstract class Accord implements Cloneable{
 	public int getTenor() {
 		return tenor;
 	}
+	
+	public void setType(int type){
+		this.type=type;
+	}
+	
 	public void setSoprano(int soprano) {
 		this.soprano = soprano;
 	}
@@ -48,7 +58,6 @@ public abstract class Accord implements Cloneable{
 	public void setDuree(int duree) {
 		this.duree = duree;
 	}
-	public abstract int getAccord();
 	
 	public void addSuivant(Accord a){
 		this.jeuxSuivants.add(a);
@@ -60,12 +69,13 @@ public abstract class Accord implements Cloneable{
 		return false;
 	}
 	
-	public Accord(int s, int a, int t, int b, int d){
+	public Accord(int s, int a, int t, int b, int d,int c){
 		soprano=s;
 		alto=a;
 		tenor=t;
 		basse=b;
 		duree=d;
+		type=c;
 		jeuxSuivants=new ArrayList<Accord>();
 	}
 	public Accord(){
@@ -82,7 +92,17 @@ public abstract class Accord implements Cloneable{
 	return false;
 	}
 	
-	public abstract Accord clone();
+	public Accord clone(){
+		Accord ac = new Accord();
+		ac.setSoprano(this.getSoprano());
+		ac.setAlto(this.getAlto());
+		ac.setTenor(this.getTenor());
+		ac.setBasse(this.getBasse());
+		ac.setDuree(this.getDuree());
+		ac.setType(this.getType());
+		return ac;
+		
+	}
 	
 	public Accord getPere() {
 		return pere;
@@ -97,6 +117,13 @@ public abstract class Accord implements Cloneable{
 		this.beaute = beaute;
 	}
 	
+	public int getTonic(){
+		int a = this.getType();
+		if(a==7){
+			a=3;
+		}
+		return a;
+	}
 	/*public boolean verifAccord(Accord a){
 		return verifAccordLocal() && verifAccordEnchainement(a);
 	}

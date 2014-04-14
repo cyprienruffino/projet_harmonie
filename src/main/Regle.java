@@ -1,6 +1,5 @@
 package main;
 
-import accords.*;
 import java.util.*;
 
 public class Regle {
@@ -96,7 +95,7 @@ public class Regle {
 	public static boolean regle62(Accord acC, Accord acS) {
 		int TacC = acC.getBasse() % 7;
 		int TacS = acS.getBasse() % 7;
-		if (acC.getAccord() == acS.getAccord()) {
+		if (acC.getType() == acS.getType()) {
 			if (TacC != TacS)
 				return false;
 		}
@@ -150,7 +149,7 @@ public class Regle {
 		int a = ac.getAlto() % 7;
 		int t = ac.getTenor() % 7;
 		int b = ac.getBasse() % 7;
-		int nac = ac.getAccord() - 1;
+		int nac = ac.getTonic();
 		if (nac == b) {
 			if (s == b) {
 				if (a == (nac + 2) % 7) {
@@ -236,39 +235,39 @@ public class Regle {
 	}
 
 	public static boolean regle5(Accord AcC, Accord AcS) {
-		if (AcC.getAccord() == 1) {
-			if (!(AcS.getClass().equals(IVb.class))) {
+		if (AcC.getType() == 0) {
+			if (AcS.getType()!=7) {
 				return true;
 			}
-		} else if (AcC.getAccord() == 2) {
-			if (AcS.getAccord() == 5 || AcS.getAccord() == 7) {
+		} else if (AcC.getType() == 1) {
+			if (AcS.getType() == 4 || AcS.getType() == 6) {
 				return true;
 			}
-		} else if (AcC.getAccord() == 3) {
-			if (!(AcS.getAccord() == 1) && !(AcS.getClass().equals(IVb.class))) {
+		} else if (AcC.getType() == 2) {
+			if (AcS.getType() != 0 && AcS.getType()!=7) {
 				return true;
 			}
-		} else if (AcC.getClass().equals(IV.class)) {
-			if (!(AcS.getClass().equals(IVb.class))) {
+		} else if (AcC.getType()==3) {
+			if (AcS.getType()!=7) {
 				return true;
 			}
-		} else if (AcC.getClass().equals(IVb.class)) {
-			if (AcS.getAccord() == 1) {
+		} else if (AcC.getType()==7) {
+			if (AcS.getType() == 0) {
 				return true;
 			}
-		} else if (AcC.getAccord() == 5) {
-			if (AcS.getAccord() == 1 || AcS.getAccord() == 3
-					|| AcS.getClass().equals(IVb.class)
-					|| AcS.getClass().equals(VI.class)) {
+		} else if (AcC.getType() == 4) {
+			if (AcS.getType() == 0 || AcS.getType() == 2
+					|| AcS.getType()==7
+					|| AcS.getType()==5) {
 				return true;
 			}
-		} else if (AcC.getClass().equals(VI.class)) {
-			if (AcS.getAccord() == 1 || AcS.getClass().equals(IV.class)
-					|| AcS.getAccord() == 5) {
+		} else if (AcC.getType()==5) {
+			if (AcS.getType() == 0 || AcS.getType()==3
+					|| AcS.getType() == 4) {
 				return true;
 			}
-		} else if (AcC.getAccord() == 7) {
-			if (AcS.getAccord() == 1 || AcS.getAccord() == 3) {
+		} else if (AcC.getType() == 6) {
+			if (AcS.getType() == 0 || AcS.getType() == 2) {
 				return true;
 			}
 		}
@@ -279,47 +278,49 @@ public class Regle {
 		ArrayList<Accord> poss = new ArrayList<Accord>();
 		switch (s % 7) {
 		case (0):
-			poss.add(new I(s, -1, -1, -1, dur));
-			poss.add(new VI(s, -1, -1, -1, dur));
-			poss.add(new IV(s, -1, -1, -1, dur));
-			poss.add(new IVb(s, -1, -1, -1, dur));
+			poss.add(new Accord(s, -1, -1, -1, dur,0));
+			poss.add(new Accord(s, -1, -1, -1, dur,5));
+			poss.add(new Accord(s, -1, -1, -1, dur,3));
+			poss.add(new Accord(s, -1, -1, -1, dur,7));
 			break;
 		case (1):
-			poss.add(new II(s, -1, -1, -1, dur));
-			poss.add(new V(s, -1, -1, -1, dur));
-			poss.add(new VII(s, -1, -1, -1, dur));
+			poss.add(new Accord(s, -1, -1, -1, dur,1));
+			poss.add(new Accord(s, -1, -1, -1, dur,4));
+			poss.add(new Accord(s, -1, -1, -1, dur,6));
 			break;
 		case (2):
-			poss.add(new III(s, -1, -1, -1, dur));
-			poss.add(new I(s, -1, -1, -1, dur));
-			poss.add(new VI(s, -1, -1, -1, dur));
+			poss.add(new Accord(s, -1, -1, -1, dur,2));
+			poss.add(new Accord(s, -1, -1, -1, dur,0));
+			poss.add(new Accord(s, -1, -1, -1, dur,4));
 			break;
 		case (3):
-			poss.add(new II(s, -1, -1, -1, dur));
-			poss.add(new IV(s, -1, -1, -1, dur));
-			poss.add(new IVb(s, -1, -1, -1, dur));
-			poss.add(new VII(s, -1, -1, -1, dur));
+			poss.add(new Accord(s, -1, -1, -1, dur,1));
+			poss.add(new Accord(s, -1, -1, -1, dur,3));
+			poss.add(new Accord(s, -1, -1, -1, dur,7));
+			poss.add(new Accord(s, -1, -1, -1, dur,6));
 			break;
 		case (4):
-			poss.add(new I(s, -1, -1, -1, dur));
-			poss.add(new III(s, -1, -1, -1, dur));
-			poss.add(new V(s, -1, -1, -1, dur));
+			poss.add(new Accord(s, -1, -1, -1, dur,0));
+			poss.add(new Accord(s, -1, -1, -1, dur,2));
+			poss.add(new Accord(s, -1, -1, -1, dur,4));
 			break;
 		case (5):
-			poss.add(new II(s, -1, -1, -1, dur));
-			poss.add(new IV(s, -1, -1, -1, dur));
-			poss.add(new IVb(s, -1, -1, -1, dur));
-			poss.add(new VI(s, -1, -1, -1, dur));
+			poss.add(new Accord(s, -1, -1, -1, dur,1));
+			poss.add(new Accord(s, -1, -1, -1, dur,3));
+			poss.add(new Accord(s, -1, -1, -1, dur,7));
+			poss.add(new Accord(s, -1, -1, -1, dur,5));
 			break;
 		case (6):
-			poss.add(new III(s, -1, -1, -1, dur));
-			poss.add(new V(s, -1, -1, -1, dur));
-			poss.add(new VII(s, -1, -1, -1, dur));
+			poss.add(new Accord(s, -1, -1, -1, dur,2));
+			poss.add(new Accord(s, -1, -1, -1, dur,4));
+			poss.add(new Accord(s, -1, -1, -1, dur,6));
 			break;
 		}
 		return poss;
 	}
 
+
+	
 	public static void cleanGen(ArrayList<Accord> poss, int i) {
 		for (int j = 0; j < i; j++) {
 			poss.remove(0);
@@ -330,7 +331,7 @@ public class Regle {
 		for (int k = 0; k < h; k++) {
 			for (int i = 3; i < 16; i++) {
 				Accord ac = poss.get(k).clone();
-				int a = ac.getAccord() - 1;
+				int a = ac.getTonic();
 				if (i % 7 == a) {
 					ac.setBasse(i);
 					poss.add(ac);
@@ -343,7 +344,7 @@ public class Regle {
 		for (int k = 0; k < h; k++) {
 			for (int i = 11; i < Math.min(22, poss.get(k).getSoprano()); i++) {
 				Accord ac = poss.get(k).clone();
-				int a = ac.getAccord() - 1;
+				int a = ac.getTonic();
 				if (i > ac.getBasse()) {
 					if (ac.getBasse() % 7 == ac.getSoprano() % 7) {
 						if (i % 7 == (a + 2) % 7 || i % 7 == (a + 4) % 7) {
@@ -364,7 +365,7 @@ public class Regle {
 		for (int k = 0; k < h; k++) {
 			for (int i = 7; i < Math.min(19, poss.get(k).getAlto()); i++) {
 				Accord ac = poss.get(k).clone();
-				int a = ac.getAccord() - 1;
+				int a = ac.getTonic();
 				if (i > ac.getBasse()) {
 					if (ac.getSoprano() % 7 == ac.getAlto() % 7) {
 						if (ac.getSoprano() % 7 == (a + 2) % 7) {
@@ -418,32 +419,30 @@ public class Regle {
 	}
 
 	public static boolean contient(ArrayList<Accord> poss, Accord ac) {
-		int a = ac.getAccord();
+		int a = ac.getType();
 		Iterator<Accord> it = poss.iterator();
 		while (it.hasNext()) {
 			Accord acb = it.next();
-			if (acb.getAccord() == a) {
-				if (acb.getAccord() == 4) {
-					if (acb.isB() && ac.isB()) {
+			if (acb.getType() == a) {
+				if (acb.getType() == 3) {
 						return true;
-					} else if (!acb.isB() && !ac.isB()) {
+					} else if (acb.getType()!=7 && ac.getType()!=7) {
 						return true;
 					}
 					return false;
 				}
 				return true;
 			}
-		}
 		return false;
 	}
 
 	public static ArrayList<Accord> initTpsVide(ArrayList<Accord> poss,int dur) {
 		ArrayList<Accord> acSPoss = new ArrayList<Accord>();
 		Iterator<Accord> it = poss.iterator();
-		Accord[] accord = { new I(0, 0, 0, 0, dur), new II(0, 0, 0, 0, dur),
-				new III(0, 0, 0, 0, dur), new IV(0, 0, 0, 0, dur),
-				new IVb(0, 0, 0, 0, dur), new V(0, 0, 0, 0, dur),
-				new VI(0, 0, 0, 0, dur), new VII(0, 0, 0, 0, dur) };
+		Accord[] accord = { new Accord(0, 0, 0, 0, dur,0), new Accord(0, 0, 0, 0, dur,1),
+				new Accord(0, 0, 0, 0, dur,2), new Accord(0, 0, 0, 0, dur,3),
+				new Accord(0, 0, 0, 0, dur,7), new Accord(0, 0, 0, 0, dur,4),
+				new Accord(0, 0, 0, 0, dur,5), new Accord(0, 0, 0, 0, dur,6) };
 		while (it.hasNext()) {
 			Accord ac = it.next();
 			for (int i = 0; i < accord.length; i++) {
@@ -483,7 +482,7 @@ public class Regle {
 		for (int k = 0; k < h; k++) {
 			for (int i = 11; i < 22; i++) {
 				Accord ac = poss.get(k).clone();
-				int a = ac.getAccord() - 1;
+				int a = ac.getTonic();
 				if (i > ac.getBasse()) {
 					if (i % 7 == (a + 2) % 7 || i % 7 == (a + 4) % 7) {
 						ac.setAlto(i);
@@ -498,7 +497,7 @@ public class Regle {
 		for (int k = 0; k < h; k++) {
 			for (int i = 7; i < Math.min(19, poss.get(k).getAlto()); i++) {
 				Accord ac = poss.get(k).clone();
-				int a = ac.getAccord() - 1;
+				int a = ac.getTonic();
 				if (i > ac.getBasse()) {
 					if(ac.getAlto()%7==(a+2)%7){
 						if(i==(a+4)%7){
