@@ -1,11 +1,12 @@
 package main;
 
+import io.*;
+
 import java.io.File;
 import java.io.IOException;
 
 import javax.sound.midi.InvalidMidiDataException;
 
-import writer.*;
 /*
  * - 1 methode from .chant to .mid beaute random
  * - 1 methode from .chant to .ly beaute random
@@ -26,19 +27,22 @@ import writer.*;
 public class GestionCommande {
 	//J'ajoute ici les méthodes demandées
 	private static void harmonieSansBeaute(File fichier, Writer writer) throws IOException, InvalidMidiDataException{
-		Partition partition = new Partition(Partatab.readChant(fichier));
+		ChantReader reader=new ChantReader(fichier);
+		Partition partition = new Partition(reader.readChant());
 		partition.generate();
 		writer.addPartition(partition.choixHarmonie(1));
 		writer.ecrirePartition();
 	}
 	private static void harmonieAvecBeaute(File fichier, Writer writer, int beaute) throws IOException, InvalidMidiDataException{
-		Partition partition = new Partition(Partatab.readChant(fichier));
+		ChantReader reader=new ChantReader(fichier);
+		Partition partition = new Partition(reader.readChant());
 		partition.generate();
 		writer.addPartition(partition.choixHarmonie(beaute));
 		writer.ecrirePartition();
 	}
 	private static void nombreHarmonisation(File fichier) throws IOException{
-		Partition partition = new Partition(Partatab.readChant(fichier));
+		ChantReader reader=new ChantReader(fichier);
+		Partition partition = new Partition(reader.readChant());
 		partition.generate();
 		System.out.println("Nombre d'harmonisations possibles : "+partition.nombre());
 	}

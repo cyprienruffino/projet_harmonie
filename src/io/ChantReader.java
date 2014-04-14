@@ -8,8 +8,14 @@ import main.Accord;
 
 public class ChantReader {
 
-	public ArrayList<Accord>[] readChant(File f) throws IOException {
-		BufferedReader reader = new BufferedReader(new FileReader(f));
+	private File chant;
+	
+	public ChantReader(File f){
+		chant=f;
+	}
+	
+	public ArrayList<Accord>[] readChant() throws IOException {
+		BufferedReader reader = new BufferedReader(new FileReader(chant));
 		reader.readLine(); // On saute la première ligne
 		StringTokenizer input = new StringTokenizer(reader.readLine());
 		int size=input.countTokens();
@@ -24,23 +30,24 @@ public class ChantReader {
 		return output;
 	}
 
-	public Accord strToAccord(StringTokenizer code) {
+	public static Accord strToAccord(StringTokenizer code) {
 		String note = code.nextToken();
 		int duree = Integer.parseInt(code.nextToken());
 		return new Accord(decode(note), -1, -1, -1, duree, -1);
 	}
 
-	public int decode(String note) {
+	public static int decode(String note) {
 		int octave = octave(note);
-		note = note.substring(0, note.length() - 2);
+		note = note.substring(0, note.length() - 1);
 		return noteStrToInt(note, octave);
 	}
 
-	public int octave(String note) {
+	public static int octave(String note) {
 		return Character.getNumericValue(note.charAt(note.length()-1));
 	}
 
 	public static int noteStrToInt(String note, int octave) {
+		octave--;
 		if (note.equals("do"))
 			return (octave * 7);
 		if (note.equals("re"))
