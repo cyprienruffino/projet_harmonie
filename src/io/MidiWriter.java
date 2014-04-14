@@ -164,10 +164,10 @@ public class MidiWriter implements Writer {
 			track.add(instrument(73, 1));
 			break;
 		case (1):
-			track.add(instrument(76, 2));
+			track.add(instrument(0, 2));
 			break;
 		case (2):
-			track.add(instrument(57, 3));
+			track.add(instrument(109, 3));
 			break;
 		case (3):
 			track.add(instrument(36, 4));
