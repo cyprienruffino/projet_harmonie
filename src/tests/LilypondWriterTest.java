@@ -10,16 +10,16 @@ import main.Accord;
 
 import org.junit.Test;
 
-import writer.LilypondWriter;
+import io.LilypondWriter;
 
 
-import accords.*;
+
 
 public class LilypondWriterTest {
 
 	@Test
 	public void test() throws IOException {
-		Accord[] tab={new I(21,18,16,7,4),new IV(21,19,17,10,4),new VI(21,19,16,12,4),new V(22,20,18,11,4)};
+		Accord[] tab={new Accord(21,18,16,7,4,0),new Accord(21,19,17,10,4,3),new Accord(21,19,16,12,4,5),new Accord(22,20,18,11,4,4)};
 		LilypondWriter writer=new LilypondWriter("test.ly",tab,"salutation");
 		writer.ecrirePartition();
 	}
