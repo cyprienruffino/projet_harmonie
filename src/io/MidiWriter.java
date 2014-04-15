@@ -161,13 +161,13 @@ public class MidiWriter implements Writer {
 		Track track = sequence.createTrack();
 		switch (i) {
 		case (0):
-			track.add(instrument(73, 1));
+			track.add(instrument(00, 1));
 			break;
 		case (1):
-			track.add(instrument(0, 2));
+			track.add(instrument(73, 2));
 			break;
 		case (2):
-			track.add(instrument(109, 3));
+			track.add(instrument(40, 3));
 			break;
 		case (3):
 			track.add(instrument(36, 4));

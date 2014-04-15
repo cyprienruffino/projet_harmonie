@@ -7,7 +7,6 @@ import java.io.IOException;
 
 import javax.sound.midi.InvalidMidiDataException;
 
-import io.*;
 
 /*
  * - 1 methode from .chant to .mid beaute random
@@ -147,7 +146,7 @@ public class GestionCommande {
 		String nomFichierUn=args[a+1];
 		String nomFichierDeux=args[a+2];
 		if (nomFichierUn.endsWith(".chant") && nomFichierDeux.endsWith(".mid")){
-			try {
+			try { 
 				File f=new File(nomFichierUn);
 				harmonieSansBeaute(f,new MidiWriter(nomFichierDeux,nomFichierDeux.substring(0,nomFichierDeux.length()-4)));
 			} catch (IOException e) {
