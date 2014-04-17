@@ -13,6 +13,9 @@ public class Partition {
 	public Partition(ArrayList<Accord> [] soprano) {
 		this.soprano=soprano;
 	}
+	public ArrayList<Accord>[] getJeu(){
+		return jeu;
+	}
 
 	public void generate() {
 		// Génère tous les cas possibles de partitions suivant le schéma du
@@ -52,7 +55,7 @@ public class Partition {
 		for (int i = jeu.length-1; i > 0; i--){
 			for(int j=0;j<jeu[i].size();j++){
 				accordFils=jeu[i].get(j);
-				if((i!=jeu.length-1)&&(accordFils.getJeuxSuivants().size()==0)){
+				if((i!=jeu.length-1)&&(accordFils.jeuxSuivants.size()==0)){
 					jeu[i].remove(accordFils);
 					j--;
 					continue;
@@ -67,54 +70,54 @@ public class Partition {
 		//Nettoyage de la première case de la partition
 		for(int j=0;j<jeu[0].size();j++){
 			accordFils=jeu[0].get(j);
-			if(accordFils.getJeuxSuivants().size()==0){
+			if(accordFils.jeuxSuivants.size()==0){
 				jeu[0].remove(accordFils);
 			}
 		}
 	}
-	public Accord[] choixPremier(){
+	private Accord[] choixPremier(){
 		Accord[]retour=new Accord[jeu.length];
 		retour[0]=jeu[0].get(0);
 		for(int i=0;i<retour.length-1;i++){
-			retour[i+1]=retour[i].getJeuxSuivants().get(0); //On prends le premier chemin
+			retour[i+1]=retour[i].jeuxSuivants.get(0); //On prends le premier chemin
 		}
 		return retour;
 	}
 	
-	public Accord[] choixLocal(){
+	private Accord[] choixLocal(){
 		Accord[]retour=new Accord[jeu.length];
 		retour[0]=jeu[0].get(0);
 		int max;
 		for(int i=0;i<retour.length-1;i++){
 			max=0;
-			for(int j=0;j<retour[i].getJeuxSuivants().size();j++){
-				if(beaute(retour[i],retour[i].getJeuxSuivants().get(j))>beaute(retour[i],retour[i].getJeuxSuivants().get(max)));
+			for(int j=0;j<retour[i].jeuxSuivants.size();j++){
+				if(beaute(retour[i],retour[i].jeuxSuivants.get(j))>beaute(retour[i],retour[i].jeuxSuivants.get(max)));
 					max=j;
 			}
-			retour[i+1]=retour[i].getJeuxSuivants().get(max);
+			retour[i+1]=retour[i].jeuxSuivants.get(max);
 		}
 		return retour;
 	}
 	
-	public Accord[] choixGlobal(){
+	private Accord[] choixGlobal(){
 		Accord pere=pere();
 		ArrayList<Accord> dernier=jeu[jeu.length-1];
 		Accord[] retour=new Accord[jeu.length];
 		parcoursProfondeurBeaute(pere,0);
 		int max=0;
 		for(int i=0;i<dernier.size();i++){
-			if(dernier.get(i).getBeaute()>dernier.get(max).getBeaute());
+			if(dernier.get(i).beaute>dernier.get(max).beaute);
 				max=i;
 		}
 		Accord chemin=dernier.get(max);
 		for(int i=dernier.size()-1;i>0;i--){
 			retour[i]=chemin;
-			chemin=chemin.getPere();
+			chemin=chemin.pere;
 		}
 		return retour;
 	}
 	
-	public void elaguer(){
+	private void elaguer(){
 		int max;
 		ArrayList<Accord> fils;
 		ArrayList<Accord> temps;
@@ -123,37 +126,37 @@ public class Partition {
 			for(int j=0;j<jeu[i].size();j++){
 				max=0;
 				fils=new ArrayList<Accord>();
-				for(int k=0;k<jeu[i].get(j).getJeuxSuivants().size();k++){
-					if(beaute(jeu[i].get(j),jeu[i].get(j).getJeuxSuivants().get(k))>beaute(jeu[i].get(j),jeu[i].get(j).getJeuxSuivants().get(max)));
+				for(int k=0;k<jeu[i].get(j).jeuxSuivants.size();k++){
+					if(beaute(jeu[i].get(j),jeu[i].get(j).jeuxSuivants.get(k))>beaute(jeu[i].get(j),jeu[i].get(j).jeuxSuivants.get(max)));
 						max=k;
 				}
-				jeu[i].get(j).getJeuxSuivants().get(max).setPere(jeu[i].get(j));
-				fils.add(jeu[i].get(j).getJeuxSuivants().get(max));
-				temps.add(jeu[i].get(j).getJeuxSuivants().get(max));
-				jeu[i].get(i).setJeuxSuivants(fils);
+				jeu[i].get(j).jeuxSuivants.get(max).pere=jeu[i].get(j);
+				fils.add(jeu[i].get(j).jeuxSuivants.get(max));
+				temps.add(jeu[i].get(j).jeuxSuivants.get(max));
+				jeu[i].get(i).jeuxSuivants=fils;
 			}
 			jeu[i]=temps;
 		}
 	}
 	
-	public int beaute(Accord pere, Accord fils){
+	private int beaute(Accord pere, Accord fils){
 		return crit1(pere,fils)+crit2(pere,fils)+crit3(pere,fils);
 	}
 	
-	public int crit1(Accord p,Accord f){
+	private int crit1(Accord p,Accord f){
 		return 28-Math.abs(Math.abs(p.alto-p.tenor)+Math.abs(f.alto-f.tenor));
 	}
 	
-	public int crit2(Accord p,Accord f){
+	private int crit2(Accord p,Accord f){
 		return (7-Math.abs(f.alto-p.alto)+(7-Math.abs(f.tenor-p.tenor)));
 	}
 	
-	public int crit3(Accord p,Accord f){
+	private int crit3(Accord p,Accord f){
 		return 12-Math.abs(p.basse-f.basse);
 	}
 	
 	
-	public Accord pere(){
+	private Accord pere(){
 		Accord pere=new Accord();
 		for(Accord temp:jeu[0])
 			pere.addSuivant(temp);
@@ -161,17 +164,17 @@ public class Partition {
 	}
 	
 	private int parcoursProfondeurComptage(Accord s){
-		int compteur=(s.getJeuxSuivants().size());
+		int compteur=(s.jeuxSuivants.size());
 		if(compteur>0)
 			compteur--;
-		for(Accord fils:s.getJeuxSuivants())
+		for(Accord fils:s.jeuxSuivants)
 			compteur+=parcoursProfondeurComptage(fils);
 		return compteur;
 	}
 	private void parcoursProfondeurBeaute(Accord pere, int compteur){
-		for(Accord fils:pere.getJeuxSuivants()){
-			pere.setBeaute(beaute(pere,fils));
-			parcoursProfondeurBeaute(fils, pere.getBeaute());
+		for(Accord fils:pere.jeuxSuivants){
+			pere.beaute=(beaute(pere,fils));
+			parcoursProfondeurBeaute(fils, pere.beaute);
 		}
 	}
 }

@@ -1,4 +1,4 @@
-package tests;
+package obsolete;
 
 import static org.junit.Assert.*;
 

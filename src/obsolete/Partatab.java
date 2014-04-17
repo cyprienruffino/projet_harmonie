@@ -4,6 +4,8 @@ package main;
 import java.io.*;
 import java.util.ArrayList;
 
+import main.Accord;
+
 import accords.*;
 
 public class Partatab {

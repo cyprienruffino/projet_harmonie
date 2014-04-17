@@ -30,23 +30,23 @@ public class ChantReader {
 		return output;
 	}
 
-	public static Accord strToAccord(StringTokenizer code) {
+	private static Accord strToAccord(StringTokenizer code) {
 		String note = code.nextToken();
 		int duree = Integer.parseInt(code.nextToken());
 		return new Accord(decode(note), -1, -1, -1, duree, -1);
 	}
 
-	public static int decode(String note) {
+	private static int decode(String note) {
 		int octave = octave(note);
 		note = note.substring(0, note.length() - 1);
 		return noteStrToInt(note, octave);
 	}
 
-	public static int octave(String note) {
+	private static int octave(String note) {
 		return Character.getNumericValue(note.charAt(note.length()-1));
 	}
 
-	public static int noteStrToInt(String note, int octave) {
+	private static int noteStrToInt(String note, int octave) {
 		octave--;
 		if (note.equals("do"))
 			return (octave * 7);

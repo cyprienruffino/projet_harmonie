@@ -10,21 +10,11 @@ public class Accord implements Cloneable{
 	public int basse;
 	public int tenor;
 	public int duree;
-	private Accord pere;
+	public Accord pere;
 	public int beaute;
-	private ArrayList<Accord> jeuxSuivants;
+	public ArrayList<Accord> jeuxSuivants;
 	public int type;
 		
-	public void setJeuxSuivants(ArrayList<Accord> jeuxSuivants) {
-		this.jeuxSuivants = jeuxSuivants;
-	}
-	
-	public void addSuivant(Accord a){
-		this.jeuxSuivants.add(a);
-	}
-	public ArrayList<Accord> getJeuxSuivants() {
-		return jeuxSuivants;
-	}
 	
 	public Accord(int s, int a, int t, int b, int d,int c){
 		soprano=s;
@@ -47,8 +37,7 @@ public class Accord implements Cloneable{
 						if(this.duree==ac.duree)
 							return true;
 	return false;
-	}
-	
+	}	
 	public Accord clone(){
 		Accord ac = new Accord();
 		ac.soprano=this.soprano;
@@ -60,20 +49,9 @@ public class Accord implements Cloneable{
 		return ac;
 		
 	}
-	
-	public Accord getPere() {
-		return pere;
-	}
-	public void setPere(Accord pere) {
-		this.pere = pere;
-	}
-	public int getBeaute() {
-		return beaute;
-	}
-	public void setBeaute(int beaute) {
-		this.beaute = beaute;
-	}
-	
+	public void addSuivant(Accord a){
+		this.jeuxSuivants.add(a);
+	}	
 	public int getTonic(){
 		int a = this.type;
 		if(a==7){
@@ -81,13 +59,4 @@ public class Accord implements Cloneable{
 		}
 		return a;
 	}
-	/*public boolean verifAccord(Accord a){
-		return verifAccordLocal() && verifAccordEnchainement(a);
-	}
-	private boolean verifAccordLocal(){
-		return Regle.verifNote(this);
-	}
-	private boolean verifAccordEnchainement(a){
-		
-	}*/
 }
