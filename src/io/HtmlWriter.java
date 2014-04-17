@@ -16,8 +16,8 @@ public class HtmlWriter {
 		this.pathLy = pathLy;
 	}
 
-	public void htlmWrite(HtmlWriter[] tab) throws IOException {
-		File file = new File("Harmonisation.html");
+	public void htmlWrite(HtmlWriter[] tab, String path) throws IOException {
+		File file = new File(path);
 		FileWriter fw = new FileWriter(file);
 		toHtml(tab,fw);
 		fw.close();
@@ -47,7 +47,6 @@ public class HtmlWriter {
 			fw.write("<tr>\n");
 			fw.write("<th>"+tab[i].nom+"</th>");
 			fw.write("<td>"+tab[i].nbH+"</td>");
-			fw.write("<td>"+tab[i].pathMid+"</td>");
 			fw.write("<td><a href=\""+tab[i].pathLy+"\"> "+tab[i].nom+".mid</a></td>");
 			fw.write("<td><a href=\""+tab[i].pathMid+"\"> "+tab[i].nom+".mid</a></td>");
 			fw.write("</tr>\n");
