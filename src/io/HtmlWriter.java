@@ -3,10 +3,18 @@ package io;
 import java.io.*;
 
 public class HtmlWriter {
-	String nom;
-	int nbH;
-	String pathMid;
-	String pathLy;
+	public String nom;
+	public int nbH;
+	public String pathMid;
+	public String pathLy;
+
+
+	public HtmlWriter(String nom, int nbH, String pathMid, String pathLy) {
+		this.nom = nom;
+		this.nbH = nbH;
+		this.pathMid = pathMid;
+		this.pathLy = pathLy;
+	}
 
 	public void htlmWrite(HtmlWriter[] tab) throws IOException {
 		File file = new File("Harmonisation.html");
