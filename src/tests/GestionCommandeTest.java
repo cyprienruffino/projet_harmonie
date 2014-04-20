@@ -3,7 +3,7 @@ package tests;
 
 import static org.junit.Assert.*;
 
-import main.GestionCommande;
+import main.Commande;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -35,9 +35,9 @@ public class GestionCommandeTest {
 		argsBisBis[3]="-beaute";
 		argsBisBis[4]="5";
 		
-		GestionCommande.readCommand(args);
-		GestionCommande.readCommand(argsBis);
-		GestionCommande.readCommand(argsBisBis);
+		Commande.readCommand(args);
+		Commande.readCommand(argsBis);
+		Commande.readCommand(argsBisBis);
 		
 	}
 }

@@ -1,12 +1,10 @@
-package main;
+package obsolete;
 
 
 import java.io.*;
 import java.util.ArrayList;
 
 import main.Accord;
-
-import accords.*;
 
 public class Partatab {
 	// pour c'est variable voir le commentaire du tableau list

@@ -20,7 +20,7 @@ public class PartitionTest {
 		ChantReader reader=new ChantReader(new File("data/AuClairDeLaLune.chant"));
 		Partition partition = new Partition(reader.readChant());
 		partition.generate();
-		ArrayList<Accord>[] jeu=partition.getJeu();
+		ArrayList<Accord>[] jeu=partition.jeu;
 		//Test de non-existence de noeuds sans fils
 		boolean retour=true;
 		boolean tmp=false;
@@ -35,7 +35,7 @@ public class PartitionTest {
 				}
 			}
 		}
-		Assert.assertTrue(retour);
+		assertTrue(retour);
 		//Test de non-existence de noeuds sans pères
 		for(int i=1;i<jeu.length;i++){
 			for(Accord fils:jeu[i]){
@@ -49,6 +49,6 @@ public class PartitionTest {
 			}
 		}
 		//Un noeud sans père n'est pas accessible, donc ne pose pas de problèmes
-		//Assert.assertTrue(retour);
+		//assertTrue(retour);
 	}
 }

@@ -4,7 +4,17 @@ import java.io.*;
 
 import main.Accord;
 
-public class LilypondWriter implements Writer {
+/**
+ * Fabrique de méthode d'écriture en Lilypond
+ * 
+ * @author DALBIS Paul-Arthur
+ * @author COLOMIERS Corentin
+ * @author SERRETTE Nicolas
+ * @author RUFINO Cyprien
+ * 
+ */
+
+public class LilypondWriter extends Writer {
 	private String fichier;
 	private Accord part[];
 	private String titre;

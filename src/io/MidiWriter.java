@@ -8,8 +8,18 @@ import javax.sound.midi.*;
 
 import main.Accord;
 
+/**
+ * Fabrique de méthode d'écriture en midi
+ * 
+ * @author DALBIS Paul-Arthur
+ * @author COLOMIERS Corentin
+ * @author SERRETTE Nicolas
+ * @author RUFINO Cyprien
+ * 
+ */
 
-public class MidiWriter implements Writer {
+
+public class MidiWriter extends Writer {
 	
 	private String fichier;
 	private Accord partition[];

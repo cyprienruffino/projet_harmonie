@@ -10,11 +10,8 @@ import java.util.ArrayList;
 import junit.framework.Assert;
 
 import main.Accord;
-import main.Partatab;
 
 import org.junit.Test;
-
-import accords.VI;
 
 public class PartatabTest {
 	@Test
