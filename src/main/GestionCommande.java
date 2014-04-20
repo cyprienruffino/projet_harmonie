@@ -4,58 +4,30 @@ import io.*;
 
 import java.io.File;
 import java.io.IOException;
-
 import javax.sound.midi.InvalidMidiDataException;
-
-
-/*
- * - 1 methode from .chant to .mid beaute random
- * - 1 methode from .chant to .ly beaute random
- * - 1 methode from .chant to .mid beaute predefinie
- * - 1 methode from .chant to .ly beaute predefinie
- * - 1 methode from .chant retourne nombre d'harmonisation totale effectuée
- */
 
 /**
  * Analyse les options et leurs parametres dans le tableau d'arguments et execute le code adequate.
  * 
- * @author DALBIS Paul-Arthur
- * @author COLOMIERS Corentin
- * @author SERRETTE Nicolas
  * @author RUFINO Cyprien
- *
+ * @author SERRETTE Nicolas
+ * @author COLOMIERS Corentin
+ * @author DALBIS Paul-Arthur
  */
 public class GestionCommande {
-	//J'ajoute ici les méthodes demandées
-	private static void harmonieSansBeaute(File fichier, Writer writer) throws IOException, InvalidMidiDataException{
-		ChantReader reader=new ChantReader(fichier);
-		Partition partition = new Partition(reader.readChant());
-		partition.generate();
-		writer.addPartition(partition.choixHarmonie(1));
-		writer.ecrirePartition();
-	}
-	private static void harmonieAvecBeaute(File fichier, Writer writer, int beaute) throws IOException, InvalidMidiDataException{
-		ChantReader reader=new ChantReader(fichier);
-		Partition partition = new Partition(reader.readChant());
-		partition.generate();
-		writer.addPartition(partition.choixHarmonie(beaute));
-		writer.ecrirePartition();
-	}
-	private static void nombreHarmonisation(File fichier) throws IOException{
-		ChantReader reader=new ChantReader(fichier);
-		Partition partition = new Partition(reader.readChant());
-		partition.generate();
-		System.out.println("Nombre d'harmonisations possibles : "+partition.nombre());
-	}
 	
+
+
+//------------------- Misc ----------------------------------------------------------------------------------------------------------------------------
 	/**
 	 * Parcours le tableau d'argument et redirige vers l'execution adequate du programme. 
 	 * @param String [] args
 	 * @throws IOException
 	 */
-	public static void readCommand (String [] args){ //faire boolean pour chaque commande --> non prise en compte de l'ordre.
+	public static void readCommand (String [] args){
 		boolean name=false,help=false,midi=false,lilypond=false,nombre=false,beaute=false,w=false;
 		int a=0,b=0,c=0,d=0,e=0;
+		String nomFichierUn, nomFichierDeux;
 		
 		for (int i=0;i<args.length;i++){
 			if (args[i]!=null){
@@ -94,22 +66,35 @@ public class GestionCommande {
 			help();
 		}
 		if (midi && beaute==false && lilypond==false){
-			launchHarmonisationMidi(args,a);
+			nomFichierUn=args[a+1];
+			nomFichierDeux=args[a+2];
+			launchHarmonieSansBeaute(nomFichierUn, nomFichierDeux);
 		}
 		if (lilypond && beaute==false && midi==false){
-			launchHarmonisationLilyPond(args,b);
+			nomFichierUn=args[a+1];
+			nomFichierDeux=args[a+2];
+			launchHarmonieSansBeaute(nomFichierUn, nomFichierDeux);
 		}
 		if (nombre){
-			launchNombreHarmonisation(args,c);
+			nomFichierUn=args[c+1];
+			launchNombreHarmonisation(nomFichierUn);
 		}
 		if (midi && beaute){
-			launchMidiBeauty(args,a,d);
+			nomFichierUn=args[a+1];
+			nomFichierDeux=args[a+2];
+			d=Integer.parseInt(args[d+1]);
+			launchBeauty(nomFichierUn, nomFichierDeux, d);
 		}
 		if (lilypond && beaute){
-			launchLilyBeauty(args,b,d);
+			nomFichierUn=args[b+1];
+			nomFichierDeux=args[b+2];
+			d=Integer.parseInt(args[d+1]);
+			launchBeauty(nomFichierUn, nomFichierDeux, d);
 		}
 		if (w){
-			launchW(args,e);
+			nomFichierUn=args[e+1];
+			nomFichierDeux=args[e+2];
+			launchW(nomFichierUn, nomFichierDeux);
 		}
 	}
 
@@ -137,62 +122,20 @@ public class GestionCommande {
 		System.out.println("-w dossier1 dossier2 : donne le resultat des calculs demandes precedents (3 à 7) appliques a tous les fichiers de chant du dossier dossier1 sous la forme d’un dossier dossier2 contenant les fichiers midi et LiLyPond calcules et une page html produisant un tableau qui, pour chaque chant, donne le nom, le nombre d’harmonisations et les liens sur les fichiers calcules.");
 	}
 
-	/**
-	 * Extrait les parametres des options du tableau d'arguments et appel la methode harmonisationMidi avec les parametre adequates.
-	 * @param String[] args
-	 * @param int a
-	 */
-	public static void launchHarmonisationMidi(String []args,int a){
-		String nomFichierUn=args[a+1];
-		String nomFichierDeux=args[a+2];
-		if (nomFichierUn.endsWith(".chant") && nomFichierDeux.endsWith(".mid")){
-			try { 
-				File f=new File(nomFichierUn);
-				harmonieSansBeaute(f,new MidiWriter(nomFichierDeux,nomFichierDeux.substring(0,nomFichierDeux.length()-4)));
-			} catch (IOException e) {
-				System.out.println("Fichier invalide");
-			} catch (InvalidMidiDataException e) {
-				System.out.println("Fichier invalide");
-			}
-		}else{
-			System.out.println("Extension invalide");
-		}
-	}
 	
-	/**
-	 * Extrait les parametres des options du tableau d'arguments et appel la methode HarmonisationLilyPond avec les parametres adequates.
-	 * @param String[]args
-	 * @param int b
-	 * @throws InvalidMidiDataException 
-	 */
-	public static void launchHarmonisationLilyPond(String []args,int b){
-		String nomFichierUn=args[b+1];
-		String nomFichierDeux=args[b+2];
-		if (nomFichierUn.endsWith(".chant") && nomFichierDeux.endsWith(".ly")){
-			try {
-				File f=new File(nomFichierUn);
-				harmonieSansBeaute(f,new LilypondWriter(nomFichierDeux,nomFichierDeux.substring(0,nomFichierDeux.length()-3)));
-			} catch (IOException e) {
-				System.out.println("Fichier invalide");
-			} catch (InvalidMidiDataException e) {
-				System.out.println("Fichier invalide");
-			}
-		}else{
-			System.out.println("Extension Invialide");
-		}
-	}
 	
+	
+//------------------Nombre harmonisation ----------------------------------------------------------------------------------------------------------
 	/**
 	 * Extrait les parametres des options du tableau d'arguments et appel la methode nombreHarmonisation avec les parametres adequates.
 	 * @param String[]args
 	 * @param int c
 	 */
-	public static void launchNombreHarmonisation(String []args,int c){ //Compter le nombre d'harmonisation a la fin de la partition
-		String nomFichier=args[c+1];
-		if (nomFichier.endsWith(".chant")){
+	public static void launchNombreHarmonisation(String nomFichierUn){
+		if (nomFichierUn.endsWith(".chant")){
 			try {
-				File f=new File(nomFichier);
-				nombreHarmonisation(f);
+				File f=new File(nomFichierUn);
+				System.out.println("Nombre d'harmonisations possibles : "+nombreHarmonisation(f));
 			} catch (IOException e) {
 				e.printStackTrace();
 				System.out.println("Fichier invalide");
@@ -203,19 +146,74 @@ public class GestionCommande {
 	}
 	
 	/**
-	 * Extrait les parametres des options du tableau d'arguments et appel la methode nombreHarmonisation avec les parametres adequates.
-	 * @param String[]args
+	 * Retourne un entier correspondant au nombre d'harmonisations possible du fichier en parametre.
+	 * @param fichier
+	 * @return int partition.nombre()
+	 * @throws IOException
+	 */
+	private static int nombreHarmonisation(File fichier) throws IOException{
+		ChantReader reader=new ChantReader(fichier);
+		Partition partition = new Partition(reader.readChant());
+		partition.generate();
+		return partition.nombre();
+	}
+
+	
+//------------------------- Harmonie Sans Beaute ---------------------------------------------------------------------------------------------
+	/**
+	 * Extrait les parametres des options du tableau d'arguments et appel la methode harmonisationSansBeaute avec les parametre adequates.
+	 * @param String[] args
 	 * @param int a
+	 */
+	public static void launchHarmonieSansBeaute(String nomFichierUn, String nomFichierDeux){
+		if (nomFichierUn.endsWith(".chant") && nomFichierDeux.endsWith(".mid")){
+			try { 
+				File f=new File(nomFichierUn);
+				harmonieSansBeaute(f,new MidiWriter(nomFichierDeux,nomFichierDeux.substring(0,nomFichierDeux.length()-4)));
+			} catch (IOException e) {
+				System.out.println("Fichier invalide");
+			} catch (InvalidMidiDataException e) {
+				System.out.println("Fichier invalide");
+			}
+		}else{
+			if (nomFichierUn.endsWith(".chant") && nomFichierDeux.endsWith(".ly")) {
+				try {
+					File f=new File(nomFichierUn);
+					harmonieSansBeaute(f,new LilypondWriter(nomFichierDeux,nomFichierDeux.substring(0,nomFichierDeux.length()-3)));
+				} catch (IOException e) {
+					System.out.println("Fichier invalide");
+				} catch (InvalidMidiDataException e) {
+					System.out.println("Fichier invalide");
+				}
+			}else{
+				System.out.println("Extension invalide");
+			}
+		}
+	}
+	
+	/**
+	 * Lit le fichier .chant, creer une harmonie SANS beaute de se fichier et creer un nouveau fichier dont le nom et le type est specifie par le writer.
+	 * @param fichier
+	 * @param writer
+	 * @throws IOException
+	 * @throws InvalidMidiDataException
+	 */
+	private static void harmonieSansBeaute(File fichier, Writer writer) throws IOException, InvalidMidiDataException{
+		ChantReader reader=new ChantReader(fichier);
+		Partition partition = new Partition(reader.readChant());
+		partition.generate();
+		writer.addPartition(partition.choixHarmonie(1));
+		writer.ecrirePartition();
+	}
+	
+//-----------------------Harmonie AVEC Beaute --------------------------------------------------------------------------------------------------
+	/**
+	 * Extrait les parametres des options du tableau d'arguments et appel la methode harmonisationSansBeaute avec les parametre adequates.
+	 * @param String nomFichierUn
+	 * @param String nomFichierDeux
 	 * @param int d 
 	 */
-	public static void launchMidiBeauty(String []args,int a,int d){
-		String nomFichierUn=args[a+1];
-		String nomFichierDeux=args[a+2];
-		try{
-			d=Integer.parseInt(args[d+1]);
-		}catch(Exception e){
-			System.out.println("Ceci n'est pas un nombre");
-		}
+	public static void launchBeauty(String nomFichierUn, String nomFichierDeux, int d){
 		if (nomFichierUn.endsWith(".chant")){
 			File f=new File(nomFichierUn);
 			try {
@@ -226,49 +224,80 @@ public class GestionCommande {
 				System.out.println("Fichier invalide");
 			}
 		}else{
-			System.out.println("Extension Invalide");
+			if (nomFichierUn.endsWith(".ly")){
+				File f=new File(nomFichierUn);
+				try {
+					harmonieAvecBeaute(f,new LilypondWriter(nomFichierDeux, nomFichierDeux.substring(0,nomFichierDeux.length()-4)), d);
+				} catch (IOException  e) {
+					System.out.println("Fichier lilypond invalide");
+				} catch(InvalidMidiDataException e){
+					System.out.println("Fichier midi invalide");
+				}
+			}else{
+				System.out.println("Extension Invalide");
+			}
 		}
 	}
 	
 	/**
-	 * Extrait les parametres des options du tableau d'arguments et appel la methode Lilybeauty avec les parametres adequates.
-	 * @param args
-	 * @param b
-	 * @param d
+	 * Lit le fichier .chant, creer une harmonie Avec beaute de se fichier et creer un nouveau fichier dont le nom et le type est specifie par le writer.
+	 * @param fichier
+	 * @param writer
+	 * @param beaute
+	 * @throws IOException
+	 * @throws InvalidMidiDataException
 	 */
-	public static void launchLilyBeauty(String []args,int b,int d){
-		String nomFichierUn=args[b+1];
-		String nomFichierDeux=args[b+2];
-		try{
-			d=Integer.parseInt(args[d+1]);
-		}catch(Exception e){
-			System.out.println("Ceci n'est pas un nombre");
-		}
-		if (nomFichierUn.endsWith(".ly")){
-			File f=new File(nomFichierUn);
-			try {
-				harmonieAvecBeaute(f,new LilypondWriter(nomFichierDeux, nomFichierDeux.substring(0,nomFichierDeux.length()-4)), d);
-			} catch (IOException  e) {
-				System.out.println("Fichier lilypond invalide");
-			} catch(InvalidMidiDataException e){
-				System.out.println("Fichier midi invalide");
-			}
-		}else{
-			System.out.println("Extension Invalide");
-		}
+	private static void harmonieAvecBeaute(File fichier, Writer writer, int beaute) throws IOException, InvalidMidiDataException{
+		ChantReader reader=new ChantReader(fichier);
+		Partition partition = new Partition(reader.readChant());
+		partition.generate();
+		writer.addPartition(partition.choixHarmonie(beaute));
+		writer.ecrirePartition();
 	}
 	
+	
+//-------------- W -------------------------------------------------------------------------------------------------------------------------
 	/**
 	 * Extrait les parametres des options du tableau d'arguments et appel la methode W avec les parametres adequates.
-	 * @param args
+	 * @param String nomDossierUn
+	 * @param String nomDossierDeux
 	 * @param e
 	 */
-	public static void launchW(String []args,int e){
-		String nomFichierUn=args[e+1];
-		String nomFichierDeux=args[e+2];
-		/*
-		 * besoin des autres pour la finir.
-		 * succession de toutes les autres commandes sauf help-name.
-		 */
+	public static void launchW(String nomDossierUn, String nomDossierDeux){
+		int i=0;
+		File[] tabFichier=getFilesFromFolder(nomDossierUn);
+		HtmlWriter[] tab=new HtmlWriter[tabFichier.length];
+		for (File fichier : tabFichier ){
+			
+			if (fichier.isFile()){
+				try {
+					HtmlWriter hw=new HtmlWriter(fichier.getName(), nombreHarmonisation(fichier),nomDossierDeux+"/hsb_"+fichier.getPath()+".mid", nomDossierDeux+"/hsb_"+fichier.getPath()+".ly", nomDossierDeux+"/hab_"+fichier.getPath()+".mid", nomDossierDeux+"/hab_"+fichier.getPath()+".ly");
+					launchHarmonieSansBeaute(fichier.getPath(),nomDossierDeux+"/hsb_"+fichier.getPath()+".mid");
+					launchHarmonieSansBeaute(fichier.getPath(),nomDossierDeux+"/hsb_"+fichier.getPath()+".ly");
+					launchBeauty(fichier.getPath(),nomDossierDeux+"/hab_"+fichier.getPath()+".mid", 2);//nombre pris au pif
+					launchBeauty(fichier.getPath(),nomDossierDeux+"/hab_"+fichier.getPath()+".ly", 2);//nombre pris au pif
+					tab[i]=hw;
+					i++;
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		try {
+			HtmlWriter.htmlWrite(tab,nomDossierDeux+"/Recapitulatif.htm");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Mets les Fichiers d'un dossier dans un tableau de fichier
+	 * @param String nomDossierUn
+	 * @return File[] tabFichier
+	 */
+	public static File[] getFilesFromFolder(String nomDossierUn){
+		File dossierUn=new File(nomDossierUn);
+		File[] tabFichier=dossierUn.listFiles();
+		return tabFichier;
 	}
 }
