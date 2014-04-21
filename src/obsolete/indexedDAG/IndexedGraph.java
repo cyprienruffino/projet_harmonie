@@ -3,7 +3,11 @@ package obsolete.indexedDAG;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
+/**
+ * 
+ * Structure de données modulaire abandonnée pour faute de temps
+ *
+ */
 public class IndexedGraph {
 	public Index[] array;
 	
@@ -27,7 +31,7 @@ public class IndexedGraph {
 	public Node get(int rank, int index){
 		return array[rank].get(index);
 	}
-	public ArrayList<Nod> getArray(int index){
+	public ArrayList<Node> getArray(int index){
 		return array[index].getArray();
 	}
 	

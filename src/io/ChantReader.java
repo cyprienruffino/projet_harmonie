@@ -6,14 +6,36 @@ import java.util.StringTokenizer;
 
 import main.Accord;
 
+/**
+ * Lit un fichier .chant
+ * 
+ * @author RUFINO Cyprien
+ * @author SERRETTE Nicolas
+ * @author COLOMIERS Corentin
+ * @author DALBIS Paul-Arthur
+ */
 
 public class ChantReader {
 
 	private File chant;
 	
+	/**
+	 * Construit un lecteur sur un fichier .chant
+	 * @param f
+	 * 		Fichier .chant
+	 */
+	
 	public ChantReader(File f){
 		chant=f;
 	}
+	
+	/**
+	 * Décode le fichier .chant passé au constructeur
+	 * 
+	 * @return
+	 * 		Retourne un graphe indexé contenant le chant soprano
+	 * @throws IOException
+	 */
 	
 	public ArrayList<Accord>[] readChant() throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(chant));

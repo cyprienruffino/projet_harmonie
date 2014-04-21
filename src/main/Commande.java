@@ -73,12 +73,12 @@ public class Commande {
 		if (midi && beaute == false && lilypond == false) {
 			nomFichierUn = args[a + 1];
 			nomFichierDeux = args[a + 2];
-			launchHarmonisation(nomFichierUn, nomFichierDeux, getBeaute(args, d), "midi");
+			launchHarmonisation(nomFichierUn, nomFichierDeux, 1, "midi");
 		}
 		if (lilypond && beaute == false && midi == false) {
 			nomFichierUn = args[a + 1];
 			nomFichierDeux = args[a + 2];
-			launchHarmonisation(nomFichierUn, nomFichierDeux, getBeaute(args, d), "lilypond");
+			launchHarmonisation(nomFichierUn, nomFichierDeux, 1, "lilypond");
 		}
 		if (nombre) {
 			nomFichierUn=args[c+1];
@@ -190,33 +190,6 @@ public class Commande {
 	 * @param e
 	 */
 
-	private static void harmonisation(File fichier, Writer writer, int beaute)
-			throws IOException, InvalidMidiDataException {
-		ChantReader reader = new ChantReader(fichier);
-		Partition partition = new Partition(reader.readChant());
-		partition.generate();
-		writer.addPartition(partition.choixHarmonie(beaute));
-		writer.ecrirePartition();
-	}
-
-	private static int nombreHarmonisation(File fichier) throws IOException {
-		ChantReader reader = new ChantReader(fichier);
-		Partition partition = new Partition(reader.readChant());
-		partition.generate();
-		int nb = partition.nombre();
-		System.out.println("Nombre d'harmonisations possibles : " + nb);
-		return nb;
-	}
-
-	private static int getBeaute(String[] args, int beaute) {
-		try {
-			return Integer.parseInt(args[beaute + 1]);
-		} catch (Exception e) {
-			System.out.println("Ceci n'est pas un nombre");
-			return 1;
-		}
-	}
-
 	public static void launchW(String nomDossierUn, String nomDossierDeux) {
 		int i = 0;
 		File[] tabFichier = getFilesFromFolder(nomDossierUn);
@@ -264,4 +237,34 @@ public class Commande {
 		File[] tabFichier = dossierUn.listFiles();
 		return tabFichier;
 	}
+	
+	
+	
+	private static void harmonisation(File fichier, Writer writer, int beaute)
+			throws IOException, InvalidMidiDataException {
+		ChantReader reader = new ChantReader(fichier);
+		Partition partition = new Partition(reader.readChant());
+		partition.generate();
+		writer.addPartition(partition.choixHarmonie(beaute));
+		writer.ecrirePartition();
+	}
+
+	private static int nombreHarmonisation(File fichier) throws IOException {
+		ChantReader reader = new ChantReader(fichier);
+		Partition partition = new Partition(reader.readChant());
+		partition.generate();
+		int nb = partition.nombre();
+		System.out.println("Nombre d'harmonisations possibles : " + nb);
+		return nb;
+	}
+
+	private static int getBeaute(String[] args, int beaute) {
+		try {
+			return Integer.parseInt(args[beaute + 1]);
+		} catch (Exception e) {
+			System.out.println("Ceci n'est pas un nombre");
+			return 1;
+		}
+	}
+	
 }

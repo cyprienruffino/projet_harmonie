@@ -19,7 +19,6 @@ public class MonteurAccord implements Monteur{
 		return combinaisons;
 	}
 
-	@Override
 	public void monterCombinaisons() {
 		int s = current.soprano;
 		combinaisons= initAccordcombinaisonsible(s,current.duree);

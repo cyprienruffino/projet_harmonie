@@ -15,10 +15,10 @@ import java.util.*;
 
 public class Partition {
 
-	//Graphe indexé contenant l'harmonisation générée
+	// Graphe indexé contenant l'harmonisation générée
 	private ArrayList<Accord>[] jeu;
 
-	 //Graphe indexé linéaire contenant la parition soprano donnée
+	// Graphe indexé linéaire contenant la parition soprano donnée
 	private ArrayList<Accord>[] soprano;
 
 	/**
@@ -81,14 +81,14 @@ public class Partition {
 
 	private void generateJeu() {
 		// Création de la matrice des possibilités
-		MonteurCombinaisons builder=new MonteurCombinaisons();
-		builder.setCombinaison(null,soprano[0].get(0));
+		MonteurCombinaisons builder = new MonteurCombinaisons();
+		builder.setCombinaison(null, soprano[0].get(0));
 		builder.construireCombinaison();
 		jeu[0] = builder.getCombinaison();
-		for (int i = 1; i < soprano.length; i++){
-			builder.setCombinaison(soprano[i-1].get(0), soprano[i].get(0));
+		for (int i = 1; i < soprano.length; i++) {
+			builder.setCombinaison(soprano[i - 1].get(0), soprano[i].get(0));
 			builder.construireCombinaison();
-			jeu[i]=builder.getCombinaison();
+			jeu[i] = builder.getCombinaison();
 		}
 
 		// Création des liens père-fils
@@ -96,13 +96,14 @@ public class Partition {
 		for (int i = jeu.length - 1; i > 0; i--) {
 			for (int j = 0; j < jeu[i].size(); j++) {
 				accordFils = jeu[i].get(j);
-				// Nettoyage des chemins inutiles
+				// Nettoyage des chemins sans suite 
 				if ((i != jeu.length - 1)
 						&& (accordFils.jeuxSuivants.size() == 0)) {
 					jeu[i].remove(accordFils);
 					j--;
 					continue;
 				}
+				//Vérification des règles
 				for (Accord accordPere : jeu[i - 1]) {
 					if (Regle.enchainementCorrect(accordPere, accordFils)) {
 						accordPere.addSuivant(accordFils);
@@ -178,34 +179,44 @@ public class Partition {
 		return retour;
 	}
 
-	private void elaguer() {
-		// Coupe les liens inutiles, ne gardant pour chaque accord que le plus
-		// beau père
-		int max;
-		ArrayList<Accord> temps;
-		for (int i = jeu.length - 1; i > 0; i--) {
-			for(Accord pere:jeu[i-1]){
-				for(Accord fils:pere.jeuxSuivants){
-					if(fils.pere==null || beaute(fils.pere,fils)>beaute(pere,fils))
-						fils.pere=pere;		
-				}
+	private void elaguer() { 
+		// Coupe les liens inutiles, ne gardant pour chaque accord que le plus beau père
+		for (int i = 1; i < jeu.length; i++) {
+			for (Accord pere : jeu[i - 1]) {
+				for (Accord fils : pere.jeuxSuivants) {
+					if (fils.pere == null
+						|| beaute(fils.pere, fils) > beaute(pere, fils))
+						fils.pere = pere;
+				}	
 			}
 		}
-		for(ArrayList<Accord> index:jeu){
-			for(Accord accord:index){
-				accord.jeuxSuivants=new ArrayList<Accord>();
+		for (ArrayList<Accord> index : jeu) {
+			for (Accord accord : index) {
+				accord.jeuxSuivants = new ArrayList<Accord>();
 			}
 		}
-		for (int i = jeu.length - 1; i > 0; i--) {
-			for(int j=0;j<jeu[i].size();j++){
-				if(jeu[i].get(j).pere==null){
-					jeu[i].remove(j);
-					continue;
-				}
+		for (int i = 1; i < jeu.length; i++) {
+			for (int j = 0; j < jeu[i].size(); j++) {
 				jeu[i].get(j).pere.jeuxSuivants.add(jeu[i].get(j));
 			}
 		}
 	}
+
+	/*
+	 * private void elaguer() { int max; ArrayList<Accord> temps;
+	 * ArrayList<Accord> fils; for (int i = jeu.length - 2; i > 0; i--) { temps
+	 * = new ArrayList<Accord>(); for (int j = 0; j < jeu[i].size(); j++) { max
+	 * = 0; fils = new ArrayList<Accord>(); for (int k = 0; k <
+	 * jeu[i].get(j).jeuxSuivants.size(); k++) { if (beaute(jeu[i].get(j),
+	 * jeu[i].get(j).jeuxSuivants.get(k)) > beaute( jeu[i].get(j),
+	 * jeu[i].get(j).jeuxSuivants.get(max))) { max = k; } }
+	 * jeu[i].get(j).jeuxSuivants.get(max).pere = jeu[i].get(j);
+	 * fils.add(jeu[i].get(j).jeuxSuivants.get(max));
+	 * temps.add(jeu[i].get(j).jeuxSuivants.get(max));
+	 * jeu[i].get(j).jeuxSuivants = fils; } jeu[i] = temps; } for(int i=0;){
+	 * 
+	 * } }
+	 */
 
 	private int beaute(Accord pere, Accord fils) {
 		// Calcule la beauté pour un enchaînement
@@ -243,7 +254,7 @@ public class Partition {
 	}
 
 	private void parcoursProfondeurBeaute(Accord pere, int compteur) {
-		//Assigne les critères de beauté au graphe
+		// Assigne les critères de beauté au graphe
 		for (Accord fils : pere.jeuxSuivants) {
 			pere.beaute = (beaute(pere, fils));
 			parcoursProfondeurBeaute(fils, pere.beaute);
