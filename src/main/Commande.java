@@ -4,6 +4,7 @@ import io.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.StringTokenizer;
 
 import javax.sound.midi.InvalidMidiDataException;
 
@@ -32,7 +33,6 @@ public class Commande {
 		boolean name = false, help = false, midi = false, lilypond = false, nombre = false, beaute = false, w = false;
 		int a = 0, b = 0, c = 0, d = 0, e = 0;
 		String nomFichierUn, nomFichierDeux;
-		
 
 		for (int i = 0; i < args.length; i++) {
 			if (args[i] != null) {
@@ -81,22 +81,24 @@ public class Commande {
 			launchHarmonisation(nomFichierUn, nomFichierDeux, 1, "lilypond");
 		}
 		if (nombre) {
-			nomFichierUn=args[c+1];
+			nomFichierUn = args[c + 1];
 			launchNombreHarmonisation(nomFichierUn);
 		}
 		if (midi && beaute) {
 			nomFichierUn = args[a + 1];
 			nomFichierDeux = args[a + 2];
-			launchHarmonisation(nomFichierUn, nomFichierDeux, getBeaute(args, d), "midi");
+			launchHarmonisation(nomFichierUn, nomFichierDeux,
+					getBeaute(args, d), "midi");
 		}
 		if (lilypond && beaute) {
 			nomFichierUn = args[a + 1];
 			nomFichierDeux = args[a + 2];
-			launchHarmonisation(nomFichierUn, nomFichierDeux, getBeaute(args, d), "lilypond");
+			launchHarmonisation(nomFichierUn, nomFichierDeux,
+					getBeaute(args, d), "lilypond");
 		}
 		if (w) {
-			nomFichierUn=args[e+1];
-			nomFichierDeux=args[e+2];
+			nomFichierUn = args[e + 1];
+			nomFichierDeux = args[e + 2];
 			launchW(nomFichierUn, nomFichierDeux);
 		}
 	}
@@ -165,8 +167,8 @@ public class Commande {
 	 * @param String
 	 *            type
 	 */
-	public static void launchHarmonisation(String nomFichierUn, String nomFichierDeux, int beaute,
-			String type) {
+	public static void launchHarmonisation(String nomFichierUn,
+			String nomFichierDeux, int beaute, String type) {
 		if (nomFichierUn.endsWith(".chant")) {
 			File f = new File(nomFichierUn);
 			try {
@@ -193,24 +195,22 @@ public class Commande {
 	public static void launchW(String nomDossierUn, String nomDossierDeux) {
 		int i = 0;
 		File[] tabFichier = getFilesFromFolder(nomDossierUn);
-		HtmlWriter[] tab = new HtmlWriter[tabFichier.length];
+		int nbFichierChant=0;
+		for (File fichier : tabFichier) 
+			if (fichier.isFile() && fichier.getName().endsWith(".chant")) 
+				nbFichierChant++;
+		HtmlWriter[] tab = new HtmlWriter[nbFichierChant];
 		for (File fichier : tabFichier) {
-			if (fichier.isFile()) {
+			if (fichier.isFile() && fichier.getName().endsWith(".chant")) {
 				try {
 					HtmlWriter hw = new HtmlWriter(fichier.getName(),
 							nombreHarmonisation(fichier), nomDossierDeux
-									+ "/hsb_" + fichier.getPath() + ".mid",
-							nomDossierDeux + "/hsb_" + fichier.getPath()
-									+ ".ly", nomDossierDeux + "/hab_"
 									+ fichier.getPath() + ".mid",
-							nomDossierDeux + "/hab_" + fichier.getPath()
-									+ ".ly");
-
-					launchHarmonisation(fichier.getPath(), nomDossierDeux
-							+ "/hsb_" + fichier.getPath() + ".mid",1,"midi");
-
-					launchHarmonisation(fichier.getPath(), nomDossierDeux
-							+ "/hsb_" + fichier.getPath() + ".ly",1,"lilypond");
+							nomDossierDeux + getPathCut(fichier) + ".ly",
+							nomDossierDeux + getPathCut(fichier) + ".mid",
+							nomDossierDeux + getPathCut(fichier) + ".ly");
+					launchHarmonisation(fichier.getPath(),getPathCut(fichier) + ".mid", 1, "midi");
+					launchHarmonisation(fichier.getPath(),getPathCut(fichier) + ".ly", 1, "lilypond");
 					tab[i] = hw;
 					i++;
 				} catch (IOException e) {
@@ -237,9 +237,7 @@ public class Commande {
 		File[] tabFichier = dossierUn.listFiles();
 		return tabFichier;
 	}
-	
-	
-	
+
 	private static void harmonisation(File fichier, Writer writer, int beaute)
 			throws IOException, InvalidMidiDataException {
 		ChantReader reader = new ChantReader(fichier);
@@ -266,5 +264,12 @@ public class Commande {
 			return 1;
 		}
 	}
-	
+
+	private static String getPathCut(File f) {
+		StringTokenizer st = new StringTokenizer(f.getPath(), ".");
+		String ret = "";
+		for (int i = 0; i < st.countTokens() - 1; i++)
+			ret = ret + st.nextToken();
+		return ret;
+	}
 }
