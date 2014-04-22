@@ -3,15 +3,14 @@ package monteur;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import main.Accord;
-import main.Regle;
+import main.*;
 
 public class MonteurTempsVide implements Monteur{
 	ArrayList<Accord> combinaisons;
-	Accord preced;
+	ArrayList<Accord> preced;
 	Accord current;
 	
-	public MonteurTempsVide(Accord preced, Accord current){
+	public MonteurTempsVide(ArrayList<Accord> preced, Accord current){
 		this.preced=preced;
 		this.current=current;
 		this.combinaisons=new ArrayList<Accord>();
@@ -36,7 +35,7 @@ public class MonteurTempsVide implements Monteur{
 		Accord ac;
 		while (it.hasNext()) {
 			ac = it.next();
-			if (!Regle.noteCorrect(ac))
+			if (!Accord.noteCorrect(ac))
 				it.remove();
 		}
 	}
@@ -80,7 +79,7 @@ public class MonteurTempsVide implements Monteur{
 	}
 	private ArrayList<Accord> initTpsVide(int dur) {
 		ArrayList<Accord> acScombinaisons = new ArrayList<Accord>();
-		Iterator<Accord> it = combinaisons.iterator();
+		Iterator<Accord> it = preced.iterator();
 		Accord[] accord = { new Accord(0, 0, 0, 0, dur,0), new Accord(0, 0, 0, 0, dur,1),
 				new Accord(0, 0, 0, 0, dur,2), new Accord(0, 0, 0, 0, dur,3),
 				new Accord(0, 0, 0, 0, dur,7), new Accord(0, 0, 0, 0, dur,4),
@@ -88,7 +87,7 @@ public class MonteurTempsVide implements Monteur{
 		while (it.hasNext()) {
 			Accord ac = it.next();
 			for (int i = 0; i < accord.length; i++) {
-				if (Regle.regle5(ac, accord[i])) {
+				if (Accord.regle5(ac, accord[i])) {
 					if (!contient(accord[i])) {
 						acScombinaisons.add(accord[i]);
 					}

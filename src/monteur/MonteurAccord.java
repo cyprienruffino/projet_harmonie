@@ -3,8 +3,7 @@ package monteur;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import main.Accord;
-import main.Regle;
+import main.*;
 
 public class MonteurAccord implements Monteur{
 	ArrayList<Accord> combinaisons;
@@ -35,7 +34,7 @@ public class MonteurAccord implements Monteur{
 		Accord ac;
 		while (it.hasNext()) {
 			ac = it.next();
-			if (!Regle.noteCorrect(ac))
+			if (!Accord.noteCorrect(ac))
 				it.remove();
 		}
 	}
