@@ -42,17 +42,13 @@ public class LilypondWriter extends Writer {
 		for (int i = 0; i < 4; i++) {
 			String s = new String();
 			enTeteChantWriter(fw, i);
-			int ref = initRef(i);
-			String ocR = new String();
 			for (int j = 0; j < part.length; j++) {
 				int n = note(part[j], i);
 				if (n == -1) {
 					s+= "r"+Time(part[j].duree)+" ";
 				} else {
-					ocR = octaveRef(n, ref);
-					s += noteToString(n, i) + ocR + Time(part[j].duree)
+					s += noteToString(n) +octref(reftest(n)) +Time(part[j].duree)
 							+ " ";
-					ref = ref(ocR, ref);
 				}
 			}
 			fw.write(s);
@@ -62,8 +58,21 @@ public class LilypondWriter extends Writer {
 		fw.write("\\version \"2.14.2\"");
 		fw.close();
 	}
+	
+	
+	private static int reftest(int note){
+		return (note/7);
+	}
+	
+	private static String octref(int i){
+		String s=new String();
+		for (int j=0; j<i;j++){
+			s+="'";
+		}
+		return s;
+	}
 
-	private static int initRef(int mode) {
+ 	private static int initRef(int mode) {
 		switch (mode) {
 		case (0):
 			return 3;
@@ -88,7 +97,7 @@ public class LilypondWriter extends Writer {
 	 *            3=basse
 	 * @return
 	 */
-	private static String noteToString(int note, int mode) {
+	private static String noteToString(int note) {
 		String s = new String();
 		switch (note % 7) {
 		case (0):
@@ -176,28 +185,32 @@ public class LilypondWriter extends Writer {
 			fw.write("\\new Staff { \n");
 			fw.write("\\set Staff.instrumentName = #\"Soprano \" \n");
 			fw.write("\\clef treble \n");
-			fw.write("\\relative c''{\n");
+		//	fw.write("\\relative c''{\n");
+			fw.write("{");
 			break;
 		case (1):
 			fw.write("% Alto\n");
 			fw.write("\\new Staff { \n");
 			fw.write("\\set Staff.instrumentName = #\"Alto \" \n");
 			fw.write("\\clef treble \n");
-			fw.write("\\relative c'' {\n");
+		//	fw.write("\\relative c'' {\n");
+			fw.write("{");
 			break;
 		case (2):
 			fw.write("% Tenor\n");
 			fw.write("\\new Staff { \n");
 			fw.write("\\set Staff.instrumentName = #\"Tenor \" \n");
 			fw.write("\\clef treble\n");
-			fw.write("\\relative c' { \n");
+		//	fw.write("\\relative c' { \n");
+			fw.write("{");
 			break;
 		case (3):
 			fw.write("% Basse\n");
 			fw.write("\\new Staff { \n");
 			fw.write("\\set Staff.instrumentName = #\"Basse \" \n");
 			fw.write("\\clef bass\n");
-			fw.write("\\relative c {\n");
+		//	fw.write("\\relative c {\n");
+			fw.write("{");
 			break;
 		}
 	}

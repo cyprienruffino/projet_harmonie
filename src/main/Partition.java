@@ -86,7 +86,7 @@ public class Partition {
 		builder.construireCombinaison();
 		jeu[0] = builder.getCombinaison();
 		for (int i = 1; i < soprano.length; i++) {
-			builder.setCombinaison(soprano[i - 1].get(0), soprano[i].get(0));
+			builder.setCombinaison(soprano[i - 1], soprano[i].get(0));
 			builder.construireCombinaison();
 			jeu[i] = builder.getCombinaison();
 		}
@@ -105,7 +105,7 @@ public class Partition {
 				}
 				//Vérification des règles
 				for (Accord accordPere : jeu[i - 1]) {
-					if (Regle.enchainementCorrect(accordPere, accordFils)) {
+					if (Accord.enchainementCorrect(accordPere, accordFils)) {
 						accordPere.addSuivant(accordFils);
 					}
 				}

@@ -17,7 +17,7 @@ import monteur.*;
 public class MonteurCombinaisons {
 	private  Monteur monteur;
 	
-	public void setCombinaison(Accord preced, Accord current){
+	public void setCombinaison(ArrayList<Accord> preced, Accord current){
 		if(current.soprano==-1){
 			monteur=new MonteurTempsVide(preced,current);
 		}else{

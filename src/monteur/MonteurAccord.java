@@ -3,8 +3,7 @@ package monteur;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import main.Accord;
-import main.Regle;
+import main.*;
 
 /**
  * Monteur de combinaisons d'accords sur une note
@@ -53,7 +52,7 @@ public class MonteurAccord implements Monteur {
 		Accord ac;
 		while (it.hasNext()) {
 			ac = it.next();
-			if (!Regle.noteCorrect(ac))
+			if (!Accord.noteCorrect(ac))
 				it.remove();
 		}
 	}
