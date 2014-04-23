@@ -1,44 +1,30 @@
 \header{
-title = "Au clair de la lune"
+ title = "data/AuClairDeLaLune"
 }
-
 \new ChoirStaff
-<<
-% Soprano
-\new Staff { 
-	\set Staff.instrumentName = #"Soprano " 
-	\clef treble 
-	\relative c''{
-		c c c d e2 d c4 e d d c2. r4
-	}
-}
-
+<<% Soprano
+ \new Staff { 
+\set Staff.instrumentName = #"Soprano " 
+\clef treble 
+\relative c''{
+c4 c4 c4 d4 e2 d2 c4 e4 d4 d4 c2. }}
 % Alto
 \new Staff { 
-	\set Staff.instrumentName = #"Alto " 
-	\clef treble 
-	\relative c'' {
-		g a a b c b a b a c b b a g a g
-	}
-}
-
+\set Staff.instrumentName = #"Alto " 
+\clef treble 
+\relative c'' {
+g,4 g4 g4 d'4 c2 b,2 e'4 e4 f4 b,4 e'2. }}
 % Tenor
 \new Staff { 
-	\set Staff.instrumentName = #"Tenor " 
-	\clef treble
-	\relative c' { 
-		e f e g g g f g f g g g f e f e
-	}
-}
-
+\set Staff.instrumentName = #"Tenor " 
+\clef treble
+\relative c' { 
+e4 e4 e4 b4 g2 g2 g4 g4 a4 g4 g2. }}
 % Basse
-\new Staff {
-	\set Staff.instrumentName = #"Basse " 
-	\clef bass
-	\relative c { 
-		c f a g c, e d g f c g' g f c f c}
-	}
+\new Staff { 
+\set Staff.instrumentName = #"Basse " 
+\clef bass
+\relative c {
+c4 c4 c4 g,4 c'2 g,2 c'4 c4 d4 g,4 c'2. }}
 >>
-
-
-\version "2.12.3"
+\version "2.14.2"
