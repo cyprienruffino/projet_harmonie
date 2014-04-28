@@ -47,7 +47,7 @@ public class LilypondWriter extends Writer {
 				if (n == -1) {
 					s+= "r"+Time(part[j].duree)+" ";
 				} else {
-					s += noteToString(n) +octref(reftest(n)) +Time(part[j].duree)
+					s += noteToString(n) +octref(reftest(n,i)) +Time(part[j].duree)
 							+ " ";
 				}
 			}
@@ -60,7 +60,11 @@ public class LilypondWriter extends Writer {
 	}
 	
 	
-	private static int reftest(int note){
+	
+	private static int reftest(int note, int i){
+		if(i==0||i==3)
+		return (note/7)-1;
+		else
 		return (note/7);
 	}
 	
@@ -72,20 +76,7 @@ public class LilypondWriter extends Writer {
 		return s;
 	}
 
- 	private static int initRef(int mode) {
-		switch (mode) {
-		case (0):
-			return 3;
-		case (1):
-			return 2;
-		case (2):
-			return 1;
-		case (3):
-			return 1;
-		}
-		return -1;
-	}
-
+ 	
 	/**
 	 * Retourne la note en notation anglaise avec les indication d'octave par
 	 * rapport a la note relative cf:doc lilypond
@@ -153,29 +144,8 @@ public class LilypondWriter extends Writer {
 		return "";
 	}
 
-	private static String octaveRef(int note, int ref) {
-		String s = new String();
-		if ((note / 7) > ref) {
-			for (int i = 0; i < ((note / 7) - ref); i++) {
-				s += "'";
-			}
-		} else {
-			for (int i = 0; i < (ref - (note / 7)); i++) {
-				s += ",";
-			}
-		}
-		return s;
-	}
 
-	private static int ref(String r, int ref) {
-		if (r.length() != 0) {
-			if (r.charAt(0) == '\'')
-				return ref + r.length();
-			if (r.charAt(0) == ',')
-				return ref - r.length();
-		}
-		return ref;
-	}
+	
 
 	private static void enTeteChantWriter(FileWriter fw, int i)
 			throws IOException {
