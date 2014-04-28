@@ -40,13 +40,13 @@ public class MonteurAccord implements Monteur {
 		int s = current.soprano;
 		combinaisons = initAccordcombinaisonsible(s, current.duree);
 		int i = combinaisons.size();
-		GenBasse(i);
+		genBasse(i);
 		cleanGen(i);
 		i = combinaisons.size();
-		GenAlto(i);
+		genAlto(i);
 		cleanGen(i);
 		i = combinaisons.size();
-		GenTenor(i);
+		genTenor(i);
 		cleanGen(i);
 		Iterator<Accord> it = combinaisons.iterator();
 		Accord ac;
@@ -102,7 +102,7 @@ public class MonteurAccord implements Monteur {
 		return combinaisons;
 	}
 
-	private void GenBasse(int h) {
+	private void genBasse(int h) {
 		for (int k = 0; k < h; k++) {
 			for (int i = 3; i < 16; i++) {
 				Accord ac = combinaisons.get(k).clone();
@@ -115,7 +115,7 @@ public class MonteurAccord implements Monteur {
 		}
 	}
 
-	private void GenAlto(int h) {
+	private void genAlto(int h) {
 		for (int k = 0; k < h; k++) {
 			for (int i = 11; i < Math.min(22, combinaisons.get(k).soprano); i++) {
 				Accord ac = combinaisons.get(k).clone();
@@ -136,7 +136,7 @@ public class MonteurAccord implements Monteur {
 		}
 	}
 
-	private void GenTenor(int h) {
+	private void genTenor(int h) {
 		for (int k = 0; k < h; k++) {
 			for (int i = 7; i < Math.min(19, combinaisons.get(k).alto); i++) {
 				Accord ac = combinaisons.get(k).clone();

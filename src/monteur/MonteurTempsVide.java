@@ -43,13 +43,13 @@ public class MonteurTempsVide implements Monteur {
 	public void monterCombinaisons() {
 		initTpsVide(current.duree);
 		int i = combinaisons.size();
-		GenBasse(i);
+		genBasse(i);
 		cleanGen(i);
 		i = combinaisons.size();
-		GenAltoVide(i);
+		genAltoVide(i);
 		cleanGen(i);
 		i = combinaisons.size();
-		GenTenorVide(i);
+		genTenorVide(i);
 		cleanGen(i);
 		Iterator<Accord> it = combinaisons.iterator();
 		Accord ac;
@@ -60,7 +60,7 @@ public class MonteurTempsVide implements Monteur {
 		}
 	}
 
-	private void GenAltoVide(int h) {
+	private void genAltoVide(int h) {
 		for (int k = 0; k < h; k++) {
 			for (int i = 11; i < 22; i++) {
 				Accord ac = combinaisons.get(k).clone();
@@ -75,7 +75,7 @@ public class MonteurTempsVide implements Monteur {
 		}
 	}
 
-	private void GenTenorVide(int h) {
+	private void genTenorVide(int h) {
 		for (int k = 0; k < h; k++) {
 			for (int i = 7; i < Math.min(19, combinaisons.get(k).alto); i++) {
 				Accord ac = combinaisons.get(k).clone();
@@ -113,7 +113,7 @@ public class MonteurTempsVide implements Monteur {
 					}
 				}
 			}
-		}
+		} 
 	}
 
 	private boolean contient(Accord ac) {
@@ -128,7 +128,7 @@ public class MonteurTempsVide implements Monteur {
 		return false;
 	}
 
-	private void GenBasse(int h) {
+	private void genBasse(int h) {
 		for (int k = 0; k < h; k++) {
 			for (int i = 3; i < 16; i++) {
 				Accord ac = combinaisons.get(k).clone();
