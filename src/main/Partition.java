@@ -79,6 +79,11 @@ public class Partition {
 		return choixPremier();
 	}
 
+	
+	
+	/*
+	 * C'est normale que ca ne marche pas il ne faut donner l'ArrayListe des Accord i-1 et non la note qui a per mis de les générer
+	 */
 	private void generateJeu() {
 		// Création de la matrice des possibilités
 		MonteurCombinaisons builder = new MonteurCombinaisons();
