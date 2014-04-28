@@ -13,8 +13,6 @@ import java.io.*;
 public class HtmlWriter {
 	public String nom;
 	public int nbH;
-	public String pathMidSb;
-	public String pathLySb;
 	public String pathMidAb;
 	public String pathLyAb;
 
@@ -28,12 +26,9 @@ public class HtmlWriter {
 	 * @param pathMidAb
 	 * @param pathLyAb
 	 */
-	public HtmlWriter(String nom, int nbH, String pathMidSb, String pathLySb,
-			String pathMidAb, String pathLyAb) {
+	public HtmlWriter(String nom, int nbH, String pathMidAb, String pathLyAb) {
 		this.nom = nom;
 		this.nbH = nbH;
-		this.pathMidSb = pathMidSb;
-		this.pathLySb = pathLySb;
 		this.pathMidAb = pathMidAb;
 		this.pathLyAb = pathLyAb;
 	}
@@ -44,59 +39,10 @@ public class HtmlWriter {
 	public HtmlWriter() {
 		this.nom = null;
 		this.nbH = 0;
-		this.pathMidSb = null;
-		this.pathLySb = null;
 		this.pathMidAb = null;
 		this.pathLyAb = null;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	public void setNbH(int nbH) {
-		this.nbH = nbH;
-	}
-
-	public void setPathMidSb(String pathMidSb) {
-		this.pathMidSb = pathMidSb;
-	}
-
-	public void setPathLySb(String pathLySb) {
-		this.pathLySb = pathLySb;
-	}
-
-	public void setPathMidAb(String pathMidAb) {
-		this.pathMidAb = pathMidAb;
-	}
-
-	public void setPathLyAb(String pathLyAb) {
-		this.pathLyAb = pathLyAb;
-	}
-
-	public String getNom() {
-		return this.nom;
-	}
-
-	public int getNbH() {
-		return this.nbH;
-	}
-
-	public String getPathMidSb() {
-		return this.pathMidSb;
-	}
-
-	public String getPathLySb() {
-		return this.pathLySb;
-	}
-
-	public String getPathMidAb() {
-		return this.pathMidAb;
-	}
-
-	public String getPathLyAb() {
-		return this.pathLyAb;
-	}
 
 	/**
 	 * Debut d'execution de l'ecriture du fichier html.
@@ -175,10 +121,6 @@ public class HtmlWriter {
 			fw.write("<tr>\n");
 			fw.write("<th>" + tab[i].nom + "</th>");
 			fw.write("<td>" + tab[i].nbH + "</td>");
-			fw.write("<td><a href=\"" + tab[i].pathLySb + "\"> " + tab[i].nom
-					+ ".mid</a></td>");
-			fw.write("<td><a href=\"" + tab[i].pathMidSb + "\"> " + tab[i].nom
-					+ ".mid</a></td>");
 			fw.write("<td><a href=\"" + tab[i].pathLyAb + "\"> " + tab[i].nom
 					+ ".mid</a></td>");
 			fw.write("<td><a href=\"" + tab[i].pathMidAb + "\"> " + tab[i].nom

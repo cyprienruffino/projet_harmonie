@@ -204,16 +204,13 @@ public class Commande {
 			if (fichier.isFile() && fichier.getName().endsWith(".chant")) {
 				try {
 					HtmlWriter hw = new HtmlWriter(fichier.getName(),
-							nombreHarmonisation(fichier), nomDossierDeux
-									+ fichier.getPath() + ".mid",
-							nomDossierDeux + getPathCut(fichier) + ".ly",
-							nomDossierDeux + getPathCut(fichier) + ".mid",
+							0,nomDossierDeux + getPathCut(fichier) + ".mid",
 							nomDossierDeux + getPathCut(fichier) + ".ly");
 					launchHarmonisation(fichier.getPath(),getPathCut(fichier) + ".mid", 1, "midi");
 					launchHarmonisation(fichier.getPath(),getPathCut(fichier) + ".ly", 1, "lilypond");
 					tab[i] = hw;
 					i++;
-				} catch (IOException e) {
+				} catch (NullPointerException e) {
 					e.printStackTrace();
 				}
 			}
