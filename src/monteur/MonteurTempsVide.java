@@ -41,7 +41,7 @@ public class MonteurTempsVide implements Monteur {
 	 */
 
 	public void monterCombinaisons() {
-		combinaisons = initTpsVide(current.duree);
+		initTpsVide(current.duree);
 		int i = combinaisons.size();
 		GenBasse(i);
 		cleanGen(i);
@@ -98,24 +98,22 @@ public class MonteurTempsVide implements Monteur {
 		}
 	}
 
-	private ArrayList<Accord> initTpsVide(int dur) {
-		ArrayList<Accord> acScombinaisons = new ArrayList<Accord>();
+	private void initTpsVide(int dur) {
 		Iterator<Accord> it = preced.iterator();
-		Accord[] accord = { new Accord(0, 0, 0, 0, dur,0), new Accord(0, 0, 0, 0, dur,1),
-				new Accord(0, 0, 0, 0, dur,2), new Accord(0, 0, 0, 0, dur,3),
-				new Accord(0, 0, 0, 0, dur,7), new Accord(0, 0, 0, 0, dur,4),
-				new Accord(0, 0, 0, 0, dur,5), new Accord(0, 0, 0, 0, dur,6) };
+		Accord[] accord = { new Accord(-1, 0, 0, 0, dur,0), new Accord(-1, 0, 0, 0, dur,1),
+				new Accord(-1, 0, 0, 0, dur,2), new Accord(-1, 0, 0, 0, dur,3),
+				new Accord(-1, 0, 0, 0, dur,7), new Accord(-1, 0, 0, 0, dur,4),
+				new Accord(-1, 0, 0, 0, dur,5), new Accord(-1, 0, 0, 0, dur,6) };
 		while (it.hasNext()) {
 			Accord ac = it.next();
 			for (int i = 0; i < accord.length; i++) {
 				if (Accord.regle5(ac, accord[i])) {
 					if (!contient(accord[i])) {
-						acScombinaisons.add(accord[i]);
+						combinaisons.add(accord[i]);
 					}
 				}
 			}
 		}
-		return acScombinaisons;
 	}
 
 	private boolean contient(Accord ac) {

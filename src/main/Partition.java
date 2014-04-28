@@ -79,6 +79,11 @@ public class Partition {
 		return choixPremier();
 	}
 
+	
+	
+	/*
+	 * C'est normale que ca ne marche pas il ne faut donner l'ArrayListe des Accord i-1 et non la note qui a per mis de les générer
+	 */
 	private void generateJeu() {
 		// Création de la matrice des possibilités
 		MonteurCombinaisons builder = new MonteurCombinaisons();
@@ -86,7 +91,7 @@ public class Partition {
 		builder.construireCombinaison();
 		jeu[0] = builder.getCombinaison();
 		for (int i = 1; i < soprano.length; i++) {
-			builder.setCombinaison(soprano[i - 1], soprano[i].get(0));
+			builder.setCombinaison(jeu[i - 1], soprano[i].get(0));//Voila le probléme!!
 			builder.construireCombinaison();
 			jeu[i] = builder.getCombinaison();
 		}

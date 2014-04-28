@@ -1,6 +1,5 @@
 package main;
 
-
 import java.util.ArrayList;
 
 /**
@@ -11,10 +10,10 @@ import java.util.ArrayList;
  * @author COLOMIERS Corentin
  * @author SERRETTE Nicolas
  * @author RUFINO Cyprien
- *
+ * 
  */
-public class Accord implements Cloneable{
-	
+public class Accord implements Cloneable {
+
 	/**
 	 * Valeur de la note soprano
 	 */
@@ -39,17 +38,18 @@ public class Accord implements Cloneable{
 	 * Numéro de l'accord
 	 */
 	public int type;
-	
+
 	Accord pere;
 	int beaute;
-	
+
 	/**
 	 * Liens vers les accords du temps suivant de l'harmonisation
 	 */
 	public ArrayList<Accord> jeuxSuivants;
-	
+
 	/**
 	 * Constructeur d'accord
+	 * 
 	 * @param soprano
 	 * @param alto
 	 * @param ténor
@@ -57,55 +57,59 @@ public class Accord implements Cloneable{
 	 * @param durée
 	 * @param type
 	 */
-	public Accord(int s, int a, int t, int b, int d,int c){
-		soprano=s;
-		alto=a;
-		tenor=t;
-		basse=b;
-		duree=d;
-		type=c;
-		jeuxSuivants=new ArrayList<Accord>();
+	public Accord(int s, int a, int t, int b, int d, int c) {
+		soprano = s;
+		alto = a;
+		tenor = t;
+		basse = b;
+		duree = d;
+		type = c;
+		jeuxSuivants = new ArrayList<Accord>();
 	}
-	Accord(){
-		jeuxSuivants=new ArrayList<Accord>();
+
+	Accord() {
+		jeuxSuivants = new ArrayList<Accord>();
 	}
 
 	/**
 	 * Egalité de valeur de deux accords
+	 * 
 	 * @param ac
 	 * @return boolean
 	 */
-	public boolean equals(Accord ac){
-		if(this.soprano==ac.soprano)
-			if(this.alto==ac.alto)
-				if(this.tenor==ac.tenor)
-					if(this.basse==ac.basse)
-						if(this.duree==ac.duree)
+	public boolean equals(Accord ac) {
+		if (this.soprano == ac.soprano)
+			if (this.alto == ac.alto)
+				if (this.tenor == ac.tenor)
+					if (this.basse == ac.basse)
+						if (this.duree == ac.duree)
 							return true;
 		return false;
-	}	
-	public Accord clone(){
+	}
+
+	public Accord clone() {
 		Accord ac = new Accord();
-		ac.soprano=this.soprano;
-		ac.alto=this.alto;
-		ac.tenor=this.tenor;
-		ac.basse=this.basse;
-		ac.duree=this.duree;
-		ac.type=this.type;
+		ac.soprano = this.soprano;
+		ac.alto = this.alto;
+		ac.tenor = this.tenor;
+		ac.basse = this.basse;
+		ac.duree = this.duree;
+		ac.type = this.type;
 		return ac;
 	}
-	public void addSuivant(Accord a){
+
+	public void addSuivant(Accord a) {
 		this.jeuxSuivants.add(a);
-	}	
-	public int getTonic(){
+	}
+
+	public int getTonic() {
 		int a = this.type;
-		if(a==7){
-			a=3;
+		if (a == 7) {
+			a = 3;
 		}
 		return a;
 	}
-	
-	
+
 	public static boolean noteCorrect(Accord ac) {// renvoi true si la note est
 		// correcte
 		if (regle1(ac)) {
@@ -117,9 +121,13 @@ public class Accord implements Cloneable{
 	}
 
 	/**
-	 * Verifie si un enchainement d'accord est possible, utilise les régles 5 et 6
-	 * @param AcC Accord courent
-	 * @param AcS Accord suivant
+	 * Verifie si un enchainement d'accord est possible, utilise les régles 5 et
+	 * 6
+	 * 
+	 * @param AcC
+	 *            Accord courent
+	 * @param AcS
+	 *            Accord suivant
 	 * @return
 	 */
 	public static boolean enchainementCorrect(Accord AcC, Accord AcS) {
@@ -130,16 +138,15 @@ public class Accord implements Cloneable{
 	}
 
 	public static boolean regle2(Accord ac) {
-		if (ac.basse < ac.tenor && ac.tenor < ac.alto
-				&& ac.alto < ac.soprano) {
+		if ((ac.basse < ac.tenor && ac.tenor < ac.alto && ac.alto < ac.soprano)
+				|| (ac.soprano == -1 && ac.basse < ac.tenor && ac.tenor < ac.alto)) {
 			return true;
 		}
 		return false;
 	}
 
-	public static boolean regle1(Accord ac) {// faire une variante soprano pour
-												// corentin
-		if ((13 < ac.soprano && ac.soprano < 27||ac.soprano==-1)
+	public static boolean regle1(Accord ac) {
+		if (((13 < ac.soprano && ac.soprano < 27) || ac.soprano == -1)
 				&& (10 < ac.alto && ac.alto < 23)
 				&& (6 < ac.tenor && ac.tenor < 20)
 				&& (2 < ac.basse && ac.basse < 16)) {
@@ -154,20 +161,17 @@ public class Accord implements Cloneable{
 		return false;
 	}
 
-	public static boolean regle61(Accord acC, Accord acS) {
-		if (acC.soprano - acS.soprano < 7
-				|| acS.soprano - acC.soprano < 7)
-			if (acC.alto - acS.alto < 7
-					|| acS.alto - acC.alto < 7)
-				if (acC.tenor - acS.tenor < 7
-						|| acS.tenor - acC.tenor < 7)
-					if (acC.basse - acS.basse < 7
-							|| acS.basse - acC.basse < 7)
+	private static boolean regle61(Accord acC, Accord acS) {
+		if (acC.soprano - acS.soprano < 7 || acS.soprano - acC.soprano < 7
+				|| acS.soprano == -1 | acC.soprano == -1)
+			if (acC.alto - acS.alto < 7 || acS.alto - acC.alto < 7)
+				if (acC.tenor - acS.tenor < 7 || acS.tenor - acC.tenor < 7)
+					if (acC.basse - acS.basse < 7 || acS.basse - acC.basse < 7)
 						return true;
 		return false;
 	}
 
-	public static boolean regle63(Accord acC, Accord acS) {
+	private static boolean regle63(Accord acC, Accord acS) {
 		int TacC = acC.basse % 7;
 		int TacS = acS.basse % 7;
 		int c = -1;
@@ -187,17 +191,18 @@ public class Accord implements Cloneable{
 				s = acS.tenor;
 				break;
 			}
-			if (c - s > 2 || s - c > 2) {
-				if (!(TacC == c % 7 && TacS == s % 7)
-						&& !((TacC + 2) % 7 == c % 7 && (TacS + 2) % 7 == s % 7)
-						&& !((TacC + 4) % 7 == c % 7 && (TacS + 4) % 7 == s % 7))
-					return false;
-			}
+			if (i != 0 || ((c != -1) && (s != -1)))
+				if (c - s > 2 || s - c > 2) {
+					if (!(TacC == c % 7 && TacS == s % 7)
+							&& !((TacC + 2) % 7 == c % 7 && (TacS + 2) % 7 == s % 7)
+							&& !((TacC + 4) % 7 == c % 7 && (TacS + 4) % 7 == s % 7))
+						return false;
+				}
 		}
 		return true;
 	}
 
-	public static boolean regle62(Accord acC, Accord acS) {
+	private static boolean regle62(Accord acC, Accord acS) {
 		int TacC = acC.basse % 7;
 		int TacS = acS.basse % 7;
 		if (acC.type == acS.type) {
@@ -207,7 +212,10 @@ public class Accord implements Cloneable{
 		int s = -1;
 		int c = -1;
 		int h = -1;
+
 		for (int i = 0; i < 3; i++) {
+			if (i == 0 && (acS.soprano == -1 || acC.soprano == -1))
+				i++;
 			switch (i) {
 			case (0):
 				c = acC.soprano;
@@ -228,7 +236,9 @@ public class Accord implements Cloneable{
 				}
 			}
 			for (int j = 0; j < 3; j++) {
-				if (j != s) {
+				if (j == 0 && (acS.soprano == -1 || acC.soprano == -1))
+					j++;
+				if (j != i) {
 					switch (j) {
 					case (0):
 						h = acS.soprano;
@@ -296,44 +306,45 @@ public class Accord implements Cloneable{
 					if (t == (nac + 2) % 7) {
 						return true;
 					}
-				} else if (s == t) {
-					if (s == (nac + 2) % 7) {
-						if (a == (nac + 4) % 7) {
-							return true;
-						}
-					} else if (s == (nac + 4) % 7) {
-						if (a == (nac + 2) % 7) {
-							return true;
-						}
+				}
+			} else if (s == t) {
+				if (s == (nac + 2) % 7) {
+					if (a == (nac + 4) % 7) {
+						return true;
 					}
-				} else if (s == a) {
-					if (s == (nac + 2) % 7) {
-						if (t == (nac + 4) % 7) {
-							return true;
-						}
-					} else if (s == (nac + 4) % 7) {
-						if (t == (nac + 2) % 7) {
-							return true;
-						}
-					}
-				} else if (a == t) {
+				} else if (s == (nac + 4) % 7) {
 					if (a == (nac + 2) % 7) {
-						if (t == (nac + 4) % 7) {
-							return true;
-						}
-					} else if (a == (nac + 4) % 7) {
-						if (t == (nac + 2) % 7) {
-							return true;
-						}
+						return true;
+					}
+				}
+			} else if (a == t) {
+				if (a == (nac + 2) % 7) {
+					if (s == (nac + 4) % 7) {
+						return true;
+					}
+				} else if (a == (nac + 4) % 7) {
+					if (s == (nac + 2) % 7) {
+						return true;
+					}
+				}
+			} else if (s == -1) {
+				if (a == (nac + 2) % 7) {
+					if (t == (nac + 4) % 7) {
+						return true;
+					}
+				} else if (a == (nac + 4) % 7) {
+					if (t == (nac + 2) % 7) {
+						return true;
 					}
 				}
 			}
+
 		}
 		return false;
 	}
 
 	public static boolean regle4(Accord[] part) {
-		if (part[0].type==7 || part[part.length - 1].type==7) {
+		if (part[0].type == 7 || part[part.length - 1].type == 7) {
 			return false;
 		}
 		return true;
@@ -341,7 +352,7 @@ public class Accord implements Cloneable{
 
 	public static boolean regle5(Accord AcC, Accord AcS) {
 		if (AcC.type == 0) {
-			if (AcS.type!=7) {
+			if (AcS.type != 7) {
 				return true;
 			}
 		} else if (AcC.type == 1) {
@@ -349,26 +360,24 @@ public class Accord implements Cloneable{
 				return true;
 			}
 		} else if (AcC.type == 2) {
-			if (AcS.type != 0 && AcS.type!=7) {
+			if (AcS.type != 0 && AcS.type != 7) {
 				return true;
 			}
-		} else if (AcC.type==3) {
-			if (AcS.type!=7) {
+		} else if (AcC.type == 3) {
+			if (AcS.type != 7) {
 				return true;
 			}
-		} else if (AcC.type==7) {
+		} else if (AcC.type == 7) {
 			if (AcS.type == 0) {
 				return true;
 			}
 		} else if (AcC.type == 4) {
-			if (AcS.type == 0 || AcS.type == 2
-					|| AcS.type==7
-					|| AcS.type==5) {
+			if (AcS.type == 0 || AcS.type == 2 || AcS.type == 7
+					|| AcS.type == 5) {
 				return true;
 			}
-		} else if (AcC.type==5) {
-			if (AcS.type == 0 || AcS.type==3
-					|| AcS.type == 4) {
+		} else if (AcC.type == 5) {
+			if (AcS.type == 0 || AcS.type == 3 || AcS.type == 4) {
 				return true;
 			}
 		} else if (AcC.type == 6) {
@@ -379,5 +388,4 @@ public class Accord implements Cloneable{
 		return false;
 	}
 
-	
 }
