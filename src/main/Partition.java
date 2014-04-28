@@ -86,7 +86,7 @@ public class Partition {
 		builder.construireCombinaison();
 		jeu[0] = builder.getCombinaison();
 		for (int i = 1; i < soprano.length; i++) {
-			builder.setCombinaison(soprano[i - 1], soprano[i].get(0));
+			builder.setCombinaison(jeu[i - 1], soprano[i].get(0));
 			builder.construireCombinaison();
 			jeu[i] = builder.getCombinaison();
 		}
@@ -96,14 +96,14 @@ public class Partition {
 		for (int i = jeu.length - 1; i > 0; i--) {
 			for (int j = 0; j < jeu[i].size(); j++) {
 				accordFils = jeu[i].get(j);
-				// Nettoyage des chemins sans suite 
+				// Nettoyage des chemins sans suite
 				if ((i != jeu.length - 1)
 						&& (accordFils.jeuxSuivants.size() == 0)) {
 					jeu[i].remove(accordFils);
 					j--;
 					continue;
 				}
-				//Vérification des règles
+				// Vérification des règles
 				for (Accord accordPere : jeu[i - 1]) {
 					if (Accord.enchainementCorrect(accordPere, accordFils)) {
 						accordPere.addSuivant(accordFils);
@@ -176,47 +176,44 @@ public class Partition {
 			retour[i] = chemin;
 			chemin = chemin.pere;
 		}
+		retour[0]=chemin;
 		return retour;
 	}
 
-	private void elaguer() { 
-		// Coupe les liens inutiles, ne gardant pour chaque accord que le plus beau père
-		for (int i = 1; i < jeu.length; i++) {
-			for (Accord pere : jeu[i - 1]) {
-				for (Accord fils : pere.jeuxSuivants) {
-					if (fils.pere == null
-						|| beaute(fils.pere, fils) > beaute(pere, fils))
-						fils.pere = pere;
-				}	
-			}
-		}
-		for (ArrayList<Accord> index : jeu) {
-			for (Accord accord : index) {
-				accord.jeuxSuivants = new ArrayList<Accord>();
-			}
-		}
-		for (int i = 1; i < jeu.length; i++) {
+	/*
+	 * private void elaguer() { // Coupe les liens inutiles, ne gardant pour
+	 * chaque accord que le plus beau père for (int i = 1; i < jeu.length; i++)
+	 * { for (Accord pere : jeu[i - 1]) { for (Accord fils : pere.jeuxSuivants)
+	 * { if (fils.pere == null || beaute(fils.pere, fils) > beaute(pere, fils))
+	 * fils.pere = pere; } } } for (ArrayList<Accord> index : jeu) { for (Accord
+	 * accord : index) { accord.jeuxSuivants = new ArrayList<Accord>(); } } for
+	 * (int i = 1; i < jeu.length; i++) { for (int j = 0; j < jeu[i].size();
+	 * j++) { jeu[i].get(j).pere.jeuxSuivants.add(jeu[i].get(j)); } } }
+	 */
+
+	private void elaguer() {
+		int max;
+		ArrayList<Accord> temps;
+		ArrayList<Accord> fils;
+		for (int i = jeu.length - 2; i > 0; i--) {
+			temps = new ArrayList<Accord>();
 			for (int j = 0; j < jeu[i].size(); j++) {
-				jeu[i].get(j).pere.jeuxSuivants.add(jeu[i].get(j));
+				max = 0;
+				fils = new ArrayList<Accord>();
+				for (int k = 0; k < jeu[i].get(j).jeuxSuivants.size(); k++) {
+					if (beaute(jeu[i].get(j), jeu[i].get(j).jeuxSuivants.get(k)) > beaute(
+							jeu[i].get(j), jeu[i].get(j).jeuxSuivants.get(max))) {
+						max = k;
+					}
+				}
+				jeu[i].get(j).jeuxSuivants.get(max).pere = jeu[i].get(j);
+				fils.add(jeu[i].get(j).jeuxSuivants.get(max));
+				temps.add(jeu[i].get(j).jeuxSuivants.get(max));
+				jeu[i].get(j).jeuxSuivants = fils;
 			}
+			jeu[i] = temps;
 		}
 	}
-
-	/*
-	 * private void elaguer() { int max; ArrayList<Accord> temps;
-	 * ArrayList<Accord> fils; for (int i = jeu.length - 2; i > 0; i--) { temps
-	 * = new ArrayList<Accord>(); for (int j = 0; j < jeu[i].size(); j++) { max
-	 * = 0; fils = new ArrayList<Accord>(); for (int k = 0; k <
-	 * jeu[i].get(j).jeuxSuivants.size(); k++) { if (beaute(jeu[i].get(j),
-	 * jeu[i].get(j).jeuxSuivants.get(k)) > beaute( jeu[i].get(j),
-	 * jeu[i].get(j).jeuxSuivants.get(max))) { max = k; } }
-	 * jeu[i].get(j).jeuxSuivants.get(max).pere = jeu[i].get(j);
-	 * fils.add(jeu[i].get(j).jeuxSuivants.get(max));
-	 * temps.add(jeu[i].get(j).jeuxSuivants.get(max));
-	 * jeu[i].get(j).jeuxSuivants = fils; } jeu[i] = temps; } for(int i=0;){
-	 * 
-	 * } }
-	 */
 
 	private int beaute(Accord pere, Accord fils) {
 		// Calcule la beauté pour un enchaînement
