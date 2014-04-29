@@ -16,7 +16,7 @@ import java.util.*;
 public class Partition {
 
 	// Graphe indexé contenant l'harmonisation générée
-	private ArrayList<Accord>[] jeu;
+	public ArrayList<Accord>[] jeu;
 
 	// Graphe indexé linéaire contenant la parition soprano donnée
 	private ArrayList<Accord>[] soprano;
@@ -69,12 +69,9 @@ public class Partition {
 		case 2:
 			return choixLocal(); // Recherche de la plus grande beauté locale
 		case 3:
-			elaguer();
-			return choixLocal(); // Recherche de la plus grande beauté locale en
-									// faisant un premier tri
+			return choixMaximum(); // On a
 		case 4:
-			elaguer();
-			return choixGlobal();// Recherche de la plus grande beauté globale
+			return choixMaximum();// Recherche de la plus grande beauté globale
 		}
 		return choixPremier();
 	}
@@ -140,68 +137,64 @@ public class Partition {
 			for (int j = 0; j < retour[i].jeuxSuivants.size(); j++) {
 				if (beaute(retour[i], retour[i].jeuxSuivants.get(j)) > beaute(
 						retour[i], retour[i].jeuxSuivants.get(max)))
-					;
-				max = j;
+					max = j;
 			}
 			retour[i + 1] = retour[i].jeuxSuivants.get(max);
 		}
 		return retour;
 	}
 
-	private Accord pere() {
-		// Crée un faux accord père de tous les accords du premier temps
-		Accord pere = new Accord();
-		for (Accord temp : jeu[0])
-			pere.addSuivant(temp);
-		return pere;
-	}
-
-	private Accord[] choixGlobal() {
+	private Accord[] choixMaximum() {
 		// Choisis la plus belle harmonisation possible
-		Accord pere = pere();
-		ArrayList<Accord> dernier = jeu[jeu.length - 1];
 		Accord[] retour = new Accord[jeu.length];
-		// On applique un parcours en profondeur pour trouver les beautés
-		// totales des chemins
-		parcoursProfondeurBeaute(pere, 0);
-		int max = 0;
+		ArrayList<Accord> dernier = jeu[jeu.length - 1];
+		// On resserre chaque sommet par la beaute sommee de ses peres
+		// Afin de trouver le chemin ayant la beaute maximum
+		for (int i = 0; i < jeu.length; i++) {
+			for (Accord pere : jeu[i]) {
+				for (Accord fils : pere.jeuxSuivants) {
+					if (fils.beaute < pere.beaute + beaute(pere, fils)) {
+						fils.pere = pere;
+						fils.beaute = beaute(pere, fils) + pere.beaute;
+					}
+				}
+			}
+		}
+
 		// On choisis le plus beau chemin
-		for (int i = 0; i < dernier.size(); i++) {
-			if (dernier.get(i).beaute > dernier.get(max).beaute)
-				max = i;
-		}
-		// On le remonte pour retrouver toute l'harmonisation
-		Accord chemin = dernier.get(max);
-		for (int i = jeu.length - 1; i > 0; i--) {
-			retour[i] = chemin;
-			chemin = chemin.pere;
-		}
-		retour[0] = chemin;
+		retour[retour.length - 1] = maxBeaute(dernier);
+		for (int i = retour.length - 2; i >= 0; i--)
+			retour[i] = retour[i + 1].pere;
 		return retour;
 	}
 
-	private void elaguer() { // Coupe les liens inutiles, ne gardant pour
-		// chaque accord que le plus beau père
-		for (int i = 1; i < jeu.length; i++) {
-			for (Accord pere : jeu[i - 1]) {
-				for (Accord fils : pere.jeuxSuivants) {
-					if (fils.pere == null
-							|| beaute(fils.pere, fils) > beaute(pere, fils))
-						fils.pere = pere;
-				}
-			} 
-		}
-		for (ArrayList<Accord> index : jeu) {
-			for (Accord accord : index) {
-				accord.jeuxSuivants = new ArrayList<Accord>();
-			}
-		}
-		for (int i = 1; i < jeu.length; i++) {
-			for (int j = 0; j < jeu[i].size(); j++) {
-				jeu[i].get(j).pere.jeuxSuivants.add(jeu[i].get(j));
-			}
-		}
+	private int beaute(Accord pere, Accord fils) {
+		// Calcule la beauté pour un enchaînement
+		return crit1(pere, fils) + crit2(pere, fils) + crit3(pere, fils);
 	}
+
+	// private void elaguer() { // Coupe les liens inutiles, ne gardant pour
+	// // chaque accord que le plus beau père
+	// for (int i = 1; i < jeu.length; i++) {
+	// for (Accord pere : jeu[i - 1]) {
+	// for (Accord fils : pere.jeuxSuivants) {
+	// if (fils.pere == null
+	// || beaute(fils.pere, fils) < beaute(pere, fils))
+	// fils.pere = pere;
+	// }
+	// }
+	// }
+	// for (ArrayList<Accord> index : jeu) {
+	// for (Accord accord : index) {
+	// accord.jeuxSuivants = new ArrayList<Accord>();
+	// }
+	// }
+	// for (int i = 1; i < jeu.length; i++) {
+	// for (int j = 0; j < jeu[i].size(); j++) {
+	// jeu[i].get(j).pere.jeuxSuivants.add(jeu[i].get(j));
+	// }
+	// }
+	// }
 
 	// private void elaguer() {
 	// int max;
@@ -226,11 +219,6 @@ public class Partition {
 	// jeu[i] = temps;
 	// }
 	// }
-
-	private int beaute(Accord pere, Accord fils) {
-		// Calcule la beauté pour un enchaînement
-		return crit1(pere, fils) + crit2(pere, fils) + crit3(pere, fils);
-	}
 
 	private int crit1(Accord p, Accord f) {
 		// Favorise les petits changements entre ténor et basse
@@ -262,11 +250,22 @@ public class Partition {
 		return compteur;
 	}
 
-	private void parcoursProfondeurBeaute(Accord pere, int compteur) {
-		// Assigne les critères de beauté au graphe
-		for (Accord fils : pere.jeuxSuivants) {
-			pere.beaute = (beaute(pere, fils));
-			parcoursProfondeurBeaute(fils, pere.beaute);
+	private Accord maxBeaute(ArrayList<Accord> list) {
+		Accord ret = new Accord();
+		ret.beaute = 0;
+		for (Accord accord : list) {
+			if (ret.beaute < accord.beaute)
+				ret = accord;
 		}
+		return ret;
 	}
+
+	private Accord pere() {
+		// Crée un faux accord père de tous les accords du premier temps
+		Accord pere = new Accord();
+		for (Accord temp : jeu[0])
+			pere.addSuivant(temp);
+		return pere;
+	}
+
 }

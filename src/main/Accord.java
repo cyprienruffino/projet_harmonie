@@ -40,7 +40,7 @@ public class Accord implements Cloneable {
 	public int type;
 
 	Accord pere;
-	int beaute;
+	int beaute=0;
 
 	/**
 	 * Liens vers les accords du temps suivant de l'harmonisation
