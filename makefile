@@ -1,7 +1,7 @@
 all: Harmonie.jar
 
 Harmonie.jar: class
-	jar cfe Harmonie.jar main.Main */*.class src
+	jar cfe Harmonie.jar main.Main */*.class src doc
 class: 
 	javac -d . src/main/*.java src/io/*.java src/monteur/*.java
 clean:
