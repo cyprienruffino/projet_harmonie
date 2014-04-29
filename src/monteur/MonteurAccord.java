@@ -17,6 +17,7 @@ import main.*;
 public class MonteurAccord implements Monteur {
 	ArrayList<Accord> combinaisons;
 	Accord current;
+
 	/**
 	 * Constructeur
 	 * 
@@ -33,29 +34,43 @@ public class MonteurAccord implements Monteur {
 	public ArrayList<Accord> getCombinaisons() {
 		return combinaisons;
 	}
+
 	/**
-	 * Crée les combinaisons d'accords sur la note
+	 * Créer tout les accords possibles en fonction de la note soprano Crée les
+	 * accords en générant les notes champ par champ
 	 */
 	public void monterCombinaisons() {
 		int s = current.soprano;
 		combinaisons = initAccordcombinaisonsible(s, current.duree);
+		// Ajoute les accord possible avec la note soprano
 		int i = combinaisons.size();
-		genBasse(i);
-		cleanGen(i);
+		genBasse(i);// Génére la basse en fonction des accords crées a
+					// l'initialisation
+
+		cleanGen(i);// suprimme les accord crée lors de l'initialisation
 		i = combinaisons.size();
-		genAlto(i);
-		cleanGen(i);
+		genAlto(i);// Génére les possibilité d'alto en fonction des accords
+					// généré precedement
+
+		cleanGen(i);// Suprimmes les accords ajoutés lors de la génération de la
+					// basse
 		i = combinaisons.size();
-		genTenor(i);
-		cleanGen(i);
+		genTenor(i);// Génére les possibilité de tenor en fonction des accords
+					// généré precedement
+
+		cleanGen(i);//Suprimme les accords ajoutés lors de la génération de l'alto
 		Iterator<Accord> it = combinaisons.iterator();
 		Accord ac;
-		while (it.hasNext()) {
+		while (it.hasNext()) {//Vérifie si les accords son correct
 			ac = it.next();
 			if (!Accord.noteCorrect(ac))
 				it.remove();
 		}
 	}
+	
+	/*
+	 * Initialise les accord possible en fonction de la soprano
+	 */
 
 	private ArrayList<Accord> initAccordcombinaisonsible(int s, int dur) {
 		ArrayList<Accord> combinaisons = new ArrayList<Accord>();
@@ -101,7 +116,10 @@ public class MonteurAccord implements Monteur {
 		}
 		return combinaisons;
 	}
-
+	
+	/*
+	 * Genere toutes les possibilitée de basse en fonction de l'accord
+	 */
 	private void genBasse(int h) {
 		for (int k = 0; k < h; k++) {
 			for (int i = 3; i < 16; i++) {
@@ -114,7 +132,9 @@ public class MonteurAccord implements Monteur {
 			}
 		}
 	}
-
+/*
+ * Génére toutes les possibilité d'alto en fonction de la basse et de la soprano
+ */
 	private void genAlto(int h) {
 		for (int k = 0; k < h; k++) {
 			for (int i = 11; i < Math.min(22, combinaisons.get(k).soprano); i++) {
@@ -135,7 +155,9 @@ public class MonteurAccord implements Monteur {
 			}
 		}
 	}
-
+	/*
+	 * Génére toutes les possibilité de note Tenor en fonction des autres notes
+	 */
 	private void genTenor(int h) {
 		for (int k = 0; k < h; k++) {
 			for (int i = 7; i < Math.min(19, combinaisons.get(k).alto); i++) {
@@ -170,6 +192,9 @@ public class MonteurAccord implements Monteur {
 		}
 	}
 
+	/*
+	 * suprimme les possibilité créer a l'étape precedente
+	 */
 	private void cleanGen(int i) {
 		for (int j = 0; j < i; j++) {
 			combinaisons.remove(0);
