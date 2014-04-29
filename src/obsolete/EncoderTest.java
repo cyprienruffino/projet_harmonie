@@ -1,8 +1,6 @@
-package tests;
+package obsolete;
 
 import static org.junit.Assert.*;
-
-import obsolete.Encoder;
 
 import org.junit.Test;
 

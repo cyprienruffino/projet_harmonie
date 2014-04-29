@@ -87,6 +87,9 @@ public class Accord implements Cloneable {
 		return false;
 	}
 
+	/**
+	 * crée une copie de l'accord
+	 */
 	public Accord clone() {
 		Accord ac = new Accord();
 		ac.soprano = this.soprano;
@@ -102,6 +105,9 @@ public class Accord implements Cloneable {
 		this.jeuxSuivants.add(a);
 	}
 
+	/**
+	 * Renvoi la note tonique de l'accord
+	 */
 	public int getTonic() {
 		int a = this.type;
 		if (a == 7) {
@@ -110,6 +116,11 @@ public class Accord implements Cloneable {
 		return a;
 	}
 
+	/**
+	 * Verifie si l'accord est correct
+	 * @param ac
+	 * @return
+	 */
 	public static boolean noteCorrect(Accord ac) {// renvoi true si la note est
 		// correcte
 		if (regle1(ac)) {
@@ -137,7 +148,7 @@ public class Accord implements Cloneable {
 		return false;
 	}
 
-	public static boolean regle2(Accord ac) {
+	private static boolean regle2(Accord ac) {
 		if ((ac.basse < ac.tenor && ac.tenor < ac.alto && ac.alto < ac.soprano)
 				|| (ac.soprano == -1 && ac.basse < ac.tenor && ac.tenor < ac.alto)) {
 			return true;
@@ -145,7 +156,7 @@ public class Accord implements Cloneable {
 		return false;
 	}
 
-	public static boolean regle1(Accord ac) {
+	private static boolean regle1(Accord ac) {
 		if (((13 < ac.soprano && ac.soprano < 27) || ac.soprano == -1)
 				&& (10 < ac.alto && ac.alto < 23)
 				&& (6 < ac.tenor && ac.tenor < 20)
@@ -155,7 +166,7 @@ public class Accord implements Cloneable {
 		return false;
 	}
 
-	public static boolean regle6(Accord acC, Accord acS) {
+	private static boolean regle6(Accord acC, Accord acS) {
 		if (regle61(acC, acS) && regle63(acC, acS) && regle62(acC, acS))
 			return true;
 		return false;
@@ -215,7 +226,7 @@ public class Accord implements Cloneable {
 
 		for (int i = 0; i < 3; i++) {
 			if (i == 0 && (acS.soprano == -1 || acC.soprano == -1))
-				i++;
+				continue;
 			switch (i) {
 			case (0):
 				c = acC.soprano;
@@ -237,7 +248,7 @@ public class Accord implements Cloneable {
 			}
 			for (int j = 0; j < 3; j++) {
 				if (j == 0 && (acS.soprano == -1 || acC.soprano == -1))
-					j++;
+					continue;
 				if (j != i) {
 					switch (j) {
 					case (0):
@@ -259,7 +270,7 @@ public class Accord implements Cloneable {
 		return true;
 	}
 
-	public static boolean regle3(Accord ac) {
+	private static boolean regle3(Accord ac) {
 		int s = ac.soprano % 7;
 		int a = ac.alto % 7;
 		int t = ac.tenor % 7;
@@ -327,7 +338,7 @@ public class Accord implements Cloneable {
 						return true;
 					}
 				}
-			} else if (s == -1) {
+			}else if (s == -1) {
 				if (a == (nac + 2) % 7) {
 					if (t == (nac + 4) % 7) {
 						return true;
@@ -338,11 +349,15 @@ public class Accord implements Cloneable {
 					}
 				}
 			}
-
 		}
 		return false;
 	}
 
+	/**
+	 * Verifie si la partion commence ou fini par un accord IVb renvoi false si oui
+	 * @param part
+	 * @return
+	 */
 	public static boolean regle4(Accord[] part) {
 		if (part[0].type == 7 || part[part.length - 1].type == 7) {
 			return false;

@@ -1,52 +1,23 @@
 package tests;
 
-import java.util.*;
 
 import main.*;
-
 
 import org.junit.*;
 
 
 public class RegleTest {
 
+	
 	@Test
-	public void testCleanGen() {
-		Accord a1=new Accord(1,1,1,1,1,1);
-		Accord a2=new Accord(2,2,2,2,2,2);
-		Accord a3=new Accord(1,1,1,1,3,1);
-		
-		ArrayList<Accord> accords=new ArrayList<Accord>();
-		accords.add(a1);
-		accords.add(a2);
-		accords.add(a3);
-		
-		Regle.cleanGen(accords,2);
-		
-		Assert.assertEquals(1,accords.size());
-		
-		Assert.assertEquals(3,accords.get(0).getDuree());
+	public void testnoteCorrect(){
+		Assert.assertTrue(Accord.noteCorrect(new Accord(21,18,16,7,4,0)));
+		Assert.assertFalse(Accord.noteCorrect(new Accord(22,18,16,7,4,0)));
 	}
 	
 	@Test
-	public void testInitAccordsPossibles(){
-		ArrayList<Accord> liste=Regle.initAccordPossible(22,1);
-		Assert.assertEquals(liste.size(),3);
-	}
-	
-	@Test
-	public void testRegle3(){
-		Assert.assertTrue(Regle.regle3(new Accord(2,2,4,0,4,0)));
-	}
-	
-	@Test
-	public void testRegle2(){
-		Assert.assertTrue(Regle.regle2(new Accord(23,16,4,0,4,0)));
-	}
-	
-	@Test
-	public void testRegle1(){
-		Assert.assertTrue(Regle.regle3(new Accord(2,2,4,0,4,0)));
+	public void testEnchainementCorrect(){
+		Assert.assertTrue(Accord.enchainementCorrect(new Accord(21,18,16,7,4,0),new Accord(21,19,17,10,4,4)));
 	}
 	
 	@Test
@@ -54,9 +25,9 @@ public class RegleTest {
 		Accord[]part={new Accord(22,10,15,8,4,7),new Accord(2,2,4,0,4,0)};
 		Accord[]part2={new Accord(22,10,15,8,4,0),new Accord(2,2,4,0,4,7)};
 		Accord[]part3={new Accord(22,10,15,8,4,0),new Accord(2,2,4,0,4,0)};
-		Assert.assertFalse(Regle.regle4(part));
-		Assert.assertFalse(Regle.regle4(part2));
-		Assert.assertTrue(Regle.regle4(part3));
+		Assert.assertFalse(Accord.regle4(part));
+		Assert.assertFalse(Accord.regle4(part2));
+		Assert.assertTrue(Accord.regle4(part3));
 		
 	}
 	

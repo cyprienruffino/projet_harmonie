@@ -155,7 +155,6 @@ public class LilypondWriter extends Writer {
 			fw.write("\\new Staff { \n");
 			fw.write("\\set Staff.instrumentName = #\"Soprano \" \n");
 			fw.write("\\clef treble \n");
-		//	fw.write("\\relative c''{\n");
 			fw.write("{");
 			break;
 		case (1):
@@ -163,7 +162,6 @@ public class LilypondWriter extends Writer {
 			fw.write("\\new Staff { \n");
 			fw.write("\\set Staff.instrumentName = #\"Alto \" \n");
 			fw.write("\\clef treble \n");
-		//	fw.write("\\relative c'' {\n");
 			fw.write("{");
 			break;
 		case (2):
@@ -171,7 +169,6 @@ public class LilypondWriter extends Writer {
 			fw.write("\\new Staff { \n");
 			fw.write("\\set Staff.instrumentName = #\"Tenor \" \n");
 			fw.write("\\clef treble\n");
-		//	fw.write("\\relative c' { \n");
 			fw.write("{");
 			break;
 		case (3):
@@ -179,7 +176,6 @@ public class LilypondWriter extends Writer {
 			fw.write("\\new Staff { \n");
 			fw.write("\\set Staff.instrumentName = #\"Basse \" \n");
 			fw.write("\\clef bass\n");
-		//	fw.write("\\relative c {\n");
 			fw.write("{");
 			break;
 		}

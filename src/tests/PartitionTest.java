@@ -20,7 +20,7 @@ public class PartitionTest {
 		ChantReader reader=new ChantReader(new File("test_files/test_surcharge_1000.chant"));
 		Partition partition = new Partition(reader.readChant());
 		partition.generate();
-		ArrayList<Accord>[] jeu=partition.jeu;
+		ArrayList<Accord>[] jeu=partition.getJeu();
 		//Test de non-existence de noeuds sans fils
 		boolean retour=true;
 		boolean tmp=false;

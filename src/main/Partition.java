@@ -31,6 +31,9 @@ public class Partition {
 		this.soprano = soprano;
 	}
 
+	public ArrayList<Accord>[] getJeu(){
+		return this.jeu;
+	}
 	/**
 	 * Génère toutes les harmonisations possibles
 	 */
