@@ -175,54 +175,6 @@ public class Partition {
 		// Calcule la beauté pour un enchaînement
 		return crit1(pere, fils) + crit2(pere, fils) + crit3(pere, fils);
 	}
-
-	// private void elaguer() { // Coupe les liens inutiles, ne gardant pour
-	// // chaque accord que le plus beau père
-	// for (int i = 1; i < jeu.length; i++) {
-	// for (Accord pere : jeu[i - 1]) {
-	// for (Accord fils : pere.jeuxSuivants) {
-	// if (fils.pere == null
-	// || beaute(fils.pere, fils) < beaute(pere, fils))
-	// fils.pere = pere;
-	// }
-	// }
-	// }
-	// for (ArrayList<Accord> index : jeu) {
-	// for (Accord accord : index) {
-	// accord.jeuxSuivants = new ArrayList<Accord>();
-	// }
-	// }
-	// for (int i = 1; i < jeu.length; i++) {
-	// for (int j = 0; j < jeu[i].size(); j++) {
-	// jeu[i].get(j).pere.jeuxSuivants.add(jeu[i].get(j));
-	// }
-	// }
-	// }
-
-	// private void elaguer() {
-	// int max;
-	// ArrayList<Accord> temps;
-	// ArrayList<Accord> fils;
-	// for (int i = jeu.length - 2; i > 0; i--) {
-	// temps = new ArrayList<Accord>();
-	// for (int j = 0; j < jeu[i].size(); j++) {
-	// max = 0;
-	// fils = new ArrayList<Accord>();
-	// for (int k = 0; k < jeu[i].get(j).jeuxSuivants.size(); k++) {
-	// if (beaute(jeu[i].get(j), jeu[i].get(j).jeuxSuivants.get(k)) > beaute(
-	// jeu[i].get(j), jeu[i].get(j).jeuxSuivants.get(max))) {
-	// max = k;
-	// }
-	// }
-	// jeu[i].get(j).jeuxSuivants.get(max).pere = jeu[i].get(j);
-	// fils.add(jeu[i].get(j).jeuxSuivants.get(max));
-	// temps.add(jeu[i].get(j).jeuxSuivants.get(max));
-	// jeu[i].get(j).jeuxSuivants = fils;
-	// }
-	// jeu[i] = temps;
-	// }
-	// }
-
 	private int crit1(Accord p, Accord f) {
 		// Favorise les petits changements entre ténor et basse
 		return 28 - Math.abs(Math.abs(p.alto - p.tenor)

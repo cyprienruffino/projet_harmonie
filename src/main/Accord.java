@@ -402,5 +402,4 @@ public class Accord implements Cloneable {
 		}
 		return false;
 	}
-
 }
