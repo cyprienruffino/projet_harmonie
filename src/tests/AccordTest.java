@@ -6,9 +6,14 @@ import main.*;
 import org.junit.*;
 
 
-public class RegleTest {
+public class AccordTest {
 
-	
+	@Test
+	public void testAddSuivant(){
+		Accord accord=new Accord();
+		accord.addSuivant(accord);
+		Assert.assertTrue(accord.jeuxSuivants.size()==1);
+	}
 	@Test
 	public void testnoteCorrect(){
 		Assert.assertTrue(Accord.noteCorrect(new Accord(21,18,16,7,4,0)));

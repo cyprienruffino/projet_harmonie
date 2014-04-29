@@ -67,7 +67,7 @@ public class Accord implements Cloneable {
 		jeuxSuivants = new ArrayList<Accord>();
 	}
 
-	Accord() {
+	public Accord() {
 		jeuxSuivants = new ArrayList<Accord>();
 	}
 
